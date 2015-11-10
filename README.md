@@ -27,7 +27,10 @@ Puis
 # Cloner le repo
 $ git clone git://github.com/Baztille/app.git
 $ npm install
+$ ionic state restore
 $ bower install
+# Se connecter aux services de ionic (Push & analytics)
+$ ionic io init
 
 # Configurer l'URL de l'API
 # config.js : this.apiUrl

@@ -1,0 +1,12 @@
+{
+  "name": "Baztille",
+  "app_id": "0c97f9a8",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
+}
