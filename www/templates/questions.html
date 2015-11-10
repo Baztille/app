@@ -1,0 +1,153 @@
+<ion-view view-title="Questions" hide-back-button="true" enable-menu-with-back-views="false" hide-nav-bar="false"  cache-view="true">
+  <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+      <div class="tabs">
+        <a class="tab-item active" nav-transition="none" ui-sref="question.questions" >
+          En cours
+        </a>
+        <a class="tab-item" nav-transition="none" ui-sref="question.proposed" >
+          Proposées
+        </a>
+        <a class="tab-item" nav-transition="none" ui-sref="question.voted" >
+          Votées
+        </a>
+      </div>
+  </div>
+  
+  <ion-content>
+  <br><br>
+    <div class="expli-txt" ng-show="showExplanationlink">
+        {{explanation}}
+        <br/>
+        <a class="button button-block" href="#/question/proposed">{{explanationlink}}</a>
+    </div>
+
+
+<!-- ######################################################## -->        
+<!-- #########   In case of a unique question ############### -->   
+
+  <div ng-if="templateUnique == true">
+
+    <div class="question question-unique">
+
+        <br/>
+
+        <div class="item item-text-wrap nopad">
+          <h1>{{question.title}}</h1> 
+        </div>
+
+        <div class="item item-text-wrap item-header card {{question.status}}">
+          <!--{{question.status}}<br>-->
+
+            <div class="logoicon {{question.voted}}" style="margin:auto" ng-click="voteProposed('{{questionId}}', $event);" ng-show="question_vote_visible" ion-track-tap="Vote" ion-track-data="{ question: questionId}">
+                <div class="logoicon_inner">
+                  <div class="logoicon_vote_nb">{{question.vote}}</div>
+                  <div class="logoicon_vote">
+                    <span ng-if="question.voted == 'voted'">a voté</span>
+                    <span ng-if="question.voted != 'voted'">je vote</span>
+                  </div>
+                </div>
+            </div>
+
+          <small style="margin-left: {{question_header_margin}}px;">
+              <p>
+                  <span am-time-ago="{{question.date_proposed}}" am-preprocess="unix"><b>{{question.date_prefix}} {{question.date}}</b></span>
+              </p>
+              <p>
+                {{question.status_explanation}}
+              </p>
+              <div class="label positive" ng-if="question.status != 'vote'">
+            <div class="voters ion-android-contacts" ng-click="Voters('{{questionId}}', $event);" >
+              Liste des votants
+            </div>
+          </div>
+          </small>
+          
+        </div>
+
+
+        <p class="center padding-horizontal divider"><b>{{args.length}}</b> <span ng-if="args.length <= 1">Réponse</span><span ng-if="args.length > 1">Réponses</span></p>
+    </div>
+   
+  </div>
+   
+  
+  <ion-list class="questions">
+      <ion-item ng-repeat="arg in args" href="#/question/questions/{{arg.question_id}}/{{arg.id}}">
+          
+          <div class="card {{arg.valid}}">
+              
+              <div class="item item-text-wrap">
+                <div class="logoicon {{arg.voted}}" ng-click="voteArg('{{arg.id}}', $event);">
+                  <div class="logoicon_inner">
+                    <div class="logoicon_vote_nb">{{arg.vote}}</div>
+                    <div class="logoicon_vote">
+                      <span ng-if="arg.voted == 'voted'">a voté</span>
+                      <span ng-if="arg.voted != 'voted'">je vote</span>
+                    </div>
+                  </div>
+                </div>
+                     <div class="content">
+                            <div class="quest">{{arg.text}}</div>
+                            <div class="label positive">{{arg.argnbr}}
+                              <span ng-if="arg.argnbr <= 1">argument</span>
+                              <span ng-if="arg.argnbr > 1">arguments</span>
+                            </div>
+                            
+                             <div class="label arg_valid_footer">
+                                  {{arg.arg_footer}}
+                             </div>
+                    </div>
+
+              
+
+              </div>
+
+          </div>
+        
+      </ion-item>
+    </ion-list>
+
+<!-- ######################################################## -->        
+<!-- #########   In case of multiple questions ############### -->   
+
+
+    <ion-list class="questions">
+      <ion-item ng-repeat="question in questions" href="#/question/questions/{{question.id}}" >
+        <div class="card card-encours">
+          <div class="item item-text-wrap">
+            <div class="logoicon {{question.voted}}">
+                <div class="logoicon_inner"></div>
+            </div>
+            <div class="content"><div class="quest">{{question.title}}</div>
+            <div class="validated_answers" ng-bind-html="question.validated_answers">
+            </div>
+
+            <div class="label positive">{{question.nbReponse}} <span ng-if="question.nbReponse <= 0">réponse</span><span ng-if="question.nbReponse > 1">réponses</span></div>
+            
+            <small><img src="img/back-in-time.svg" width="10"> Vote terminé <span am-time-ago="{{question.date_proposed}}" am-preprocess="unix"></span></small>
+            </div>
+          </div>
+        </div>
+        
+      </ion-item>
+    </ion-list>
+    
+  <br>
+
+
+  </ion-content>
+  
+  
+  <ion-footer-bar align-title="center" class="bar-energized bar-footer-container"  ng-show="see_future_questions_visible">
+      <div class="bar bar-footer bar-energized button" nav-transition="none" ui-sref="question.proposed" nav-clear menu-close>
+          <div class="title">Voir les futures questions</div>
+      </div>
+  </ion-footer-bar>
+  
+   <ion-footer-bar align-title="center" class="bar-energized bar-footer-container" ng-show="new_answer_visible" >
+      <div class="bar bar-footer bar-energized button" ng-click="newArg()">
+          <div class="title">Proposer une nouvelle réponse</div>
+      </div>
+  </ion-footer-bar>
+  
+</ion-view>

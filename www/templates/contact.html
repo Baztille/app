@@ -1,0 +1,28 @@
+<ion-view view-title="Nous contacter">
+<ion-nav-title>Nous contacter</ion-nav-title>
+  <ion-content>
+  
+  <div class="expli-txt">
+        Vous cherchez de l'aide ou avez un message à nous transmettre ? Laissez nous votre message et nous y répondrons très vite.
+  </div>
+
+    <form ng-submit="sendMessage()">
+        <div class="list">
+          <label class="item item-input">
+            <textarea type="text" placeholder="Votre message" ng-model="msgdata.text" style="min-height:100px;" ></textarea>
+          </label>
+
+          <label class="item noborder">
+            <button class="button button-block button-energized" type="submit">Envoyer</button>
+          </label>
+
+
+        </div>
+    </form>
+
+    <div class="card p-20"><h4>En attendant ...</h4> Il est possible que la réponse à votre question soit dans notre <a href="#/app/about" class="l-simple">guide des questions les plus fréquentes</a>.
+    </div>
+
+  </ion-content>
+</ion-view>
+

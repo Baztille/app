@@ -1,0 +1,30 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">{{modal_title}}</h1>
+    <div class="buttons">
+      <button class="button icon ion-close-circled button-clear" ng-click="closeNewArg()"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <div class="card">
+      <div class="item item-text-wrap">
+        {{new_answer_on}}: "{{question.title}}"
+      </div>
+    </div>
+    
+    <form ng-submit="doNewArg()">
+        <div class="list">
+          <label class="item item-input">
+            <textarea type="text" placeholder="{{your_answer}}" ng-model="newArgData.text" ng-change="inputChange()" style="min-height:100px;" maxlength="200"></textarea>
+          </label>
+          <label class="item noborder">
+            <div style="text-align: right" id="characters_count" ng-bind-html="ngCharacterCount">0</div>
+            <button class="button button-block button-energized" type="submit">Publier</button>
+          </label>
+
+
+        </div>
+    </form>
+        
+  </ion-content>
+</ion-modal-view>

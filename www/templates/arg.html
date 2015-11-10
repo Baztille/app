@@ -1,0 +1,92 @@
+<ion-view view-title="{{page_title}}">
+<ion-nav-title>{{page_title}}</ion-nav-title>
+
+  <ion-content>
+
+    <div class="question question-unique ">
+      
+      <br>
+      
+      <div class="item item-text-wrap nopad">
+        
+          <h2>{{initial_question_title}}</h2>
+          <br>
+        
+          <blockquote>
+              <h1>{{question.title}}</h1>
+          </blockquote>
+
+      </div>
+
+
+        <div class="item item-text-wrap item-header card {{initial_question_status}}">
+
+            <div class="logoicon {{question.voted}}" style="margin:auto" ng-click="voteProposed('{{argId}}', $event);" ng-show="question_vote_visible" ion-track-tap="Vote" ion-track-data="{ question: questionID, arg: argId}">
+                <div class="logoicon_inner">
+                  <div class="logoicon_vote_nb">{{question.vote}}</div>
+                  <div class="logoicon_vote">
+                    <span ng-if="question.voted == 'voted'">a voté</span>
+                    <span ng-if="question.voted != 'voted'">je vote</span>
+                  </div>
+                </div>
+            </div>
+
+          <small style="margin-left: {{question_header_margin}}px;">
+              <p>
+                  <span am-time-ago="{{header_date_proposed}}" am-preprocess="unix"><b>{{header_title}} {{header_date_proposed_formated}}</b></span>
+              </p>
+              <p>
+                &nbsp;
+              </p>
+              <div class="label positive" >
+                <div class="voters ion-android-contacts" ng-click="Voters('{{argId}}', $event);" >
+                  Liste des votants
+                </div>
+              </div>
+          </small>
+          
+        </div>
+
+       <p class="center padding-horizontal divider"><b>{{question.argnbr}}</b> <span ng-if="question.argnbr <= 1">{{label_title}}</span><span ng-if="question.argnbr > 1">{{label_title}}s</span></p>
+
+    </div>
+
+
+  
+    <ion-list class="questions">
+
+      <ion-item ng-repeat="arg in args" href="{{arg.link}}">
+
+        <div class="card">
+          <div class="item item-text-wrap">
+            <div class="logoicon {{arg.voted}}" style="margin:auto" ng-click="voteProposed('{{arg.id}}', $event);" ion-track-tap="Vote" ion-track-data="{ question: questionID, arg: arg.id}">
+                  <div class="logoicon_inner">
+                    <div class="logoicon_vote_nb">{{arg.vote}}</div>
+                    <div class="logoicon_vote">
+                      <span ng-if="arg.voted == 'voted'">a voté</span>
+                      <span ng-if="arg.voted != 'voted'">je vote</span>
+                    </div>
+                  </div>
+              </div>
+
+            <div class="content"><div class="quest">{{arg.text}}</div>
+            
+            <div class="label positive" ng-show="{{arg.showargnbr}}">{{arg.argnbr}} <span ng-if="arg.argnbr <= 1">{{label_title2}}</span><span ng-if="arg.argnbr > 1">{{label_title2}}s</span></div>
+            </div>
+
+          </div>
+        </div>
+
+      </ion-item>
+
+    </ion-list>
+
+  </ion-content>
+
+  <ion-footer-bar align-title="center" class="bar-energized bar-footer-container" ng-show="show_new_argument">
+    <div class="bar bar-footer bar-energized button" ng-click="newArg()">
+      <div class="title">{{propose_a_new_argument}}</div>
+    </div>
+  </ion-footer-bar>
+
+</ion-view>

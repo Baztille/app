@@ -1,0 +1,30 @@
+<ion-view view-title="Actualités" hide-back-button="true" hide-nav-bar="false" enable-menu-with-back-views="true" >
+<ion-nav-title>Actualités</ion-nav-title>
+  <ion-content class="headlines">
+
+  <div class="expli-txt">
+    Restez informé de notre actualité
+    <div class="row row-social">
+      <div class="col col-33"><a href="https://twitter.com/baztilleOrg" onclick="window.open(this.href, '_blank', 'location=yes');return false;"><img src="img/logo_social_twitter.png"></a></div>
+      <div class="col col-33"><a href="https://medium.com/@baztille" onclick="window.open(this.href, '_blank', 'location=yes');return false;"><img src="img/logo_social_medium.png"></a></div>
+      <div class="col col-33"><a href="https://www.facebook.com/baztille" onclick="window.open(this.href, '_blank', 'location=yes');return false;"><img src="img/logo_social_facebook.png"></a></div>
+    </div>
+  </div>
+  
+    <ion-list>
+      <ion-item ng-repeat="news in headlines" href="#/app/news/{{news.id}}" class="item-text-wrap">
+
+      <small><img src="img/back-in-time.svg" width="10"> <span am-time-ago="{{news.date}}" am-preprocess="unix"></span></small>
+
+      <h2>{{news.title}}</h2>
+       
+      <p ng-bind-html="news.preview"></p>
+
+      <p><a href="#/app/news/{{news.id}}" class="l-simple">Lire plus...</a><p>
+
+      </ion-item>
+    </ion-list>
+  
+  </ion-content>
+</ion-view>
+

@@ -1,0 +1,33 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Nouvelle question</h1>
+    <div class="buttons">
+      <button class="button icon ion-close-circled button-clear" ng-click="closeNewQuestion()"></button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content>
+    <div class="card">
+      <div class="item item-text-wrap">
+        <p>Proposez une nouvelle question à la communauté Baztille.</p>
+        <p>Chaque vendredi à 14h, la question qui a intéressé le plus de membres est mise au vote.</p>
+      </div>
+    </div>
+    
+    <form ng-submit="doPropose()">
+        <div class="list">
+          <label class="item item-input">
+            <textarea type="text" placeholder="Votre question" ng-model="newQuestion.text" ng-change="inputChange()" style="min-height:100px;" maxlength="200"></textarea>
+          </label>
+
+          <label class="item noborder">
+            <div style="text-align: right" id="characters_count" ng-bind-html="ngCharacterCount">0</div>
+            <button class="button button-block button-energized" type="submit">Proposer</button>
+          </label>
+
+
+        </div>
+    </form>
+  
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,65 @@
+<ion-view view-title="Mes points Baztille" hide-back-button="true" enable-menu-with-back-views="false" hide-nav-bar="false" cache-view="true">
+<ion-nav-title>Mes points Baztille</ion-nav-title>
+  
+  <ion-content>
+
+    <div class="card compte">
+      <h2 class="t-c">{{data.username}}</h2>
+      <small class="center" style="display:none;">
+          Niveau: <i>(à venir)</i>
+      </small>
+      <div class="row">
+          <div class="col center">{{nb_points_label}}<br>
+            <b>{{points}} <span class="ion-ribbon-b"></span></b>
+          </div>
+          <div class="col center">
+              Classement<br> <b>{{data.rank}} / {{data.nb_users}}</b>
+          </div>
+    
+      </div>
+    </div>
+
+    <div class="col t-c">
+      <a class="button button-small button-dark" nav-direction="enter" ng-click="PointsExplained();">Comment gagner des points ?</a>
+    </div>
+
+  <br>
+
+  <div class="col p-10">
+    <div class="item item-text-wrap item-divider">
+      <h2>Comment suis-je devenu aussi populaire ?</h2>
+    </div>
+    <div class="item item-text-wrap">
+      <div class="row">
+        <div class="col"><b>{{data.pointsdetails.vote_for_me}}</b></div>
+        <div class="col col-67">Votes pour mes propositions </div><div class="col"><b>{{data.pointsdetails.vote_for_me}} <span class="ion-ribbon-b"></span></b></div>
+      </div>
+      <div class="row">
+        <div class="col"><b>{{data.pointsdetails.contribution_day}}</b></div>
+        <div class="col col-67">Journées où j'ai posté quelque chose</div><div class="col"><b>{{data.pointsdetails.contribution_day_points}} <span class="ion-ribbon-b"></span></b></div>
+      </div>
+      <div class="row">
+        <div class="col"><b>{{data.pointsdetails.validated_nbr}}</b></div>
+        <div class="col col-67">Questions ou réponses validées</div><div class="col col_nowrap"><b>{{data.pointsdetails.validated_nbr_points}} <span class="ion-ribbon-b"></span></b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col p-10">
+    <div class="item item-text-wrap item-divider">
+      <h2>Classement général</h2>
+    </div>
+    <div class="item item-text-wrap ">
+
+        <ion ng-repeat="leader in data.leaderboard">
+        <div class="row">
+          <div class="col">#{{leader.rank}}</div><div class="col col-67"> {{leader.name}}</div><div class="col col_nowrap"> <b>{{leader.points}} <span class="ion-ribbon-b"></span></b></div>
+        </div>
+        </ion>
+      
+    </div>
+  </div>
+
+  </ion-content>
+  
+</ion-view>

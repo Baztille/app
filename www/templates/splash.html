@@ -1,0 +1,25 @@
+<ion-view view-title="Baztille" hide-nav-bar="true" class="splash {{ endTransition }}">
+  <ion-content>
+   <div id="splashscreen">
+  
+    <img id="splash_logo" src="img/splashlogo.png" alt="Baztille"></img>
+    
+    <h4 id="baseline">Votez et décidez<br> à la place des politiques <br>pour reprendre en main <br>votre démocratie !</h4>
+      
+        <div><br>
+            <p>
+                <button class="button button-block button-dark t-upper t-b" ng-click="login()">
+                  Se connecter
+                </button>
+            </p>
+        </div>
+        <div>
+            <p>
+                <button class="button button-block button-positive t-upper t-b" ng-click="signin()">S'inscrire</button>
+            </p>
+        </div>
+         <small>Version {{currentVersion}} </small>
+    </div>
+  </ion-content>
+</ion-view>
+

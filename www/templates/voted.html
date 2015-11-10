@@ -1,0 +1,49 @@
+<ion-view view-title="Questions" hide-back-button="true" hide-nav-bar="false" enable-menu-with-back-views="true" cache-view="true">
+<div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+    <div class="tabs">
+      <a class="tab-item" nav-transition="none" ui-sref="question.questions"  >
+        En cours
+      </a>
+      <a class="tab-item" nav-transition="none" ui-sref="question.proposed" >
+        Proposées
+      </a>
+      <a class="tab-item active" nav-transition="none" ui-sref="question.voted" >
+        Votées
+      </a>
+    </div>
+</div>
+  <ion-content>
+
+    <br><br>
+    <div class="expli-txt">
+        Les questions déjà votées par la communauté.
+    </div>
+
+    <div class="item item-text-wrap">
+          Attention, durant la période de <b>BETA test</b> de Baztille, les décisions sont prises à titre indicatif et non officiel.
+    </div>
+
+
+    <ion-list class="questions">
+      <ion-item ng-repeat="question in questions" href="#/question/questions/{{question.id}}" >
+      <div class="card card-voted">
+      <div class="item item-text-wrap">
+        <div class="logoicon {{question.voted}}">
+            
+            <div class="logoicon_inner"></div>
+        </div>
+        <div class="content"><div class="quest">{{question.title}}</div>
+        <div class="validated_answers" ng-bind-html="question.validated_answers">
+        </div>
+        <span style="display:none"class="badge badge-comment" style="display:{{question.argnbrdisplay}}"></span>
+        
+        <small>Vote terminé <span am-time-ago="{{question.date_proposed}}" am-preprocess="unix"></span></small>
+        </div>
+      </div>
+    </div>
+        
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+</ion-view>

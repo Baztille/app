@@ -1,0 +1,60 @@
+/*********************************************************************************
+
+    Baztille
+        
+    Copyright (C) 2015  Grégory Isabelli, Thibaut Villemont and contributors.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+***********************************************************************************/
+
+.platform-browser {
+	
+	@media (min-width: 767px) {
+
+		.menu-content {
+			-webkit-transform: translate3d(270px, 0px, 0px) !important;
+			width: calc(100% - 270px) !important;
+		}
+
+		.bar-header button.ion-navicon {
+			display: none;
+		}
+
+		::-webkit-scrollbar {
+		    -webkit-appearance: none;
+		    width: 7px;
+		}
+		::-webkit-scrollbar-thumb {
+		    border-radius: 4px;
+		    background-color: rgba(0,0,0,.5);
+		    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+		}
+
+		.modal-backdrop {
+			.overflow-scroll {
+				overflow-y: hidden;
+			}
+		}
+
+		.headlines .row-social .col img {
+		    width: 15%;
+		}
+		
+	}
+
+
+
+}
+

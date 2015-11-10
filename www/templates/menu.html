@@ -1,0 +1,77 @@
+<ion-side-menus>
+  <ion-side-menu-content>
+    <ion-nav-bar class="bar-positive" align-title="center">
+      <ion-nav-buttons side="left">
+        <button ng-class="$root.showCustomBack ? 'show' : 'hide'" ng-click="$root.goBack()" class="button button-clear back-button"><i class="icon ion-ios-arrow-back"></i></button>
+        <button ng-class="$root.showCustomMenu ? 'show' : 'hide'" ng-click="$root.toggleLeftSideMenu()" class="button button-icon button-clear ion-navicon"></button>
+        <button  ng-class="$root.showCustomMenuHack ? 'show' : 'hide'"  ng-click="$root.toggleLeftSideMenu()" class="button button-icon button-clear ion-navicon">
+        </button>
+        </ion-nav-buttons>
+        <ion-nav-buttons side="right">
+        <a href="#/compte/points" class="points"><span >{{points}}</span></a><a class="button button-icon button-clear ion-ribbon-b" href="#/compte/points"></a>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+
+    <ion-nav-view name="menuContent"></ion-nav-view>
+
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left" class="menu-dark">
+   
+    <ion-content>
+
+      <ion-list>
+        <ion-item menu-toggle="left" class="item-divider item-divider-logo" ui-sref="question.questions">
+         <img id="logo-menu" src="img/logo_complet_blanc.png" alt="Baztille"></img>
+        </ion-item>
+        <ion-item menu-toggle="left" nav-transition="none" ui-sref="question.questions"
+              ui-sref-active="active">
+            Question en cours de vote
+          </ion-item>
+          <ion-item menu-toggle="left" nav-transition="none" ui-sref="question.proposed"
+              ui-sref-active="active">
+            Questions proposées
+          </ion-item>
+          <ion-item menu-toggle="left" nav-transition="none" ui-sref="question.voted"
+              ui-sref-active="active">
+            Questions votées
+          </ion-item>
+        
+        <ion-item menu-toggle="left" class="item-divider">
+         Compte
+        </ion-item>
+          <ion-item menu-toggle="left"  nav-transition="none" ui-sref="compte.points"
+              ui-sref-active="active">
+            Mes points Baztille
+          </ion-item>
+           <ion-item menu-toggle="left" ui-sref="logout"
+              ui-sref-active="active">
+            Se déconnecter
+          </ion-item>
+
+          <ion-item menu-toggle="left" class="item-divider">
+         En savoir plus
+        </ion-item>
+         <ion-item menu-toggle="left" ui-sref="app.news"
+            ui-sref-active="active">
+          Actualités
+        </ion-item>
+        <ion-item menu-toggle="left"  nav-transition="none" ui-sref="app.about"
+            ui-sref-active="active">
+          FAQ
+        </ion-item>
+         <ion-item menu-toggle="left" ui-sref="app.video"
+            ui-sref-active="active">
+		        Revoir la vidéo d'introduction
+        </ion-item>
+         <ion-item menu-toggle="left" ui-sref="app.contact"
+            ui-sref-active="active">
+		      Contact
+        </ion-item>
+        
+      </ion-list>
+
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>
+

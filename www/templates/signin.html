@@ -1,0 +1,29 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">S'inscrire</h1>
+    <div class="buttons">
+      <button class="button icon ion-close-circled button-clear" ng-click="closeSignin()"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <form ng-submit="doSignin()">
+      <div class="list">
+        <label class="item item-input">
+          <span class="input-label">Nom d'utilisateur</span>
+          <input type="text" ng-model="signinData.username" placeholder="" required>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Mot de passe</span>
+          <input type="password" ng-model="signinData.password" placeholder="" required>
+        </label>
+        <label class="item item-input">
+          <span class="input-label">E -mail</span>
+          <input type="email" ng-model="signinData.email" placeholder="" required>
+        </label>
+        <label class="item no-b">
+          <button class="button button-block button-positive t-upper t-b no-b" type="submit">S'inscrire</button>
+        </label>
+      </div>
+    </form>
+  </ion-content>
+</ion-modal-view>

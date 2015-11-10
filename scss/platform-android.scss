@@ -1,0 +1,59 @@
+/*********************************************************************************
+
+    Baztille
+        
+    Copyright (C) 2015  Grégory Isabelli, Thibaut Villemont and contributors.
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+    
+***********************************************************************************/
+
+.platform-android {
+	
+	.modal-wrapper {
+		.bar {
+			margin-top: 10px;
+			h1 {
+				padding-left: 5px;
+			}
+		}
+		.has-header {
+		    top: 59px;
+		}
+
+    textarea {
+      font-size:16px;
+    }
+	}
+	
+	.has-header {
+  		top: 50px; 
+  	}
+
+  	.bar-positive.bar.bar-header {
+
+  		.header-item {
+  			margin-top:4px;
+  		}
+  		
+  	}
+  	.bar.bar-footer .bar {
+  		border:0;
+  	}
+
+  	.questions .label {
+  		min-height: 15px;
+  	}
+
+}

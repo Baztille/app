@@ -1,0 +1,62 @@
+<ion-view view-title="Questions" hide-back-button="true" hide-nav-bar="false" enable-menu-with-back-views="true" cache-view="true">
+  <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+    <div class="tabs">
+      <a class="tab-item" nav-transition="none" ui-sref="question.questions" >
+        En cours
+      </a>
+      <a class="tab-item active" nav-transition="none" ui-sref="question.proposed" >
+        Proposées
+      </a>
+      <a class="tab-item" nav-transition="none" ui-sref="question.voted">
+        Votées
+      </a>
+    </div>
+</div>
+
+  <ion-content>
+<br><br>
+    <div class="expli-txt">
+        Votez pour les prochaines questions qui seront posées à la communauté Baztille.
+      </div>
+
+    <ion-list class="questions">
+      <ion-item ng-repeat="question in questions" href="#/question/questions/{{question.id}}" >
+      
+      <div class="card">
+
+        <div class="item item-text-wrap">
+          <div class="logoicon {{question.voted}}" ng-click="voteProposed('{{question.id}}', $event);" ion-track-tap="Vote" ion-track-data="{ question: question.id, type: 'proposé'}">
+              <div class="logoicon_inner">
+                <div class="logoicon_vote_nb">{{question.vote}}</div>
+                <div class="logoicon_vote">
+                  <span ng-if="question.voted == 'voted'">a voté</span>
+                  <span ng-if="question.voted != 'voted'">je vote</span>
+                </div>
+              </div>
+          </div>
+
+          <div class="content"><div class="quest">{{question.title}}</div>
+          <div class="label positive">{{question.argnbr}}
+            <span ng-if="question.argnbr <= 1">réponse</span>
+            <span ng-if="question.argnbr > 1">réponses</span>
+          </div>
+            
+          <small>{{question.attempts_status}}</small>
+          </div>
+
+        </div>
+
+      </div>
+        
+      </ion-item>
+    </ion-list>
+    
+  <br>
+
+  </ion-content>
+  <ion-footer-bar align-title="center" class="bar-energized bar-footer-container">
+    <div class="bar bar-footer bar-energized button" ng-click="addNewQuestion();">
+      <div class="title">Ajouter ma question</div>
+    </div>
+  </ion-footer-bar>
+</ion-view>
