@@ -23,12 +23,32 @@
 
   .nav-bar-block .bar {
      .buttons {
-      padding-top: 10px;
+      padding-top: 15px;
      }
      .title {
-      padding-top: 10px;
+      top: 15px;
      }
   }
 
+  .tabs-striped.tabs-background-positive .tabs {
+    top:50px;
+  }
+
+  .has-header {
+    top: 61px;
+  }
+
+  .bar-header.has-tabs-top {
+    height:60px;
+  }
+
+  .modal-wrapper {
+    .bar {
+      height: 61px;
+      .title, .button {
+          top: 20px;
+      }
+    }
+  }
 
 }
