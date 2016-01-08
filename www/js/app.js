@@ -50,7 +50,6 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
   })
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-    console.log(toState);
     
     // fixed menu
     if (toState.name == 'question.questions' || toState.name == 'question.voted' || toState.name == 'question.proposed' || toState.name == 'app.about' || toState.name == 'app.news' || toState.name == 'compte.points') {
@@ -63,6 +62,12 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
         $rootScope.showCustomBack = true;
     }
 
+    //fixed shadow header
+    if (toState.name == 'question.questions' || toState.name == 'question.voted' || toState.name == 'question.proposed') {
+        $rootScope.isTabs = true;
+    } else {
+        $rootScope.isTabs = false;
+    }
 
     if($window.localStorage.token) {
       $rootScope.currentUser = $window.localStorage.token;

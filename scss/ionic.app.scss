@@ -47,7 +47,6 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 /* BEM RULES */
 
-
 .t-upper {
   text-transform: uppercase;
 }
@@ -142,6 +141,17 @@ body {
   }
 }
 
+/* header */
+
+.bar-header {
+  box-shadow: 0 0px 3px rgba(0,0,0,.3);
+}
+
+.bar-tabs {
+  .bar-header {
+    box-shadow: inherit;
+  }
+}
 
 /* VOTE */
 
@@ -281,7 +291,6 @@ ion-view.splash ion-content {
 .center {
     text-align:center;
 }
-
 .questions {
 
     .item {
@@ -504,9 +513,11 @@ ion-view.splash ion-content {
 /* FOOTER */
 
 .bar.bar-footer {
+
+ 
   
   &.bar-footer-container {
-
+     box-shadow: 0 -2px 3px rgba(0,0,0,.3);
   }
   
   .bar {
@@ -521,6 +532,15 @@ ion-view.splash ion-content {
     font-weight:700;
     color:white;
   }
+}
+
+.bar-dark {
+  background:$dark;
+  color:white;
+  background-image: none;
+}
+.bar.bar-dark.bar-footer {
+  background-image: inherit;
 }
 
 .button.button-energized {
