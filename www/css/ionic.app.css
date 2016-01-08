@@ -9298,6 +9298,9 @@ body {
 .bar-tabs .bar-header {
   box-shadow: inherit; }
 
+.modal-wrapper .bar-header {
+  box-shadow: inherit; }
+
 /* VOTE */
 .logoicon {
   width: 50px;
@@ -9576,18 +9579,18 @@ ion-view.splash ion-content {
   border: none; }
 
 /* FOOTER */
-.bar.bar-footer.bar-footer-container {
-  box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.3); }
-
-.bar.bar-footer .bar {
-  height: 45px; }
-
-.bar.bar-footer .title {
-  font-size: 14px;
-  line-height: 44px;
-  text-transform: uppercase;
-  font-weight: 700;
-  color: white; }
+.bar.bar-footer {
+  background-position: none; }
+  .bar.bar-footer.bar-footer-container {
+    box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.3); }
+  .bar.bar-footer .bar {
+    height: 45px; }
+  .bar.bar-footer .title {
+    font-size: 14px;
+    line-height: 44px;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: white; }
 
 .bar-dark {
   background: #222222;

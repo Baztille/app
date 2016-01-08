@@ -152,6 +152,11 @@ body {
     box-shadow: inherit;
   }
 }
+.modal-wrapper {
+  .bar-header {
+    box-shadow: inherit;
+  }
+}
 
 /* VOTE */
 
@@ -513,8 +518,9 @@ ion-view.splash ion-content {
 /* FOOTER */
 
 .bar.bar-footer {
-
- 
+  
+  // fix android border-top
+  background-position:none;
   
   &.bar-footer-container {
      box-shadow: 0 -2px 3px rgba(0,0,0,.3);
