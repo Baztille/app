@@ -37,7 +37,7 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
     $ionicLoading.show({templateUrl: 'templates/loader.html', animation: 'fade-in',
       maxWidth: 60,
       noBackdrop: true,
-      showDelay: 90})
+      showDelay: 200})
     
     if($window.localStorage.points)
     {
@@ -187,6 +187,8 @@ initBaztille.config(function($ionicConfigProvider) {
   if (!ionic.Platform.isIOS()) {
     $ionicConfigProvider.scrolling.jsScrolling(false);
   }
+  //disabled transition
+  $ionicConfigProvider.views.transition('none');
 })
 
 initBaztille.config(function($ionicConfigProvider) {
