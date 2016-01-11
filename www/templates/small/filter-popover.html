@@ -1,0 +1,10 @@
+<ion-popover-view><ion-content>
+
+<ion-list class="popover-filter" ng-model="questionFilter">
+    <ion-item ng-repeat="filter in filters" ng-click="update(filter,'filter')">
+      {{filter.name}}
+      <i ng-if="questionFilter == filter"class="radio-icon disable-pointer-events icon ion-checkmark"></i>
+    </ion-item>
+</ion-list>
+
+</ion-content></ion-popover-view>

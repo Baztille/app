@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $http) {
+appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $ionicPopover, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
 
 
@@ -55,12 +55,67 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
     
     return false;
   }; 
+
+    /* Filter questions by Category*/
+  
+    $scope.categories = UxQuestions.categoryChoice();
+    $scope.questionCategory = ($window.localStorage.proposedCategory) ? $scope.categories[$window.localStorage.proposedCategory-1] : $scope.categories[0]; //;
+
+    $scope.filters = UxQuestions.filterChoice();
+    $scope.questionFilter = ($window.localStorage.proposedFilter) ? $scope.filters[$window.localStorage.proposedFilter] : $scope.filters[0]; 
+
+    $scope.update = function(item,type) {
+        
+        if(type == "category") {
+            $window.localStorage.proposedCategory = item.code;
+            $scope.questionCategory = item;
+        } else {
+            $window.localStorage.proposedFilter = item.code;
+            $scope.questionFilter = item;
+            $scope.closePopover();
+        }
+
+        console.log($scope.questionFilter, $scope.questionCategory);
+        
+        //reload scope question
+        $scope.reloadQuestions();
+    }
+
+      $ionicPopover.fromTemplateUrl('templates/small/filter-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+
+
+      $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+      };
+      $scope.closePopover = function() {
+        $scope.popover.hide();
+      };
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+      });
+      // Execute action on hide popover
+      $scope.$on('popover.hidden', function() {
+        // Execute action
+      });
+      // Execute action on remove popover
+      $scope.$on('popover.removed', function() {
+        // Execute action
+      });
+
+    //end filter
   
 
     $scope.reloadQuestions = function() 
     {
         Questions.getProposed({
-            session: $window.localStorage.token
+            session: $window.localStorage.token,
+            filter: $scope.questionFilter.code,
+            category: $scope.questionCategory.code
         }).then( function(resp) {
 
             $scope.questions = [];

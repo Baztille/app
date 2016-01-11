@@ -9391,6 +9391,39 @@ ion-view.splash ion-content {
   margin: 10px; }
 
 /* QUESTIONS */
+/* filter select */
+.item-select:after, .item-select select {
+  position: inherit;
+  direction: inherit; }
+
+.item-select select {
+  padding: 0px;
+  width: 100%;
+  max-width: 100%;
+  font-size: 14px;
+  font-weight: 700; }
+
+.item-select {
+  padding: 15px 0px 15px 10px; }
+  .item-select.select-categoryfilter {
+    padding: 15px 0px 15px 10px;
+    width: 85%;
+    margin: 10px; }
+
+.filter-button.button-clear {
+  color: #00A8D0;
+  position: absolute;
+  right: 0px;
+  padding: 15px; }
+  .filter-button.button-clear span {
+    font-size: 11px;
+    display: none; }
+
+.popover-filter i.radio-icon {
+  visibility: inherit;
+  float: right;
+  color: green; }
+
 .tabs-top > .tabs {
   border-bottom-width: 0px;
   text-transform: uppercase;

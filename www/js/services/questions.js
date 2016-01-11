@@ -30,7 +30,19 @@ serviceBaztille.factory('Questions',['$http','config','Webservice', '$cacheFacto
 		    return webservice.callGetBaztilleWs( data, '/question/list/vote/1' );
         },
         getProposed: function(data){
-            return webservice.callGetBaztilleWs( data, '/question/list/proposed/1' );
+            if(data.filter && data.category) {
+                return webservice.callGetBaztilleWs( data, '/question/list/proposed/1/'+data.category+'/'+data.filter );
+            }
+            else if (data.filter && data.category == 1) {
+                return webservice.callGetBaztilleWs( data, '/question/list/proposed/1/all/'+data.filter );
+            } 
+            else {
+                return webservice.callGetBaztilleWs( data, '/question/list/proposed/1' );
+            }
+
+            
+           
+            
         },
         getVoted: function(data){
             return webservice.callGetBaztilleWs( data, '/question/list/decided/1' );
