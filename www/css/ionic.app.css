@@ -9303,9 +9303,9 @@ body {
 
 /* VOTE */
 .logoicon {
-  width: 50px;
+  width: 60px;
   /* 32 + 32 + margin */
-  height: 36px;
+  height: 70px;
   position: absolute;
   cursor: pointer;
   -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 300ms;
@@ -9321,12 +9321,12 @@ body {
   font-size: 11px;
   font-weight: bold;
   position: absolute;
-  bottom: -30px;
+  bottom: 5px;
   color: white; }
 
 .logoicon_vote_nb {
   position: absolute;
-  right: -4px;
+  right: 5px;
   font-size: 12px;
   font-weight: bold;
   color: white;
@@ -9344,6 +9344,15 @@ body {
   border-radius: 5px;
   -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 300ms;
   transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 300ms; }
+  .logoicon_inner.button {
+    position: static;
+    padding: 0px;
+    min-width: inherit;
+    min-height: inherit;
+    line-height: inherit; }
+    .logoicon_inner.button.activated {
+      border-color: #767676;
+      background-color: #767676; }
 
 /* SPLASH SCREEN */
 .splash {

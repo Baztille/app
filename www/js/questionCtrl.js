@@ -212,7 +212,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope,$
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
         
@@ -260,7 +260,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope,$
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
         

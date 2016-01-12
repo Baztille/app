@@ -162,8 +162,8 @@ body {
 
 
 .logoicon{
-    width: 50px; /* 32 + 32 + margin */
-    height: 36px;
+    width: 60px; /* 32 + 32 + margin */
+    height: 70px;
     position: absolute;
     cursor: pointer;
     @include transition(all cubic-bezier(.1, .7, .1, 1) 300ms);
@@ -187,12 +187,12 @@ body {
   font-size: 11px;
   font-weight: bold;
   position: absolute;
-  bottom: -30px;
+  bottom: 5px;
   color:white;
 }
 .logoicon_vote_nb {
   position: absolute;
-  right:-4px;
+  right:5px;
   font-size: 12px;
   font-weight: bold;
    color:white;
@@ -213,6 +213,17 @@ body {
     &:hover {
       //background-color:$energized;
       //border: 4px solid $energized;
+    }
+    &.button {
+      position:static;
+      padding:0px;
+      min-width: inherit;
+      min-height: inherit;
+      line-height: inherit;
+      &.activated {
+        border-color: #767676;
+        background-color: #767676;
+      }
     }
 }
 

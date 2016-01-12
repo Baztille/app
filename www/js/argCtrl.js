@@ -289,7 +289,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope,$state
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
         

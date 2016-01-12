@@ -139,7 +139,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
             }
             else
             {
-                $scope.reloadQuestions();
+                    UxQuestions.incrementVote($event);
             }            
         } );
         
