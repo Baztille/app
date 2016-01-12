@@ -55,7 +55,7 @@
   
     <ion-list class="questions">
 
-      <ion-item ng-repeat="arg in args" href="{{arg.link}}">
+      <ion-item ng-repeat="arg in args" ng-click="scrollSavePos();" href="{{arg.link}}">
 
         <div class="card">
           <div class="item item-text-wrap">

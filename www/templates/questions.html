@@ -72,7 +72,7 @@
    
   
   <ion-list class="questions">
-      <ion-item ng-repeat="arg in args" href="#/question/questions/{{arg.question_id}}/{{arg.id}}">
+      <ion-item ng-repeat="arg in args" ng-click="scrollSavePos();" href="#/question/questions/{{arg.question_id}}/{{arg.id}}">
           
           <div class="card {{arg.valid}}">
               
@@ -112,7 +112,7 @@
 
 
     <ion-list class="questions">
-      <ion-item ng-repeat="question in questions" href="#/question/questions/{{question.id}}" >
+      <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" href="#/question/questions/{{question.id}}" >
         <div class="card card-encours">
           <div class="item item-text-wrap">
             <div class="logoicon {{question.voted}}">

@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $http) {
+appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $timeout, $scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
 
 
@@ -55,6 +55,22 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
     
     return false;
   }; 
+
+  /* keep scroll position */
+
+  $scope.scrollSavePos = function( ) {
+    var scrollPosition = document.querySelector('.overflow-scroll');
+    $window.localStorage.proposedLastPos = scrollPosition.scrollTop;
+  }
+  
+  $scope.$on('$ionicView.loaded', function(){
+    $timeout(function () {
+      var scrolldiv = document.querySelector('.overflow-scroll');
+          scrolldiv.scrollTop = $window.localStorage.proposedLastPos;
+          delete $window.localStorage.proposedLastPos;
+    }, 1000);
+         
+  });
   
 
     $scope.reloadQuestions = function() 
