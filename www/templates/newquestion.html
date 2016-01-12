@@ -18,10 +18,18 @@
         <div class="list">
           <label class="item item-input">
             <textarea type="text" placeholder="Votre question" ng-model="newQuestion.text" ng-change="inputChange()" style="min-height:100px;" maxlength="200"></textarea>
+             
+          </label>
+          <label class="item noborder">
+            <div style="text-align: right;" id="characters_count" ng-bind-html="ngCharacterCount">0</div>
+          </label>
+
+          <label class="item item-input item-select select-categoryfilter full">
+            <select ng-options="filter as filter.name for filter in categories " ng-model="questionCategory"></select>
           </label>
 
           <label class="item noborder">
-            <div style="text-align: right" id="characters_count" ng-bind-html="ngCharacterCount">0</div>
+           
             <button class="button button-block button-energized" type="submit">Proposer</button>
           </label>
 

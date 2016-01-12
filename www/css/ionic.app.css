@@ -9211,7 +9211,14 @@ a.button {
   .platform-browser .modal-backdrop .overflow-scroll {
     overflow-y: hidden; }
   .platform-browser .headlines .row-social .col img {
-    width: 15%; } }
+    width: 15%; }
+  .platform-browser .modal {
+    top: 10%;
+    right: 10%;
+    bottom: 10%;
+    left: 10%;
+    min-height: 240px;
+    width: 80%; } }
 
 /* BEM RULES */
 .t-upper {
@@ -9409,6 +9416,8 @@ ion-view.splash ion-content {
     padding: 15px 0px 15px 10px;
     width: 85%;
     margin: 10px; }
+    .item-select.select-categoryfilter.full {
+      width: 100%; }
 
 .filter-button.button-clear {
   color: #00A8D0;

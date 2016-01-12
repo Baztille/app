@@ -297,6 +297,9 @@ ion-view.splash ion-content {
     padding: 15px 0px 15px 10px;
     width:85%;
     margin: 10px;
+    &.full {
+      width: 100%;
+    }
   }
 }
 
