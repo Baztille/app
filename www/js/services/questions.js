@@ -47,6 +47,9 @@ serviceBaztille.factory('Questions',['$http','config','Webservice', '$cacheFacto
         getVoted: function(data){
             return webservice.callGetBaztilleWs( data, '/question/list/decided/1' );
         },
+        getRejected: function(data){
+            return webservice.callGetBaztilleWs( data, '/question/list/rejected/1' );
+        },
         newQuestion: function( data ) {
             return webservice.callPostBaztilleWs( data, '/question/propose' );
         },

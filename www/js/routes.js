@@ -145,6 +145,19 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
     }
   })
 
+  .state('question.rejected', {
+    url: "/rejected",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/rejected.html",
+        controller: 'RejectedCtrl'
+      }
+    },
+    access: {
+      requireLogin: true
+    }
+  })
+
   .state('question.newquestion', {
     url: "/newquestion",
     views: {
