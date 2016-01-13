@@ -62,7 +62,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
     $scope.questionCategory = ($window.localStorage.proposedCategory) ? $scope.categories[$window.localStorage.proposedCategory-1] : $scope.categories[0]; //;
 
     $scope.filters = UxQuestions.filterChoice();
-    $scope.questionFilter = ($window.localStorage.proposedFilter) ? $scope.filters[$window.localStorage.proposedFilter] : $scope.filters[0]; 
+    $scope.questionFilter = ($window.localStorage.proposedFilter) ? $scope.filters[$window.localStorage.proposedFilter-1] : $scope.filters[0]; 
 
     $scope.update = function(item,type) {
         
