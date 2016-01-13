@@ -400,7 +400,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
         
@@ -447,7 +447,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
     };
