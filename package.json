@@ -22,10 +22,10 @@
       "locator": "https://github.com/apache/cordova-plugin-whitelist.git",
       "id": "cordova-plugin-whitelist"
     },
-    "phonegap-plugin-push",
     "cordova-plugin-device",
     "cordova-plugin-splashscreen",
-    "com.ionic.keyboard"
+    "com.ionic.keyboard",
+    "onesignal-cordova-plugin"
   ],
   "cordovaPlatforms": [
     "ios"
