@@ -7,7 +7,7 @@
         <button  ng-class="$root.showCustomMenuHack ? 'show' : 'hide'"  ng-click="$root.toggleLeftSideMenu()" class="button button-icon button-clear ion-navicon">
         </button>
         </ion-nav-buttons>
-        <ion-nav-buttons side="right">
+        <ion-nav-buttons side="right" ng-if="currentUser!==undefined">
         <a href="#/compte/points" class="points"><span >{{points}}</span></a><a class="button button-icon button-clear ion-ribbon-b" href="#/compte/points"></a>
       </ion-nav-buttons>
     </ion-nav-bar>
@@ -44,11 +44,18 @@
         <ion-item menu-toggle="left" class="item-divider">
          Compte
         </ion-item>
-          <ion-item menu-toggle="left"  nav-transition="none" ui-sref="compte.points"
+
+           <ion-item menu-toggle="left" ui-sref="splash" ng-if="currentUser==undefined"
+              ui-sref-active="active">
+            S'inscrire
+          </ion-item>
+
+
+          <ion-item menu-toggle="left"  nav-transition="none" ui-sref="compte.points" ng-if="currentUser!==undefined"
               ui-sref-active="active">
             Mes points Baztille
           </ion-item>
-           <ion-item menu-toggle="left" ui-sref="logout"
+           <ion-item menu-toggle="left" ui-sref="logout" ng-if="currentUser!==undefined"
               ui-sref-active="active">
             Se déconnecter
           </ion-item>

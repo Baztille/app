@@ -102,7 +102,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
     abstract: true,
     templateUrl: "templates/menu.html",
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
 
@@ -115,7 +115,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
 
@@ -128,7 +128,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
 
@@ -141,7 +141,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
 
@@ -154,7 +154,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
 
@@ -180,7 +180,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
   
@@ -193,7 +193,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })  
 
@@ -228,7 +228,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
     abstract: true,
     templateUrl: "templates/menu.html",
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
 
@@ -241,7 +241,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
   
@@ -254,7 +254,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
   
@@ -263,7 +263,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
     abstract: true,
     templateUrl: "templates/menu.html",
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
 
@@ -276,7 +276,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   }) 
   
@@ -289,7 +289,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   }) 
    
@@ -302,7 +302,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
 
@@ -315,7 +315,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       }
     },
     access: {
-      requireLogin: true
+      requireLogin: false
     }
   })
 
