@@ -32,8 +32,8 @@ serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', 
                 {code: 1, name: 'Popularité'}, 
                 {code: 2, name: 'Votes'}, 
                 {code: 3, name: 'Date'}, 
-                {code: 4, name: 'Déjà votées'},
-                {code: 5, name: 'Non votées'}
+//                {code: 4, name: 'Déjà votées'},
+//                {code: 5, name: 'Non votées'}
             ];
 
         },
