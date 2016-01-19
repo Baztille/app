@@ -54,7 +54,15 @@ serviceBaztille.factory('Questions',['$http','config','Webservice', '$cacheFacto
             return webservice.callPostBaztilleWs( data, '/question/propose' );
         },
         getQuestion: function( data ) { 
-            return webservice.callGetBaztilleWs( data, '/question/'+data.id );
+            if( data.filter )
+            {
+                return webservice.callGetBaztilleWs( data, '/question/'+data.id+'/'+data.filter );
+            }
+            else
+            {
+                // Backward compatibility        
+                return webservice.callGetBaztilleWs( data, '/question/'+data.id );
+            }
         },
         newArg: function( data ) {
             return webservice.callPostBaztilleWs( data, '/question/'+data.id+'/postarg' );

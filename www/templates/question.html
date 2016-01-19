@@ -47,7 +47,11 @@
 
         
     </div>
-   
+
+
+        <div class="questionFilterSort item">
+          <div class="icon-right ion-chevron-down _ion-ios-settings-strong button button-clear filter-button" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
+        </div>   
   
     <ion-list class="questions">
       <ion-item ng-repeat="arg in args" href="#/question/questions/{{arg.question_id}}/{{arg.id}}">
