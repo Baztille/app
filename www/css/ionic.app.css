@@ -9213,6 +9213,13 @@ a.button {
   .platform-browser .headlines .row-social .col img {
     width: 15%; } }
 
+/* fix enable copy and paste */
+* {
+  -webkit-user-select: auto !important;
+  -moz-user-select: auto !important;
+  -ms-user-select: auto !important;
+  user-select: auto !important; }
+
 /* BEM RULES */
 .t-upper {
   text-transform: uppercase; }
