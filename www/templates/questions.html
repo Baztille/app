@@ -55,7 +55,7 @@
               <p>
                 {{question.status_explanation}}
               </p>
-              <div class="label positive" ng-if="question.status != 'vote'">
+              <div class="label positive button" ng-if="question.status != 'vote'">
             <div class="voters ion-android-contacts" ng-click="Voters('{{questionId}}', $event);" >
               Liste des votants
             </div>
@@ -88,7 +88,7 @@
                 </div>
                      <div class="content">
                             <div class="quest">{{arg.text}}</div>
-                            <div class="label positive">{{arg.argnbr}}
+                            <div class="label positive button">{{arg.argnbr}}
                               <span ng-if="arg.argnbr <= 1">argument</span>
                               <span ng-if="arg.argnbr > 1">arguments</span>
                             </div>
@@ -122,7 +122,7 @@
             <div class="validated_answers" ng-bind-html="question.validated_answers">
             </div>
 
-            <div class="label positive">{{question.nbReponse}} <span ng-if="question.nbReponse <= 0">réponse</span><span ng-if="question.nbReponse > 1">réponses</span></div>
+            <div class="label positive button">{{question.nbReponse}} <span ng-if="question.nbReponse <= 0">réponse</span><span ng-if="question.nbReponse > 1">réponses</span></div>
             
             <small><img src="img/back-in-time.svg" width="10"> Vote terminé <span am-time-ago="{{question.date_proposed}}" am-preprocess="unix"></span></small>
             </div>

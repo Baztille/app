@@ -38,7 +38,7 @@
               <p>
                 &nbsp;
               </p>
-              <div class="label positive" >
+              <div class="label positive button" >
                 <div class="voters ion-android-contacts" ng-click="Voters('{{argId}}', $event);" >
                   Liste des votants
                 </div>
@@ -71,7 +71,7 @@
 
             <div class="content"><div class="quest">{{arg.text}}</div>
             
-            <div class="label positive" ng-show="{{arg.showargnbr}}">{{arg.argnbr}} <span ng-if="arg.argnbr <= 1">{{label_title2}}</span><span ng-if="arg.argnbr > 1">{{label_title2}}s</span></div>
+            <div class="label positive button" ng-show="{{arg.showargnbr}}">{{arg.argnbr}} <span ng-if="arg.argnbr <= 1">{{label_title2}}</span><span ng-if="arg.argnbr > 1">{{label_title2}}s</span></div>
             </div>
 
           </div>

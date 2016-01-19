@@ -9263,6 +9263,12 @@ form input.ng-valid.ng-touched {
 .tabs-striped.tabs-color-light .tab-item.tab-item-active, .tabs-striped.tabs-color-light .tab-item.active, .tabs-striped.tabs-color-light .tab-item.activated {
   border: 0 solid black; }
 
+.tab-item {
+  max-width: inherit; }
+
+.tabs {
+  height: 45px; }
+
 body {
   background-color: #F9F9F9; }
 
@@ -9356,20 +9362,32 @@ body {
 
 /* SPLASH SCREEN */
 .splash {
-  background-color: #F9DA00; }
+  background-color: #F9DA00;
+  /*&.endTransition {
+      #baseline {
+        opacity:1;
+      }
+       #splash_logo, button {
+        opacity:1;
+       }
+       small {
+        opacity:0.7;
+       }
+
+    }*/ }
   .splash #splashscreen {
     text-align: center; }
   .splash #splash_logo {
     width: 65%;
     max-width: 210px;
     margin-top: 20px;
-    opacity: 0;
+    opacity: 1;
     -webkit-transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 900ms;
     transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 900ms;
     -webkit-transition-delay: 300ms;
     transition-delay: 300ms; }
   .splash #baseline {
-    opacity: 0;
+    opacity: 1;
     font-size: 16px;
     color: #222222;
     -webkit-transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
@@ -9377,24 +9395,18 @@ body {
     -webkit-transition-delay: 200ms;
     transition-delay: 200ms; }
   .splash .button {
-    opacity: 0;
+    opacity: 1;
     border: 0px;
     -webkit-transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
     transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
     -webkit-transition-delay: 300ms;
     transition-delay: 300ms; }
   .splash small {
-    opacity: 0;
+    opacity: 1;
     -webkit-transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
     transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
     -webkit-transition-delay: 300ms;
     transition-delay: 300ms; }
-  .splash.endTransition #baseline {
-    opacity: 1; }
-  .splash.endTransition #splash_logo, .splash.endTransition button {
-    opacity: 1; }
-  .splash.endTransition small {
-    opacity: 0.7; }
 
 ion-view.splash ion-content {
   margin: 10px; }
@@ -9406,7 +9418,8 @@ ion-view.splash ion-content {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 
 .tabs-top.tabs-striped .tab-item {
-  font-size: 85%; }
+  font-size: 90%;
+  font-weight: 900; }
 
 .expli-txt {
   padding: 30px 20px 14px 20px;
@@ -9492,6 +9505,8 @@ ion-view.splash ion-content {
   margin-top: 6px; }
   .questions .label.positive {
     background: #aaaaaa; }
+    .questions .label.positive.activated {
+      background: #767676; }
 
 .questions .validated_answers p {
   font-size: 80%;
@@ -9522,7 +9537,7 @@ ion-view.splash ion-content {
   color: red; }
 
 .question h1 {
-  font-size: 150%; }
+  font-size: 140%; }
 
 .question .item-header {
   font-size: 90%; }
@@ -9591,7 +9606,7 @@ ion-view.splash ion-content {
 
 /* FOOTER */
 .bar.bar-footer {
-  background-position: none; }
+  background-position: bottom; }
   .bar.bar-footer.bar-footer-container {
     box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.3); }
   .bar.bar-footer .bar {
