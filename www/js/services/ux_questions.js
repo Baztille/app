@@ -29,9 +29,9 @@ serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', 
         filterChoice : function() {
 
             return [ 
-                {code: 1, name: 'Les plus chaudes'}, 
-                {code: 2, name: 'Les plus votées'}, 
-                {code: 3, name: 'Les plus récentes'}, 
+                {code: 1, name: 'Pertinence'}, 
+                {code: 2, name: 'Popularité'}, 
+                {code: 3, name: 'Date'}, 
                 {code: 4, name: 'Déjà votées'},
                 {code: 5, name: 'Non votées'}
             ];

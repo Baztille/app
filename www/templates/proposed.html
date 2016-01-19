@@ -19,10 +19,18 @@
         Votez pour les prochaines questions qui seront posées à la communauté Baztille.
       </div>
 
-        <div class="icon-left ion-ios-settings-strong button button-clear filter-button" ng-click="openPopover($event)"><span>FILTRER</span></div>
-        <label class="item item-input item-select select-categoryfilter">
-          <select ng-options="filter as filter.name for filter in categories " ng-model="questionCategory" ng-change="update(questionCategory,'category')"></select>
-        </label>
+        <div class="questionFilterSort item">
+          <div class="categoryfilter" ng-show="showCategoryfilter">
+            <label class="item item-input item-select select-categoryfilter">
+              Thèmatique :  
+              <select ng-options="filter as filter.name for filter in categories " ng-model="questionCategory" ng-change="update(questionCategory,'category')"></select>
+            </label>
+          </div>
+
+          <div class="icon-right ion-chevron-down _ion-ios-settings-strong button button-clear filter-button" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
+          <div class="icon-right ion-ios-settings-strong button button-clear filter-{{questionCategoryActive}}" ng-click="openCategoryFilter($event)"><span>FILTRER</span></div>
+        </div>
+        
 
 
     <ion-list class="questions">

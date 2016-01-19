@@ -9135,6 +9135,9 @@ a.button {
 .platform-android .questions .label {
   min-height: 15px; }
 
+.platform-android .filter-button, .platform-android .filter-active, .platform-android .filter-inactive {
+  padding-top: 4px; }
+
 /*********************************************************************************
 
     Baztille
@@ -9408,25 +9411,37 @@ ion-view.splash ion-content {
   width: 100%;
   max-width: 100%;
   font-size: 14px;
-  font-weight: 700; }
+  font-weight: 700;
+  margin-left: 4px; }
 
 .item-select {
   padding: 15px 0px 15px 10px; }
   .item-select.select-categoryfilter {
     padding: 15px 0px 15px 10px;
-    width: 85%;
-    margin: 10px; }
+    width: 100%;
+    margin: 0px; }
     .item-select.select-categoryfilter.full {
       width: 100%; }
 
+.questionFilterSort.item {
+  padding: 0px;
+  padding-top: 2px; }
+
+/* filter button */
+.button-clear.button-clear.filter-active {
+  float: right;
+  color: #00A8D0; }
+
+.button-clear.button-clear.filter-inactive {
+  float: right; }
+
 .filter-button.button-clear {
   color: #00A8D0;
-  position: absolute;
-  right: 0px;
-  padding: 15px; }
+  position: relative;
+  left: 0px; }
   .filter-button.button-clear span {
-    font-size: 11px;
-    display: none; }
+    text-transform: uppercase;
+    font-size: 16px; }
 
 .popover-filter i.radio-icon {
   visibility: inherit;

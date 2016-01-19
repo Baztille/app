@@ -64,19 +64,21 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
     $scope.filters = UxQuestions.filterChoice();
     $scope.questionFilter = ($window.localStorage.proposedFilter) ? $scope.filters[$window.localStorage.proposedFilter-1] : $scope.filters[0]; 
 
+    $scope.questionCategoryActive = ($scope.questionCategory.code == 1) ? 'inactive' : 'active' ;
+
     $scope.update = function(item,type) {
         
         if(type == "category") {
             $window.localStorage.proposedCategory = item.code;
             $scope.questionCategory = item;
+            // icon category filter state
+            $scope.showCategoryfilter = false;
+            $scope.questionCategoryActive = ($scope.questionCategory.code == 1) ? 'inactive' : 'active' ;
         } else {
             $window.localStorage.proposedFilter = item.code;
             $scope.questionFilter = item;
             $scope.closePopover();
         }
-
-        console.log($scope.questionFilter, $scope.questionCategory);
-        
         //reload scope question
         $scope.reloadQuestions();
     }
@@ -98,14 +100,13 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
       $scope.$on('$destroy', function() {
         $scope.popover.remove();
       });
-      // Execute action on hide popover
-      $scope.$on('popover.hidden', function() {
-        // Execute action
-      });
-      // Execute action on remove popover
-      $scope.$on('popover.removed', function() {
-        // Execute action
-      });
+
+      // toggle filter
+      $scope.showCategoryfilter = false;
+      $scope.openCategoryFilter = function($event) {
+        $scope.showCategoryfilter = ($scope.showCategoryfilter) ? false : true ;
+      };
+      
 
     //end filter
   

@@ -290,25 +290,48 @@ ion-view.splash ion-content {
   max-width: 100%;
   font-size:14px;
   font-weight: 700;
+  margin-left:4px;
 }
 .item-select {
   padding: 15px 0px 15px 10px;
   &.select-categoryfilter {
     padding: 15px 0px 15px 10px;
-    width:85%;
-    margin: 10px;
+    width:100%;
+    margin: 0px;
     &.full {
       width: 100%;
     }
   }
 }
 
+.categoryfilter { }
+.questionFilterSort {
+  &.item {
+    padding:0px;
+    padding-top:2px;
+  }
+  //border-bottom: 1px solid grey!important;
+
+}
+
+/* filter button */
+.button-clear.button-clear.filter-active {
+  float:right;
+  color: $energized;
+}
+.button-clear.button-clear.filter-inactive {
+  float:right;
+}
+
 .filter-button.button-clear {
   color: $energized;
-  position:absolute;right:0px;padding:15px;
+  position:relative;
+  left:0px;
+
   span {
-    font-size:11px;
-    display: none;
+    text-transform: uppercase;
+    font-size:16px;
+    //display: none;
   }
 }
 
