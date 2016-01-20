@@ -55,7 +55,6 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
         }).then( function(resp) {
 
             $scope.questions = [];
-            console.log(resp.data.list.length);
 
             if( resp.data.list.length == 0 )
             {

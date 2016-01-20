@@ -31,7 +31,7 @@ serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', 
             return [ 
                 {code: 1, name: 'Popularité'}, 
                 {code: 2, name: 'Votes'}, 
-                {code: 3, name: 'Date'}, 
+                {code: 3, name: 'Date'} 
 //                {code: 4, name: 'Déjà votées'},
 //                {code: 5, name: 'Non votées'}
             ];
@@ -42,7 +42,7 @@ serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', 
 
             return [ 
                 // Note : 0 is reserved for "no category"
-                {code: 1, name: 'Toutes'}, 
+                {code: 1, name: 'Choisir dans la liste'}, 
                 {code: 2, name: 'Culture'}, 
                 {code: 3, name: 'Economie'}, 
                 {code: 4, name: 'Education'}, 
