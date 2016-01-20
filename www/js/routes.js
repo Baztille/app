@@ -232,8 +232,8 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
     }
   })
 
-  .state('compte.account', {
-    url: "/account",
+  .state('compte.infos', {
+    url: "/infos",
     views: {
       'menuContent': {
         templateUrl: "templates/account.html",

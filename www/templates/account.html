@@ -3,41 +3,58 @@
   
   <ion-content>
 
-    <div class="card compte">
-      <br/>
+    <div class="compte">
       <h2 class="t-c">{{data.username}}</h2>
-    </div>
-
-
-  <br>
-
-  <div class="col p-10">
-    <div class="item item-text-wrap item-divider">
-      <h2>Mes informations</h2>
-    </div>
-    <div class="item item-text-wrap">
-
-
+      <small class="center" style="display:none;">
+          Niveau: <i>(à venir)</i>
+      </small>
       <div class="row">
-        <div class="col"><b>Email</b></div>
-        <div class="col">{{data.email}}</div>
+          <div class="col center">{{nb_points_label}}<br>
+            <b>{{points}} <span class="ion-ribbon-b"></span></b>
+          </div>
+          <div class="col center">
+              Classement<br> <b>{{data.rank}} / {{data.nb_users}}</b>
+          </div>
+    
       </div>
 
-
-      <br/>
-
-      <ion-toggle ng-model="email_votes" toggle-class="toggle-calm" ng-checked="data.optout_votes==undefined" ng-click="updateOptin(email_votes,'email_votes')">Recevoir les emails sur les votes Baztille</ion-toggle>
-      <ion-toggle ng-model="email_news" toggle-class="toggle-calm" ng-checked="data.optout_news==undefined" ng-click="updateOptin(email_news,'email_news')">Recevoir les emails sur les news Baztille</ion-toggle>
-
+      <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+      <div class="tabs" style="position:inherit;">
+        <a class="tab-item" nav-transition="none" ui-sref="compte.points" >
+          Mes points
+        </a>
+        <a class="tab-item active" nav-transition="none" ui-sref="compte.infos" >
+          Mes informations
+        </a>
+       
+      </div>
+   </div>
     </div>
+
+  <div class="compte-infos card">
+
+
+      <div class="item item-text-wrap">
+
+
+        <div class="row">
+          <div class="col"><b>Email</b></div>
+          <div class="col">{{data.email}}</div>
+        </div>
+   
+      </div>
+
+      <ion-toggle ng-model="email_votes" toggle-class="toggle-balanced" ng-checked="data.optout_votes==undefined" ng-click="updateOptin(email_votes,'email_votes')">Recevoir les emails sur les votes Baztille</ion-toggle>
+      <ion-toggle ng-model="email_news" toggle-class="toggle-balanced" ng-checked="data.optout_news==undefined" ng-click="updateOptin(email_news,'email_news')">Recevoir les emails sur les news Baztille</ion-toggle>
+
   </div>
 
-  <br/>
-  <br/>
-  <br/>
+    <br/>
+    <br/>
+    <br/>
 
     <div class="col t-c">
-      <a class="button button-small button-dark" nav-direction="enter" ng-click="removeAccount();">Supprimer mon compte</a>
+      <a class="button button-small button-clear button-dark" nav-direction="enter" ng-click="removeAccount();">Supprimer mon compte</a>
     </div>
 
   </ion-content>

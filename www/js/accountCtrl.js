@@ -24,13 +24,38 @@ appBaztille.controller('AccountCtrl', function(User, $scope, $state, $ionicLoadi
   
     $scope.loadUserinfos = function() 
     {
-        
-      User.getAllInfos({
+        User.getAllInfos({
         session: $window.localStorage.token
-      }).success(function(data){
+      }).success(function(datafirst){
+
+          User.getRank({
+            session: $window.localStorage.token
+          }).success(function(data){
+            
+            if(data.user_id) 
+            {
+                $scope.data = angular.extend(data, datafirst);
+                
+                $scope.data.pointsdetails.contribution_day_points = 3 * $scope.data.pointsdetails.contribution_day;
+                $scope.data.pointsdetails.validated_nbr = 0;
+                if( $scope.data.pointsdetails.validated_answers ) { $scope.data.pointsdetails.validated_nbr += $scope.data.pointsdetails.validated_answers };
+                if( $scope.data.pointsdetails.validated_question ) { $scope.data.pointsdetails.validated_nbr += $scope.data.pointsdetails.validated_question };
+                $scope.data.pointsdetails.validated_nbr_points = 100 * $scope.data.pointsdetails.validated_nbr;
+            }
+            else
+            {
+              
+                var alertPopup = $ionicPopup.alert({
+                 title: 'Erreur',
+                 template: 'Vous devez être connecté pour voir cette page.'
+               });
+
+                
+
+            }
+        });
 
 
-        $scope.data = data;
 
     });
 
@@ -51,6 +76,7 @@ appBaztille.controller('AccountCtrl', function(User, $scope, $state, $ionicLoadi
         {
             User.updateOptin( {email:'news', optin:value} );
         }
+
     };
     
     $scope.removeAccount = function() {
@@ -75,6 +101,8 @@ appBaztille.controller('AccountCtrl', function(User, $scope, $state, $ionicLoadi
     };
     
     $scope.loadUserinfos();
+
+    $scope.nb_points_label = "Points Baztille";
 
 
 });

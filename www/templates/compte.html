@@ -1,9 +1,9 @@
-<ion-view view-title="Mes points Baztille" hide-back-button="true" enable-menu-with-back-views="false" hide-nav-bar="false" cache-view="true">
-<ion-nav-title>Mes points Baztille</ion-nav-title>
+<ion-view view-title="Mon compte" hide-back-button="true" enable-menu-with-back-views="false" hide-nav-bar="false" cache-view="true">
+<ion-nav-title>Mon compte</ion-nav-title>
   
   <ion-content>
 
-    <div class="card compte">
+    <div class="compte">
       <h2 class="t-c">{{data.username}}</h2>
       <small class="center" style="display:none;">
           Niveau: <i>(à venir)</i>
@@ -17,16 +17,24 @@
           </div>
     
       </div>
+
+      <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+      <div class="tabs" style="position:inherit;">
+        <a class="tab-item active" nav-transition="none" ui-sref="compte.points" >
+          Mes points
+        </a>
+        <a class="tab-item" nav-transition="none" ui-sref="compte.infos" >
+          Mes informations
+        </a>
+       
+      </div>
+   </div>
     </div>
 
-    <div class="col t-c">
-      <a class="button button-small button-dark" nav-direction="enter" ng-click="PointsExplained();">Comment gagner des points ?</a>
-    </div>
 
-  <br>
-
+<div class="card">
   <div class="col p-10">
-    <div class="item item-text-wrap item-divider">
+    <div class="item item-text-wrap">
       <h2>Comment suis-je devenu aussi populaire ?</h2>
     </div>
     <div class="item item-text-wrap">
@@ -44,9 +52,13 @@
       </div>
     </div>
   </div>
-
+</div>
+ <div class="col t-c">
+      <a class="button button-dark" nav-direction="enter" ng-click="PointsExplained();">Comment gagner des points ?</a>
+    </div>
+<div class="card">
   <div class="col p-10">
-    <div class="item item-text-wrap item-divider">
+    <div class="item item-text-wrap">
       <h2>Classement général</h2>
     </div>
     <div class="item item-text-wrap ">
@@ -59,7 +71,7 @@
       
     </div>
   </div>
-
+</div>
   </ion-content>
   
 </ion-view>
