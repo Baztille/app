@@ -206,8 +206,9 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
     //  Doing question proposal
     //  $scope.newQuestion
 
+
     $scope.doPropose = function() {
-        
+
           $ionicLoading.show({
             content: 'Loading',
             animation: 'fade-in',
@@ -217,6 +218,8 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
           });
 
           $scope.newQuestion.session = $window.localStorage.token;
+
+         // TODO: add something on $score.newQuestion.category
 
           Questions.newQuestion($scope.newQuestion).success(function(data){
 
