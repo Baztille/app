@@ -48,6 +48,12 @@ serviceBaztille.factory('User',['$http','config', 'Webservice', function($http, 
         reconfirmEmail:function(data){
             return webservice.callGetBaztilleWs( data, '/user/reconfirmemail' );
         },        
+        getAllInfos:function(data){
+            return webservice.callGetBaztilleWs( data, '/session/getMyInfos' );
+        },   
+        updateOptin: function( data ){    
+            return webservice.callPostBaztilleWs( data, '/session/changeOptin' );
+        },
     }
 }]);
 

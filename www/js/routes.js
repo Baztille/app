@@ -232,6 +232,20 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
     }
   })
 
+  .state('compte.account', {
+    url: "/account",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/account.html",
+        controller: 'AccountCtrl'
+      }
+    },
+    access: {
+      requireLogin: false
+    }
+  })
+
+
   .state('compte.points', {
     url: "/points",
     views: {

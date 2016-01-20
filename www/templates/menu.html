@@ -51,10 +51,16 @@
           </ion-item>
 
 
+          <ion-item menu-toggle="left"  nav-transition="none" ui-sref="compte.account" ng-if="currentUser!==undefined"
+              ui-sref-active="active">
+            Mon compte
+          </ion-item>
+
           <ion-item menu-toggle="left"  nav-transition="none" ui-sref="compte.points" ng-if="currentUser!==undefined"
               ui-sref-active="active">
             Mes points Baztille
           </ion-item>
+
            <ion-item menu-toggle="left" ui-sref="logout" ng-if="currentUser!==undefined"
               ui-sref-active="active">
             Se déconnecter

@@ -1,0 +1,45 @@
+<ion-view view-title="Mon compte" hide-back-button="true" enable-menu-with-back-views="false" hide-nav-bar="false" cache-view="true">
+<ion-nav-title>Mon compte</ion-nav-title>
+  
+  <ion-content>
+
+    <div class="card compte">
+      <br/>
+      <h2 class="t-c">{{data.username}}</h2>
+    </div>
+
+
+  <br>
+
+  <div class="col p-10">
+    <div class="item item-text-wrap item-divider">
+      <h2>Mes informations</h2>
+    </div>
+    <div class="item item-text-wrap">
+
+
+      <div class="row">
+        <div class="col"><b>Email</b></div>
+        <div class="col">{{data.email}}</div>
+      </div>
+
+
+      <br/>
+
+      <ion-toggle ng-model="email_votes" toggle-class="toggle-calm" ng-checked="data.optout_votes==undefined" ng-click="updateOptin(email_votes,'email_votes')">Recevoir les emails sur les votes Baztille</ion-toggle>
+      <ion-toggle ng-model="email_news" toggle-class="toggle-calm" ng-checked="data.optout_news==undefined" ng-click="updateOptin(email_news,'email_news')">Recevoir les emails sur les news Baztille</ion-toggle>
+
+    </div>
+  </div>
+
+  <br/>
+  <br/>
+  <br/>
+
+    <div class="col t-c">
+      <a class="button button-small button-dark" nav-direction="enter" ng-click="removeAccount();">Supprimer mon compte</a>
+    </div>
+
+  </ion-content>
+  
+</ion-view>
