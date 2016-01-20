@@ -53,6 +53,27 @@ appBaztille.controller('AccountCtrl', function(User, $scope, $state, $ionicLoadi
         }
     };
     
+    $scope.removeAccount = function() {
+
+           var confirmPopup = $ionicPopup.confirm({
+             title: 'Supprimer mon compte Baztille',
+             template: "Nous sommes désolé que Baztille ne réponde pas à votre attente.<br/>Ce mouvement est le vôtre : n'hésitez pas à nous contacter pour nous dire commment nous pourrions nous améliorer.<br/><br/>Etes-vous sûr de vouloir supprimer votre compte maintenant ?"
+           });
+
+           confirmPopup.then(function(res) {
+             if(res) {
+                User.removeAccount( {} );
+                $scope.currentUser = 'undefined';
+                delete $window.localStorage.token;
+                
+                $state.go('splash');
+             } else {
+             }
+           });
+
+
+    };
+    
     $scope.loadUserinfos();
 
 

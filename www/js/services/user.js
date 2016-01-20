@@ -54,6 +54,9 @@ serviceBaztille.factory('User',['$http','config', 'Webservice', function($http, 
         updateOptin: function( data ){    
             return webservice.callPostBaztilleWs( data, '/session/changeOptin' );
         },
+        removeAccount: function( data ){    
+            return webservice.callPostBaztilleWs( data, '/session/removeAccount' );
+        },
     }
 }]);
 
