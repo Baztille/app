@@ -292,12 +292,18 @@ ion-view.splash ion-content {
   font-weight: 700;
   margin-left:4px;
 }
+.button-clear.button-clear.delete-filter {
+  float:right;
+  width:15%;
+  color:red;
+}
 .item-select {
   padding: 15px 0px 15px 10px;
   &.select-categoryfilter {
     padding: 15px 0px 15px 10px;
-    width:100%;
+    width:85%;
     margin: 0px;
+    border:0;
     &.full {
       width: 100%;
     }
@@ -318,15 +324,18 @@ ion-view.splash ion-content {
 .button-clear.button-clear.filter-active {
   float:right;
   color: $energized;
+  padding:0 9px;
 }
 .button-clear.button-clear.filter-inactive {
   float:right;
+  padding:0 9px;
 }
 
 .filter-button.button-clear {
   color: $energized;
   position:relative;
   left:0px;
+  padding:0 9px;
 
   span {
     text-transform: uppercase;
@@ -647,6 +656,31 @@ ion-view.splash ion-content {
 
 /* COMPTE */
 
+.compte {
+
+  background:$positive;
+  h2 {
+    padding-top:20px;
+  }
+  .row{
+    padding-bottom: 20px;
+  }
+  .tabs-striped.tabs-background-positive .tabs {
+    background:inherit;
+  }
+
+  .tabs-top>.tabs {
+    border-bottom-width: 0;
+    text-transform: uppercase;
+    box-shadow: 0 1px 1px rgba(0,0,0,.3);
+  }
+}
+
+.compte-infos {
+  .row, .col {
+    padding:0px;
+  }
+}
 .item.compte {
   h1 {
     text-align:center;

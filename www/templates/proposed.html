@@ -21,10 +21,13 @@
 
         <div class="questionFilterSort item">
           <div class="categoryfilter" ng-show="showCategoryfilter">
+            <div class="icon-right ion-close-round button button-clear delete-filter" ng-show="showCategoryfilterDelete" ng-click="deleteCategoryFilter($event)"></div>
             <label class="item item-input item-select select-categoryfilter">
               Thèmatique :  
               <select ng-options="filter as filter.name for filter in categories " ng-model="questionCategory" ng-change="update(questionCategory,'category')"></select>
+
             </label>
+
           </div>
 
           <div class="icon-right ion-chevron-down _ion-ios-settings-strong button button-clear filter-button" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>

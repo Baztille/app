@@ -72,7 +72,8 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
             $window.localStorage.proposedCategory = item.code;
             $scope.questionCategory = item;
             // icon category filter state
-            $scope.showCategoryfilter = false;
+            $scope.showCategoryfilter = ($scope.questionCategory.code == 1) ? false : true ;
+            $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
             $scope.questionCategoryActive = ($scope.questionCategory.code == 1) ? 'inactive' : 'active' ;
         } else {
             $window.localStorage.proposedFilter = item.code;
@@ -102,10 +103,16 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
       });
 
       // toggle filter
-      $scope.showCategoryfilter = false;
+      $scope.showCategoryfilter = ($scope.questionCategory.code == 1) ? false : true ;
+      $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
       $scope.openCategoryFilter = function($event) {
         $scope.showCategoryfilter = ($scope.showCategoryfilter) ? false : true ;
+        $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
       };
+
+      $scope.deleteCategoryFilter = function($event) {
+        $scope.update($scope.categories[0],'category');
+      }
       
 
     //end filter
@@ -217,9 +224,8 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
             showDelay: 0
           });
 
+          $scope.newQuestion.category = $scope.questionCategory.code;
           $scope.newQuestion.session = $window.localStorage.token;
-
-         // TODO: add something on $score.newQuestion.category
 
           Questions.newQuestion($scope.newQuestion).success(function(data){
 

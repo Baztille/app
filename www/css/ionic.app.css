@@ -9223,6 +9223,9 @@ a.button {
     min-height: 240px;
     width: 80%; } }
 
+.platform-browser .hide_on_webapp {
+  display: none; }
+
 /* BEM RULES */
 .t-upper {
   text-transform: uppercase; }
@@ -9414,12 +9417,18 @@ ion-view.splash ion-content {
   font-weight: 700;
   margin-left: 4px; }
 
+.button-clear.button-clear.delete-filter {
+  float: right;
+  width: 15%;
+  color: red; }
+
 .item-select {
   padding: 15px 0px 15px 10px; }
   .item-select.select-categoryfilter {
     padding: 15px 0px 15px 10px;
-    width: 100%;
-    margin: 0px; }
+    width: 85%;
+    margin: 0px;
+    border: 0; }
     .item-select.select-categoryfilter.full {
       width: 100%; }
 
@@ -9430,15 +9439,18 @@ ion-view.splash ion-content {
 /* filter button */
 .button-clear.button-clear.filter-active {
   float: right;
-  color: #00A8D0; }
+  color: #00A8D0;
+  padding: 0 9px; }
 
 .button-clear.button-clear.filter-inactive {
-  float: right; }
+  float: right;
+  padding: 0 9px; }
 
 .filter-button.button-clear {
   color: #00A8D0;
   position: relative;
-  left: 0px; }
+  left: 0px;
+  padding: 0 9px; }
   .filter-button.button-clear span {
     text-transform: uppercase;
     font-size: 16px; }
@@ -9685,6 +9697,22 @@ ion-view.splash ion-content {
     height: 100%; }
 
 /* COMPTE */
+.compte {
+  background: #F9DA00; }
+  .compte h2 {
+    padding-top: 20px; }
+  .compte .row {
+    padding-bottom: 20px; }
+  .compte .tabs-striped.tabs-background-positive .tabs {
+    background: inherit; }
+  .compte .tabs-top > .tabs {
+    border-bottom-width: 0;
+    text-transform: uppercase;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); }
+
+.compte-infos .row, .compte-infos .col {
+  padding: 0px; }
+
 .item.compte h1 {
   text-align: center;
   font-size: 170%; }
