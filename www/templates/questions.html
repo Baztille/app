@@ -55,8 +55,8 @@
               <p>
                 {{question.status_explanation}}
               </p>
-              <div class="label positive button" ng-if="question.status != 'vote'">
-            <div class="voters ion-android-contacts" ng-click="Voters('{{questionId}}', $event);" >
+              <div class="label positive button" ng-if="question.status != 'vote'" ng-click="Voters('{{questionId}}', $event);" >
+            <div class="voters ion-android-contacts" >
               Liste des votants
             </div>
           </div>

@@ -20,7 +20,7 @@
 ***********************************************************************************/
 
 
-serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootScope', '$ionicAnalytics', '$window',function($http, config, $cacheFactory, $scope, $ionicAnalytics, $window){
+serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootScope', '$ionicAnalytics', '$ionicPopup', '$state', '$window',function($http, config, $cacheFactory, $scope, $ionicAnalytics, $ionicPopup, $state, $window){
 
     var processBzComDatas = function( data )
     {
@@ -63,6 +63,7 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
         })
         .error(function(data, status, headers, configlocal) {
 
+
             $scope.$broadcast('loading:hide')
             $ionicAnalytics.track('Bug', {
               type: 'Webservice',
@@ -70,7 +71,7 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
               error_data: data,
               error_result : result
             });
-
+            
             if( config.alertForWsError )
             {
                 alert( result );
@@ -92,9 +93,8 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
                 'Content-Type':'application/json'
             }}).success(function(reply, status, headers, configlocal) {
             
-                if( typeof data != 'object' )
+                if( typeof reply != 'object' )
                 {
-
                     $scope.$broadcast('loading:hide')
                     $ionicAnalytics.track('Bug', {
                       type: 'Webservice',
@@ -107,9 +107,30 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
                     {
                         alert( reply );
                     }
+                }
+                else
+                {
+                    // Detect "not logged" message and redirect user to home page
+                    if( typeof reply.error != 'undefined' )
+                    {
+                        if( reply.error_descr == 'Not logged' )
+                        {
+
+                              var alertPopup = $ionicPopup.alert({
+                                title: 'Attention',
+                                template: 'Vous devez être connecté pour accéder à cette page'
+                              });
+
+                              alertPopup.then(function(res) {
+                                $state.go('splash');
+                              });
+                            delete reply.error; // Make sure no error message is displayed afterwards
+                        }                        
+                    }
                 }            
         })
         .error(function(reply, status, headers, configlocal) {
+
 
             $scope.$broadcast('loading:hide')
             $ionicAnalytics.track('Bug', {

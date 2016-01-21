@@ -188,6 +188,10 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
     $scope.modal.hide();
   };
 
+  $scope.takeatour = function() {
+    $state.go('question.questions', {reload: true});    
+  };
+
   // Open the login modal
   $scope.signin = function() {
     $scope.modal.show();

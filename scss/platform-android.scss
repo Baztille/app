@@ -56,4 +56,12 @@
   		min-height: 15px;
   	}
 
+  .filter-button.button-clear, .button-clear.button-clear.filter-active, .button-clear.button-clear.filter-inactive {
+    padding-top:4px;
+  }
+
+  .only-ios {
+    display: none;
+  }
+
 }

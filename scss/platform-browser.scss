@@ -51,6 +51,16 @@
 		.headlines .row-social .col img {
 		    width: 15%;
 		}
+
+		.modal {
+		    top: 10%;
+		    right: 10%;
+		    bottom: 10%;
+		    left: 10%;
+		    min-height: 240px;
+		    width: 80%;
+		}
+		
 		
 	}
 
@@ -63,6 +73,9 @@
 	  user-select: auto !important;
 	}
 
+	.only-ios {
+		display: none;
+	}
 
 }
 

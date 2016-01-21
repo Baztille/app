@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $timeout, $scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $http) {
+appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $timeout, $scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $ionicPopover, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
 
 
@@ -56,6 +56,66 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     return false;
   }; 
 
+    /* Filter questions by Category*/
+  
+    $scope.categories = UxQuestions.categoryChoice();
+    $scope.questionCategory = ($window.localStorage.proposedCategory) ? $scope.categories[$window.localStorage.proposedCategory-1] : $scope.categories[0]; //;
+
+    $scope.filters = UxQuestions.filterChoice();
+    $scope.questionFilter = ($window.localStorage.proposedFilter) ? $scope.filters[$window.localStorage.proposedFilter-1] : $scope.filters[0]; 
+
+    $scope.questionCategoryActive = ($scope.questionCategory.code == 1) ? 'inactive' : 'active' ;
+
+    $scope.update = function(item,type) {
+        
+        if(type == "category") {
+            $window.localStorage.proposedCategory = item.code;
+            $scope.questionCategory = item;
+            // icon category filter state
+            $scope.showCategoryfilter = ($scope.questionCategory.code == 1) ? false : true ;
+            $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
+            $scope.questionCategoryActive = ($scope.questionCategory.code == 1) ? 'inactive' : 'active' ;
+        } else {
+            $window.localStorage.proposedFilter = item.code;
+            $scope.questionFilter = item;
+            $scope.closePopover();
+        }
+        //reload scope question
+        $scope.reloadQuestions();
+    }
+
+      $ionicPopover.fromTemplateUrl('templates/small/filter-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+
+
+      $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+      };
+      $scope.closePopover = function() {
+        $scope.popover.hide();
+      };
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+      });
+
+      // toggle filter
+      $scope.showCategoryfilter = ($scope.questionCategory.code == 1) ? false : true ;
+      $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
+      $scope.openCategoryFilter = function($event) {
+        $scope.showCategoryfilter = ($scope.showCategoryfilter) ? false : true ;
+        $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
+      };
+
+      $scope.deleteCategoryFilter = function($event) {
+        $scope.update($scope.categories[0],'category');
+      }
+      
+
+    //end filter
   /* keep scroll position */
 
   $scope.scrollSavePos = function( ) {
@@ -76,7 +136,9 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     $scope.reloadQuestions = function() 
     {
         Questions.getProposed({
-            session: $window.localStorage.token
+            session: $window.localStorage.token,
+            filter: $scope.questionFilter.code,
+            category: $scope.questionCategory.code
         }).then( function(resp) {
 
             $scope.questions = [];
@@ -167,7 +229,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     //  $scope.newQuestion
 
     $scope.doPropose = function() {
-        
+
           $ionicLoading.show({
             content: 'Loading',
             animation: 'fade-in',
@@ -176,6 +238,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
             showDelay: 0
           });
 
+          $scope.newQuestion.category = $scope.questionCategory.code;
           $scope.newQuestion.session = $window.localStorage.token;
 
           Questions.newQuestion($scope.newQuestion).success(function(data){

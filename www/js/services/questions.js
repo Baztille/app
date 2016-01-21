@@ -30,16 +30,39 @@ serviceBaztille.factory('Questions',['$http','config','Webservice', '$cacheFacto
 		    return webservice.callGetBaztilleWs( data, '/question/list/vote/1' );
         },
         getProposed: function(data){
-            return webservice.callGetBaztilleWs( data, '/question/list/proposed/1' );
+            if(data.filter && data.category) {
+                return webservice.callGetBaztilleWs( data, '/question/list/proposed/1/'+data.category+'/'+data.filter );
+            }
+            else if (data.filter && data.category == 1) {
+                return webservice.callGetBaztilleWs( data, '/question/list/proposed/1/all/'+data.filter );
+            } 
+            else {
+                return webservice.callGetBaztilleWs( data, '/question/list/proposed/1' );
+            }
+
+            
+           
+            
         },
         getVoted: function(data){
             return webservice.callGetBaztilleWs( data, '/question/list/decided/1' );
+        },
+        getRejected: function(data){
+            return webservice.callGetBaztilleWs( data, '/question/list/rejected/1' );
         },
         newQuestion: function( data ) {
             return webservice.callPostBaztilleWs( data, '/question/propose' );
         },
         getQuestion: function( data ) { 
-            return webservice.callGetBaztilleWs( data, '/question/'+data.id );
+            if( data.filter )
+            {
+                return webservice.callGetBaztilleWs( data, '/question/'+data.id+'/'+data.filter );
+            }
+            else
+            {
+                // Backward compatibility        
+                return webservice.callGetBaztilleWs( data, '/question/'+data.id );
+            }
         },
         newArg: function( data ) {
             return webservice.callPostBaztilleWs( data, '/question/'+data.id+'/postarg' );

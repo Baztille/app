@@ -32,11 +32,11 @@
             <p>
               {{question.status_explanation}}
             </p>
-            <div class="label positive button" ng-if="question.status != 'vote'">
-          <div class="voters ion-android-contacts" ng-click="Voters('{{questionId}}', $event);" >
-            Liste des votants
-          </div>
-        </div>
+            <div class="label positive button" ng-if="question.status != 'vote'" ng-click="Voters('{{questionId}}', $event);" >
+              <div class="voters ion-android-contacts">
+                Liste des votants
+              </div>
+            </div>
         </small>
         
       </div>
@@ -47,7 +47,11 @@
 
         
     </div>
-   
+
+
+        <div class="questionFilterSort item">
+          <div class="icon-right ion-chevron-down _ion-ios-settings-strong button button-clear filter-button" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
+        </div>   
   
     <ion-list class="questions">
       <ion-item ng-repeat="arg in args" ng-click="scrollSavePos();" href="#/question/questions/{{arg.question_id}}/{{arg.id}}">

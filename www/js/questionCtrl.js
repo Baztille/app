@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup) {
+appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover) {
   $ionicSideMenuDelegate.canDragContent(true);
 
       // Create the arg proposing modal that we will use later
@@ -65,9 +65,9 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
 
       $scope.reloadQuestion = function()
       {
-      
             Questions.getQuestion( {
                 id:$scope.questionId,
+                filter: $scope.questionFilter.code,
                 session: $window.localStorage.token
             } ).then( function(resp) {
 
@@ -158,7 +158,6 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
       
       };
 
-     $scope.reloadQuestion();
     
     // Form data for the login modal
     $scope.newArgData = { text: '' };
@@ -293,5 +292,50 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
     };   
 
 
+    /* Sort answers & arguments */
+
+    $scope.filters = UxQuestions.filterChoice();
+    $scope.questionFilter = ($window.localStorage.proposedFilter) ? $scope.filters[$window.localStorage.proposedFilter-1] : $scope.filters[0]; 
+
+    $scope.update = function(item,type) {
+        
+        $window.localStorage.proposedFilter = item.code;
+        $scope.questionFilter = item;
+        $scope.closePopover();
+
+        //reload scope question
+        $scope.reloadQuestion();
+    }
+
+      $ionicPopover.fromTemplateUrl('templates/small/filter-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+
+
+      $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+      };
+      $scope.closePopover = function() {
+        $scope.popover.hide();
+      };
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+      });
+
+      // toggle filter
+      $scope.showCategoryfilter = false;
+      $scope.openCategoryFilter = function($event) {
+        $scope.showCategoryfilter = ($scope.showCategoryfilter) ? false : true ;
+      };
+      
+
+    //end sorting
+
     
+     // Initial question load    
+     $scope.reloadQuestion();
+
 });

@@ -298,6 +298,79 @@ ion-view.splash ion-content {
 
 /* QUESTIONS */
 
+/* filter select */
+.item-select:after, .item-select select {
+  position: inherit;
+  direction:inherit;
+}
+.item-select select {
+  padding:0px;
+  width: 100%;
+  max-width: 100%;
+  font-size:14px;
+  font-weight: 700;
+  margin-left:4px;
+}
+.button-clear.button-clear.delete-filter {
+  float:right;
+  width:15%;
+  color:red;
+}
+.item-select {
+  padding: 15px 0px 15px 10px;
+  &.select-categoryfilter {
+    padding: 15px 0px 15px 10px;
+    width:85%;
+    margin: 0px;
+    border:0;
+    &.full {
+      width: 100%;
+    }
+  }
+}
+
+.categoryfilter { }
+.questionFilterSort {
+  &.item {
+    padding:0px;
+    padding-top:2px;
+  }
+  //border-bottom: 1px solid grey!important;
+
+}
+
+/* filter button */
+.button-clear.button-clear.filter-active {
+  float:right;
+  color: $energized;
+  padding:0 9px;
+}
+.button-clear.button-clear.filter-inactive {
+  float:right;
+  padding:0 9px;
+}
+
+.filter-button.button-clear {
+  color: $energized;
+  position:relative;
+  left:0px;
+  padding:0 9px;
+
+  span {
+    text-transform: uppercase;
+    font-size:16px;
+    //display: none;
+  }
+}
+
+.popover-filter {
+  i.radio-icon {
+    visibility:inherit;
+    float: right;
+    color: green;
+  }
+}
+
 .tabs-top > .tabs {
     border-bottom-width:0px;
     text-transform: uppercase;
@@ -446,7 +519,8 @@ ion-view.splash ion-content {
 
 .question {
     h1 {
-        font-size:140%;
+      margin-top:10px;
+      font-size:140%;
     }
     .item-header {
       font-size:90%;
@@ -606,6 +680,32 @@ ion-view.splash ion-content {
 
 /* COMPTE */
 
+.compte {
+
+  background:$positive;
+  h2 {
+    padding-top:20px;
+    height:56px;
+  }
+  .row{
+    padding-bottom: 20px;
+  }
+  .tabs-striped.tabs-background-positive .tabs {
+    background:inherit;
+  }
+
+  .tabs-top>.tabs {
+    border-bottom-width: 0;
+    text-transform: uppercase;
+    box-shadow: 0 1px 1px rgba(0,0,0,.3);
+  }
+}
+
+.compte-infos {
+  .row, .col {
+    padding:0px;
+  }
+}
 .item.compte {
   h1 {
     text-align:center;

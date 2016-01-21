@@ -9135,6 +9135,12 @@ a.button {
 .platform-android .questions .label {
   min-height: 15px; }
 
+.platform-android .filter-button.button-clear, .platform-android .button-clear.button-clear.filter-active, .platform-android .button-clear.button-clear.filter-inactive {
+  padding-top: 4px; }
+
+.platform-android .only-ios {
+  display: none; }
+
 /*********************************************************************************
 
     Baztille
@@ -9195,30 +9201,39 @@ a.button {
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     
 ***********************************************************************************/
-@media (min-width: 767px) {
-  .platform-browser .menu-content {
-    -webkit-transform: translate3d(270px, 0px, 0px) !important;
-    width: calc(100% - 270px) !important; }
-  .platform-browser .bar-header button.ion-navicon {
+.platform-browser {
+  /* fix enable copy and paste */ }
+  @media (min-width: 767px) {
+    .platform-browser .menu-content {
+      -webkit-transform: translate3d(270px, 0px, 0px) !important;
+      width: calc(100% - 270px) !important; }
+    .platform-browser .bar-header button.ion-navicon {
+      display: none; }
+    .platform-browser ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px; }
+    .platform-browser ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
+    .platform-browser .modal-backdrop .overflow-scroll {
+      overflow-y: hidden; }
+    .platform-browser .headlines .row-social .col img {
+      width: 15%; }
+    .platform-browser .modal {
+      top: 10%;
+      right: 10%;
+      bottom: 10%;
+      left: 10%;
+      min-height: 240px;
+      width: 80%; } }
+  .platform-browser * {
+    -webkit-user-select: auto !important;
+    -moz-user-select: auto !important;
+    -ms-user-select: auto !important;
+    user-select: auto !important; }
+  .platform-browser .only-ios {
     display: none; }
-  .platform-browser ::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px; }
-  .platform-browser ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
-  .platform-browser .modal-backdrop .overflow-scroll {
-    overflow-y: hidden; }
-  .platform-browser .headlines .row-social .col img {
-    width: 15%; } }
-
-/* fix enable copy and paste */
-* {
-  -webkit-user-select: auto !important;
-  -moz-user-select: auto !important;
-  -ms-user-select: auto !important;
-  user-select: auto !important; }
 
 /* BEM RULES */
 .t-upper {
@@ -9419,6 +9434,62 @@ ion-view.splash ion-content {
   margin: 10px; }
 
 /* QUESTIONS */
+/* filter select */
+.item-select:after, .item-select select {
+  position: inherit;
+  direction: inherit; }
+
+.item-select select {
+  padding: 0px;
+  width: 100%;
+  max-width: 100%;
+  font-size: 14px;
+  font-weight: 700;
+  margin-left: 4px; }
+
+.button-clear.button-clear.delete-filter {
+  float: right;
+  width: 15%;
+  color: red; }
+
+.item-select {
+  padding: 15px 0px 15px 10px; }
+  .item-select.select-categoryfilter {
+    padding: 15px 0px 15px 10px;
+    width: 85%;
+    margin: 0px;
+    border: 0; }
+    .item-select.select-categoryfilter.full {
+      width: 100%; }
+
+.questionFilterSort.item {
+  padding: 0px;
+  padding-top: 2px; }
+
+/* filter button */
+.button-clear.button-clear.filter-active {
+  float: right;
+  color: #00A8D0;
+  padding: 0 9px; }
+
+.button-clear.button-clear.filter-inactive {
+  float: right;
+  padding: 0 9px; }
+
+.filter-button.button-clear {
+  color: #00A8D0;
+  position: relative;
+  left: 0px;
+  padding: 0 9px; }
+  .filter-button.button-clear span {
+    text-transform: uppercase;
+    font-size: 16px; }
+
+.popover-filter i.radio-icon {
+  visibility: inherit;
+  float: right;
+  color: green; }
+
 .tabs-top > .tabs {
   border-bottom-width: 0px;
   text-transform: uppercase;
@@ -9544,6 +9615,7 @@ ion-view.splash ion-content {
   color: red; }
 
 .question h1 {
+  margin-top: 10px;
   font-size: 140%; }
 
 .question .item-header {
@@ -9659,6 +9731,23 @@ ion-view.splash ion-content {
     height: 100%; }
 
 /* COMPTE */
+.compte {
+  background: #F9DA00; }
+  .compte h2 {
+    padding-top: 20px;
+    height: 56px; }
+  .compte .row {
+    padding-bottom: 20px; }
+  .compte .tabs-striped.tabs-background-positive .tabs {
+    background: inherit; }
+  .compte .tabs-top > .tabs {
+    border-bottom-width: 0;
+    text-transform: uppercase;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); }
+
+.compte-infos .row, .compte-infos .col {
+  padding: 0px; }
+
 .item.compte h1 {
   text-align: center;
   font-size: 170%; }
