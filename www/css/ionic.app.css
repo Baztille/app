@@ -9135,7 +9135,7 @@ a.button {
 .platform-android .questions .label {
   min-height: 15px; }
 
-.platform-android .filter-button, .platform-android .filter-active, .platform-android .filter-inactive {
+.platform-android .filter-button.button-clear, .platform-android .button-clear.button-clear.filter-active, .platform-android .button-clear.button-clear.filter-inactive {
   padding-top: 4px; }
 
 .platform-android .only-ios {
@@ -9615,6 +9615,7 @@ ion-view.splash ion-content {
   color: red; }
 
 .question h1 {
+  margin-top: 10px;
   font-size: 140%; }
 
 .question .item-header {
