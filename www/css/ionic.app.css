@@ -9138,6 +9138,9 @@ a.button {
 .platform-android .filter-button, .platform-android .filter-active, .platform-android .filter-inactive {
   padding-top: 4px; }
 
+.platform-android .only-ios {
+  display: none; }
+
 /*********************************************************************************
 
     Baztille
@@ -9223,7 +9226,7 @@ a.button {
     min-height: 240px;
     width: 80%; } }
 
-.platform-browser .hide_on_webapp {
+.platform-browser .only-ios {
   display: none; }
 
 /* BEM RULES */
@@ -9700,7 +9703,8 @@ ion-view.splash ion-content {
 .compte {
   background: #F9DA00; }
   .compte h2 {
-    padding-top: 20px; }
+    padding-top: 20px;
+    height: 56px; }
   .compte .row {
     padding-bottom: 20px; }
   .compte .tabs-striped.tabs-background-positive .tabs {
