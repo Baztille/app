@@ -1,6 +1,6 @@
 {
   "name": "Baztille",
-  "version": "0.8.6",
+  "version": "0.8.7",
   "description": "Baztille",
   "dependencies": {
     "gulp": "^3.5.6",
