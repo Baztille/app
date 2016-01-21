@@ -50,7 +50,6 @@ appBaztille.controller('VotersCtrl', function(User,Questions, $scope, $state, $i
             isArg: $scope.isArg,
             session: $window.localStorage.token
         } ).success(function(data){
-            console.log( 'reply ',data );
 
             $ionicLoading.hide();
             
