@@ -75,6 +75,22 @@ serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', 
             }
         },
 
+        incrementVote : function($event) {
+
+                var nbVoteInitial = parseInt($event.target.firstElementChild.innerHTML);
+                var isVoted = $event.target.parentElement.classList.contains('voted');
+
+                if(isVoted) {
+                    $event.target.firstElementChild.innerHTML = nbVoteInitial - 1;
+                    $event.target.lastElementChild.innerHTML = "je vote";
+                    $event.target.parentElement.classList.remove('voted');
+                } else {
+                    $event.target.firstElementChild.innerHTML = nbVoteInitial + 1;
+                    $event.target.lastElementChild.innerHTML = "a voté";
+                    $event.target.parentElement.classList.add('voted');
+                }
+        },
+
 
       // Called when a 570 error come from WS (= email not confirmed)
       errorEmailNotConfirmed : function(data) {

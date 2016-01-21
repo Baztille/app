@@ -9201,33 +9201,39 @@ a.button {
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
     
 ***********************************************************************************/
-@media (min-width: 767px) {
-  .platform-browser .menu-content {
-    -webkit-transform: translate3d(270px, 0px, 0px) !important;
-    width: calc(100% - 270px) !important; }
-  .platform-browser .bar-header button.ion-navicon {
+.platform-browser {
+  /* fix enable copy and paste */ }
+  @media (min-width: 767px) {
+    .platform-browser .menu-content {
+      -webkit-transform: translate3d(270px, 0px, 0px) !important;
+      width: calc(100% - 270px) !important; }
+    .platform-browser .bar-header button.ion-navicon {
+      display: none; }
+    .platform-browser ::-webkit-scrollbar {
+      -webkit-appearance: none;
+      width: 7px; }
+    .platform-browser ::-webkit-scrollbar-thumb {
+      border-radius: 4px;
+      background-color: rgba(0, 0, 0, 0.5);
+      -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
+    .platform-browser .modal-backdrop .overflow-scroll {
+      overflow-y: hidden; }
+    .platform-browser .headlines .row-social .col img {
+      width: 15%; }
+    .platform-browser .modal {
+      top: 10%;
+      right: 10%;
+      bottom: 10%;
+      left: 10%;
+      min-height: 240px;
+      width: 80%; } }
+  .platform-browser * {
+    -webkit-user-select: auto !important;
+    -moz-user-select: auto !important;
+    -ms-user-select: auto !important;
+    user-select: auto !important; }
+  .platform-browser .only-ios {
     display: none; }
-  .platform-browser ::-webkit-scrollbar {
-    -webkit-appearance: none;
-    width: 7px; }
-  .platform-browser ::-webkit-scrollbar-thumb {
-    border-radius: 4px;
-    background-color: rgba(0, 0, 0, 0.5);
-    -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
-  .platform-browser .modal-backdrop .overflow-scroll {
-    overflow-y: hidden; }
-  .platform-browser .headlines .row-social .col img {
-    width: 15%; }
-  .platform-browser .modal {
-    top: 10%;
-    right: 10%;
-    bottom: 10%;
-    left: 10%;
-    min-height: 240px;
-    width: 80%; } }
-
-.platform-browser .only-ios {
-  display: none; }
 
 /* BEM RULES */
 .t-upper {
@@ -9279,6 +9285,12 @@ form input.ng-valid.ng-touched {
 .tabs-striped.tabs-color-light .tab-item.tab-item-active, .tabs-striped.tabs-color-light .tab-item.active, .tabs-striped.tabs-color-light .tab-item.activated {
   border: 0 solid black; }
 
+.tab-item {
+  max-width: inherit; }
+
+.tabs {
+  height: 45px; }
+
 body {
   background-color: #F9F9F9; }
 
@@ -9319,9 +9331,9 @@ body {
 
 /* VOTE */
 .logoicon {
-  width: 50px;
+  width: 60px;
   /* 32 + 32 + margin */
-  height: 36px;
+  height: 70px;
   position: absolute;
   cursor: pointer;
   -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 300ms;
@@ -9337,12 +9349,12 @@ body {
   font-size: 11px;
   font-weight: bold;
   position: absolute;
-  bottom: -30px;
+  bottom: 5px;
   color: white; }
 
 .logoicon_vote_nb {
   position: absolute;
-  right: -4px;
+  right: 5px;
   font-size: 12px;
   font-weight: bold;
   color: white;
@@ -9360,23 +9372,44 @@ body {
   border-radius: 5px;
   -webkit-transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 300ms;
   transition: all cubic-bezier(0.1, 0.7, 0.1, 1) 300ms; }
+  .logoicon_inner.button {
+    position: static;
+    padding: 0px;
+    min-width: inherit;
+    min-height: inherit;
+    line-height: inherit; }
+    .logoicon_inner.button.activated {
+      border-color: #767676;
+      background-color: #767676; }
 
 /* SPLASH SCREEN */
 .splash {
-  background-color: #F9DA00; }
+  background-color: #F9DA00;
+  /*&.endTransition {
+      #baseline {
+        opacity:1;
+      }
+       #splash_logo, button {
+        opacity:1;
+       }
+       small {
+        opacity:0.7;
+       }
+
+    }*/ }
   .splash #splashscreen {
     text-align: center; }
   .splash #splash_logo {
     width: 65%;
     max-width: 210px;
     margin-top: 20px;
-    opacity: 0;
+    opacity: 1;
     -webkit-transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 900ms;
     transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 900ms;
     -webkit-transition-delay: 300ms;
     transition-delay: 300ms; }
   .splash #baseline {
-    opacity: 0;
+    opacity: 1;
     font-size: 16px;
     color: #222222;
     -webkit-transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
@@ -9384,24 +9417,18 @@ body {
     -webkit-transition-delay: 200ms;
     transition-delay: 200ms; }
   .splash .button {
-    opacity: 0;
+    opacity: 1;
     border: 0px;
     -webkit-transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
     transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
     -webkit-transition-delay: 300ms;
     transition-delay: 300ms; }
   .splash small {
-    opacity: 0;
+    opacity: 1;
     -webkit-transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
     transition: opacity cubic-bezier(0.1, 0.7, 0.1, 1) 1300ms;
     -webkit-transition-delay: 300ms;
     transition-delay: 300ms; }
-  .splash.endTransition #baseline {
-    opacity: 1; }
-  .splash.endTransition #splash_logo, .splash.endTransition button {
-    opacity: 1; }
-  .splash.endTransition small {
-    opacity: 0.7; }
 
 ion-view.splash ion-content {
   margin: 10px; }
@@ -9469,7 +9496,8 @@ ion-view.splash ion-content {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 
 .tabs-top.tabs-striped .tab-item {
-  font-size: 85%; }
+  font-size: 90%;
+  font-weight: 900; }
 
 .expli-txt {
   padding: 30px 20px 14px 20px;
@@ -9555,6 +9583,8 @@ ion-view.splash ion-content {
   margin-top: 6px; }
   .questions .label.positive {
     background: #aaaaaa; }
+    .questions .label.positive.activated {
+      background: #767676; }
 
 .questions .validated_answers p {
   font-size: 80%;
@@ -9585,7 +9615,7 @@ ion-view.splash ion-content {
   color: red; }
 
 .question h1 {
-  font-size: 150%; }
+  font-size: 140%; }
 
 .question .item-header {
   font-size: 90%; }
@@ -9654,7 +9684,7 @@ ion-view.splash ion-content {
 
 /* FOOTER */
 .bar.bar-footer {
-  background-position: none; }
+  background-position: bottom; }
   .bar.bar-footer.bar-footer-container {
     box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.3); }
   .bar.bar-footer .bar {

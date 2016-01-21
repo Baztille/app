@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $ionicPopover, $http) {
+appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $timeout, $scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $ionicPopover, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
 
 
@@ -116,6 +116,21 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
       
 
     //end filter
+  /* keep scroll position */
+
+  $scope.scrollSavePos = function( ) {
+    var scrollPosition = document.querySelector('.overflow-scroll');
+    $window.localStorage.proposedLastPos = scrollPosition.scrollTop;
+  }
+  
+  $scope.$on('$ionicView.loaded', function(){
+    $timeout(function () {
+      var scrolldiv = document.querySelector('.overflow-scroll');
+          scrolldiv.scrollTop = $window.localStorage.proposedLastPos;
+          delete $window.localStorage.proposedLastPos;
+    }, 1000);
+         
+  });
   
 
     $scope.reloadQuestions = function() 
@@ -202,7 +217,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
             }
             else
             {
-                $scope.reloadQuestions();
+                    UxQuestions.incrementVote($event);
             }            
         } );
         
@@ -212,7 +227,6 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions,$sc
 
     //  Doing question proposal
     //  $scope.newQuestion
-
 
     $scope.doPropose = function() {
 

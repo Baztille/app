@@ -122,44 +122,18 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
 
     if( window.cordova ) {
 
-    // PUSH only for native cordova
-    
-      Ionic.io();
-    
-      var user = Ionic.User.current();
-      
-      if (!user.id) {
-        user.id = Ionic.User.anonymousId();
-        //no need to save as we save once we push register
-      }
+      // PUSH only for native cordova
+     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
-      user.set('device', $rootScope.currentPlatform);
-      
-      $ionicPush.init({
-        "debug": false,
-        "onNotification": function(notification) {
-          var payload = notification.payload;
-          console.log(notification, payload);
-        },
-        "onRegister": function(data) {
-          console.log(data.token);
-          user.save();
-        },
-        "pluginConfig": {
-          "ios": {
-            "badge": true,
-            "sound": true
-           },
-           "android": {
-             "senderId" : 488668833089,
-             "icon": "notification",
-             "iconColor": "#F9DA00",
-             "forceShow": true
-           }
-          }
-      });
+      var notificationOpenedCallback = function(jsonData) {
+        //alert("Notification received:\n" + JSON.stringify(jsonData));
+        //console.log('didReceiveRemoteNotificationCallBack: ' + JSON.stringify(jsonData));
+      };
 
-      $ionicPush.register();
+      // Update with your OneSignal AppId and googleProjectNumber before running.
+      window.plugins.OneSignal.init("9a776ddd-c745-4a52-b515-5b248d683465",
+                                     {googleProjectNumber: "488668833089"},
+                                     notificationOpenedCallback);
     
     }
 

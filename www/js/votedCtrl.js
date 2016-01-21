@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $http) {
+appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $timeout, $ionicLoading, $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
 
   // Create the arg proposing modal that we will use later
@@ -45,6 +45,22 @@ appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $ionicLo
   $scope.voteProposed = function( ) {    
     return false;
   }; 
+
+  /* keep scroll position */
+
+  $scope.scrollSavePos = function( ) {
+    var scrollPosition = document.querySelector('.overflow-scroll');
+    $window.localStorage.votedLastPos = scrollPosition.scrollTop;
+  }
+  
+  $scope.$on('$ionicView.loaded', function(){
+    $timeout(function () {
+      var scrolldiv = document.querySelector('.overflow-scroll');
+          scrolldiv.scrollTop = $window.localStorage.votedLastPos;
+          delete $window.localStorage.votedLastPos;
+    }, 1000);
+         
+  });
   
 
     $scope.reloadQuestions = function() 

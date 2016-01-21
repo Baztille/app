@@ -25,7 +25,7 @@
 
 
     <ion-list class="questions">
-      <ion-item ng-repeat="question in questions" href="#/question/questions/{{question.id}}" >
+      <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" href="#/question/questions/{{question.id}}" >
       <div class="card card-voted">
       <div class="item item-text-wrap">
         <div class="logoicon {{question.voted}}">

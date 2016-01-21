@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope,$state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover) {
+appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover) {
   $ionicSideMenuDelegate.canDragContent(true);
 
       // Create the arg proposing modal that we will use later
@@ -46,6 +46,22 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope,$
 
 
       $scope.questionId = $stateParams.questionID;
+
+      /* keep scroll position */
+
+      $scope.scrollSavePos = function( ) {
+        var scrollPosition = document.querySelector('.overflow-scroll');
+        $window.localStorage.questionLastPos = scrollPosition.scrollTop;
+      }
+      
+      $scope.$on('$ionicView.loaded', function(){
+        $timeout(function () {
+          var scrolldiv = document.querySelector('.overflow-scroll');
+              scrolldiv.scrollTop = $window.localStorage.questionLastPos;
+              delete $window.localStorage.questionLastPos;
+        }, 1000);
+             
+      });
 
       $scope.reloadQuestion = function()
       {
@@ -211,7 +227,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope,$
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
         
@@ -259,7 +275,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope,$
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
         

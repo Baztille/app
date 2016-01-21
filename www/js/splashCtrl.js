@@ -28,9 +28,9 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
   $scope.forgetdata = {};
   $ionicSideMenuDelegate.canDragContent(false);
 
-  $timeout(function () {
+  /*$timeout(function () {
     $scope.endTransition = 'endTransition';
-  }, 500);
+  }, 500);*/
 
   // Create the login modal that we will use later
   

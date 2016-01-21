@@ -39,7 +39,7 @@
           <!--{{question.status}}<br>-->
 
             <div class="logoicon {{question.voted}}" style="margin:auto" ng-click="voteProposed('{{questionId}}', $event);" ng-show="question_vote_visible" ion-track-tap="Vote" ion-track-data="{ question: questionId}">
-                <div class="logoicon_inner">
+                <div class="logoicon_inner button">
                   <div class="logoicon_vote_nb">{{question.vote}}</div>
                   <div class="logoicon_vote">
                     <span ng-if="question.voted == 'voted'">a voté</span>
@@ -55,7 +55,7 @@
               <p>
                 {{question.status_explanation}}
               </p>
-              <div class="label positive" ng-if="question.status != 'vote'">
+              <div class="label positive button" ng-if="question.status != 'vote'">
             <div class="voters ion-android-contacts" ng-click="Voters('{{questionId}}', $event);" >
               Liste des votants
             </div>
@@ -72,13 +72,13 @@
    
   
   <ion-list class="questions">
-      <ion-item ng-repeat="arg in args" href="#/question/questions/{{arg.question_id}}/{{arg.id}}">
+      <ion-item ng-repeat="arg in args" ng-click="scrollSavePos();" href="#/question/questions/{{arg.question_id}}/{{arg.id}}">
           
           <div class="card {{arg.valid}}">
               
               <div class="item item-text-wrap">
                 <div class="logoicon {{arg.voted}}" ng-click="voteArg('{{arg.id}}', $event);">
-                  <div class="logoicon_inner">
+                  <div class="logoicon_inner button">
                     <div class="logoicon_vote_nb">{{arg.vote}}</div>
                     <div class="logoicon_vote">
                       <span ng-if="arg.voted == 'voted'">a voté</span>
@@ -88,7 +88,7 @@
                 </div>
                      <div class="content">
                             <div class="quest">{{arg.text}}</div>
-                            <div class="label positive">{{arg.argnbr}}
+                            <div class="label positive button">{{arg.argnbr}}
                               <span ng-if="arg.argnbr <= 1">argument</span>
                               <span ng-if="arg.argnbr > 1">arguments</span>
                             </div>
@@ -112,7 +112,7 @@
 
 
     <ion-list class="questions">
-      <ion-item ng-repeat="question in questions" href="#/question/questions/{{question.id}}" >
+      <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" href="#/question/questions/{{question.id}}" >
         <div class="card card-encours">
           <div class="item item-text-wrap">
             <div class="logoicon {{question.voted}}">
@@ -122,7 +122,7 @@
             <div class="validated_answers" ng-bind-html="question.validated_answers">
             </div>
 
-            <div class="label positive">{{question.nbReponse}} <span ng-if="question.nbReponse <= 0">réponse</span><span ng-if="question.nbReponse > 1">réponses</span></div>
+            <div class="label positive button">{{question.nbReponse}} <span ng-if="question.nbReponse <= 0">réponse</span><span ng-if="question.nbReponse > 1">réponses</span></div>
             
             <small><img src="img/back-in-time.svg" width="10"> Vote terminé <span am-time-ago="{{question.date_proposed}}" am-preprocess="unix"></span></small>
             </div>

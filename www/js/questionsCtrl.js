@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory,$ionicPopup, $ionicSideMenuDelegate, $http) {
+appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory,$ionicPopup, $ionicSideMenuDelegate, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
   
   // Create the arg proposing modal that we will use later
@@ -46,6 +46,22 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
   $scope.voteProposed = function( ) {
     return false;
   }; 
+
+  /* keep scroll position */
+
+  $scope.scrollSavePos = function( ) {
+    var scrollPosition = document.querySelector('.overflow-scroll');
+    $window.localStorage.questionsLastPos = scrollPosition.scrollTop;
+  }
+  
+  $scope.$on('$ionicView.loaded', function(){
+    $timeout(function () {
+      var scrolldiv = document.querySelector('.overflow-scroll');
+          scrolldiv.scrollTop = $window.localStorage.questionsLastPos;
+          delete $window.localStorage.questionsLastPos;
+    }, 1000);
+         
+  });
   
 
     $scope.reloadQuestions = function() 
@@ -384,7 +400,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
         
@@ -431,7 +447,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
     };

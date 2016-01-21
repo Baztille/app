@@ -106,6 +106,14 @@ form input.ng-valid.ng-touched {
 
 }
 
+.tab-item {
+  max-width: inherit; // no space L & R
+}
+
+.tabs {
+  height:45px;
+}
+
 body {
     background-color: $grey;
 }
@@ -162,8 +170,8 @@ body {
 
 
 .logoicon{
-    width: 50px; /* 32 + 32 + margin */
-    height: 36px;
+    width: 60px; /* 32 + 32 + margin */
+    height: 70px;
     position: absolute;
     cursor: pointer;
     @include transition(all cubic-bezier(.1, .7, .1, 1) 300ms);
@@ -187,12 +195,12 @@ body {
   font-size: 11px;
   font-weight: bold;
   position: absolute;
-  bottom: -30px;
+  bottom: 5px;
   color:white;
 }
 .logoicon_vote_nb {
   position: absolute;
-  right:-4px;
+  right:5px;
   font-size: 12px;
   font-weight: bold;
    color:white;
@@ -214,6 +222,17 @@ body {
       //background-color:$energized;
       //border: 4px solid $energized;
     }
+    &.button {
+      position:static;
+      padding:0px;
+      min-width: inherit;
+      min-height: inherit;
+      line-height: inherit;
+      &.activated {
+        border-color: #767676;
+        background-color: #767676;
+      }
+    }
 }
 
 
@@ -231,13 +250,13 @@ body {
         max-width: 210px;
         margin-top: 20px;
         //margin-bottom: 20px;
-        opacity:0;
+        opacity:1;
         @include transition(opacity cubic-bezier(.1, .7, .1, 1) 900ms);
         @include transition-delay(300ms); 
     }
 
     #baseline {
-        opacity:0;
+        opacity:1;
         font-size:16px;
         //margin-bottom: 20px;
         color:$dark;
@@ -246,19 +265,19 @@ body {
         
     }
     .button {
-      opacity:0;
+      opacity:1;
       border:0px;
       @include transition(opacity cubic-bezier(.1, .7, .1, 1) 1300ms);
       @include transition-delay(300ms); 
     }
 
     small {
-      opacity:0;
+      opacity:1;
       @include transition(opacity cubic-bezier(.1, .7, .1, 1) 1300ms);
       @include transition-delay(300ms);
     }
 
-    &.endTransition {
+    /*&.endTransition {
       #baseline {
         opacity:1;
       }
@@ -269,7 +288,7 @@ body {
         opacity:0.7;
        }
 
-    }
+    }*/
 }
 
 ion-view.splash ion-content {
@@ -358,7 +377,8 @@ ion-view.splash ion-content {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 .tabs-top.tabs-striped .tab-item {
-    font-size:85%;
+    font-size:90%;
+    font-weight:900;
 }
 .expli-txt {
     padding:30px 20px 14px 20px;
@@ -454,6 +474,9 @@ ion-view.splash ion-content {
       margin-top:6px;
       &.positive {
         background:lighten($calm,10%);
+        &.activated {
+          background:darken($calm,10%);
+        }
       }
     }
 
@@ -496,7 +519,7 @@ ion-view.splash ion-content {
 
 .question {
     h1 {
-        font-size:150%;
+        font-size:140%;
     }
     .item-header {
       font-size:90%;
@@ -595,7 +618,7 @@ ion-view.splash ion-content {
 .bar.bar-footer {
   
   // fix android border-top
-  background-position:none;
+  background-position:bottom;
   
   &.bar-footer-container {
      box-shadow: 0 -2px 3px rgba(0,0,0,.3);

@@ -37,13 +37,13 @@
 
 
     <ion-list class="questions">
-      <ion-item ng-repeat="question in questions" href="#/question/questions/{{question.id}}" >
+      <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" href="#/question/questions/{{question.id}}" >
       
       <div class="card">
 
         <div class="item item-text-wrap">
           <div class="logoicon {{question.voted}}" ng-click="voteProposed('{{question.id}}', $event);" ion-track-tap="Vote" ion-track-data="{ question: question.id, type: 'proposé'}">
-              <div class="logoicon_inner">
+              <div class="logoicon_inner button">
                 <div class="logoicon_vote_nb">{{question.vote}}</div>
                 <div class="logoicon_vote">
                   <span ng-if="question.voted == 'voted'">a voté</span>
@@ -53,7 +53,7 @@
           </div>
 
           <div class="content"><div class="quest">{{question.title}}</div>
-          <div class="label positive">{{question.argnbr}}
+          <div class="label positive button">{{question.argnbr}}
             <span ng-if="question.argnbr <= 1">réponse</span>
             <span ng-if="question.argnbr > 1">réponses</span>
           </div>

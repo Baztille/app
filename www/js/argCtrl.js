@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope,$state,$location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams) {
+appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams) {
   $ionicSideMenuDelegate.canDragContent(true);
 
 
@@ -44,6 +44,22 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope,$state
 
       $scope.questionId = $stateParams.questionID;
       $scope.argId = $stateParams.argID;
+
+      /* keep scroll position */
+
+      $scope.scrollSavePos = function( ) {
+        var scrollPosition = document.querySelector('.overflow-scroll');
+        $window.localStorage.argLastPos = scrollPosition.scrollTop;
+      }
+      
+      $scope.$on('$ionicView.loaded', function(){
+        $timeout(function () {
+          var scrolldiv = document.querySelector('.overflow-scroll');
+              scrolldiv.scrollTop = $window.localStorage.argLastPos;
+              delete $window.localStorage.argLastPos;
+        }, 1000);
+             
+      });
 
       $scope.reloadQuestion = function()
       {
@@ -289,7 +305,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope,$state
             }
             else
             {
-                $scope.reloadQuestion();
+                UxQuestions.incrementVote($event);
             }            
         } );
         
