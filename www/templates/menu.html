@@ -7,8 +7,8 @@
         <button  ng-class="$root.showCustomMenuHack ? 'show' : 'hide'"  ng-click="$root.toggleLeftSideMenu()" class="button button-icon button-clear ion-navicon">
         </button>
         </ion-nav-buttons>
-        <ion-nav-buttons side="right" ng-if="currentUser!==undefined">
-        <a href="#/compte/points" class="points"><span >{{points}}</span></a><a class="button button-icon button-clear ion-ribbon-b" href="#/compte/points"></a>
+        <ion-nav-buttons side="right">
+        <a href="#/compte/points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a><a class="button button-icon button-clear ion-ribbon-b" href="#/compte/points"></a>
       </ion-nav-buttons>
     </ion-nav-bar>
 
