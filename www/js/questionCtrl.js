@@ -37,6 +37,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
       // Open the login modal
       $scope.newArg = function() {
         $scope.newArgData.text = '';
+        $scope.newArgData.bConfirmation = false;
         $scope.modal_title = 'Nouvelle réponse';
         $scope.new_answer_on = 'Nouvelle réponse à la question';
         $scope.your_answer = 'Votre réponse';
@@ -165,8 +166,21 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
     //  Doing new argument posting
     //  $scope.newArgData
 
+
     $scope.doNewArg = function() {
-          
+
+        // At first, we do a confirmation step
+        $scope.newArgData.text_br = $scope.newArgData.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        $scope.newArgData.bConfirmation = true;
+    }; 
+
+    $scope.fixNewArg = function() {
+        // Back to edition
+        $scope.newArgData.bConfirmation = false;
+    };
+
+    $scope.confirmNewArg = function() {
+        // Post new arg
           $scope.newArgData.id = $scope.questionId;
           $scope.newArgData.session = $window.localStorage.token;
           $scope.newArgData.parent = 0;  // Root argument
@@ -193,8 +207,10 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                 $scope.reloadQuestion();
             }
          });
-        
-    }; 
+
+    };
+
+    
     
     //  Voting for arg
 

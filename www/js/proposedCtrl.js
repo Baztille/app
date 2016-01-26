@@ -38,6 +38,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
   // Open the login modal
   $scope.addNewQuestion = function() {
     $scope.newQuestion.text = '';
+    $scope.newQuestion.bConfirmation = false;
     $scope.ngCharacterCount = $scope.maxChars;
     $scope.modalNewQuestion.show();
   };
@@ -229,6 +230,17 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     //  $scope.newQuestion
 
     $scope.doPropose = function() {
+        // At first, we do a confirmation step
+        $scope.newQuestion.text_br = $scope.newQuestion.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        $scope.newQuestion.bConfirmation = true;
+    }; 
+
+    $scope.fixNewQuestion = function() {
+        // Back to edition
+        $scope.newQuestion.bConfirmation = false;
+    };
+
+    $scope.confirmNewQuestion = function() {
 
           $ionicLoading.show({
             content: 'Loading',

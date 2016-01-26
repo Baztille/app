@@ -14,7 +14,7 @@
       </div>
     </div>
     
-    <form ng-submit="doPropose()">
+    <form ng-submit="doPropose()" ng-show="!newQuestion.bConfirmation">
         <div class="list">
           <label class="item item-input">
             <textarea type="text" placeholder="Votre question" ng-model="newQuestion.text" ng-change="inputChange()" style="min-height:100px;" maxlength="200"></textarea>
@@ -36,6 +36,26 @@
 
         </div>
     </form>
+
+    <form ng-submit="confirmNewQuestion()" ng-show="newQuestion.bConfirmation">
+        <div class="list">
+          <label class="item"  >
+            Merci de confirmer votre contribution :
+            <br/>
+            <br/>
+            <p ng-bind-html="newQuestion.text_br">
+            </p>
+          </label>
+          <label class="item noborder">
+            <button class="button button-block button-energized" type="submit">Confirmer et publier</button>
+          </label>
+        </div>
+    </form>
+
+      <label class="item noborder"  ng-show="newQuestion.bConfirmation">
+        <button class="button button-block" ng-click="fixNewQuestion()">Corriger</button>
+      </label>
+
   
   </ion-content>
 </ion-modal-view>

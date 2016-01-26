@@ -12,19 +12,39 @@
       </div>
     </div>
     
-    <form ng-submit="doNewArg()">
+    <form ng-submit="doNewArg()" ng-show="!newArgData.bConfirmation">
         <div class="list">
-          <label class="item item-input">
+          <label class="item item-input"  >
             <textarea type="text" placeholder="{{your_answer}}" ng-model="newArgData.text" ng-change="inputChange()" style="min-height:100px;" maxlength="200"></textarea>
           </label>
           <label class="item noborder">
-            <div style="text-align: right" id="characters_count" ng-bind-html="ngCharacterCount">0</div>
+            <div style="text-align: right" id="characters_count" ng-bind-html="ngCharacterCount" >0</div>
             <button class="button button-block button-energized" type="submit">Publier</button>
           </label>
 
-
         </div>
     </form>
+
+
+    <form ng-submit="confirmNewArg()" ng-show="newArgData.bConfirmation">
+        <div class="list">
+          <label class="item"  >
+            Merci de confirmer votre contribution :
+            <br/>
+            <br/>
+            <p ng-bind-html="newArgData.text_br">
+            </p>
+          </label>
+          <label class="item noborder">
+            <button class="button button-block button-energized" type="submit">Confirmer et publier</button>
+          </label>
+        </div>
+    </form>
+
+      <label class="item noborder"  ng-show="newArgData.bConfirmation">
+        <button class="button button-block" ng-click="fixNewArg()">Corriger</button>
+      </label>
+
         
   </ion-content>
 </ion-modal-view>

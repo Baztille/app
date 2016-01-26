@@ -38,6 +38,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
       // Open the login modal
       $scope.newArg = function() {
         $scope.newArgData.text = '';
+        $scope.newArgData.bConfirmation = false;
         $scope.ngCharacterCount = $scope.maxChars;
         $scope.modalNewArg.show();
       };
@@ -237,8 +238,21 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
     //  Doing new argument posting
     //  $scope.newArgData
 
+
     $scope.doNewArg = function() {
 
+        // At first, we do a confirmation step
+        $scope.newArgData.text_br = $scope.newArgData.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        $scope.newArgData.bConfirmation = true;
+    }; 
+
+    $scope.fixNewArg = function() {
+        // Back to edition
+        $scope.newArgData.bConfirmation = false;
+    };
+
+    $scope.confirmNewArg = function() {
+        // Post new arg
           $scope.newArgData.id = $scope.questionId;
           $scope.newArgData.session = $window.localStorage.token;
           $scope.newArgData.parent = $scope.argId;  // Parent argument
@@ -270,9 +284,10 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
             }
          });
 
+    };
 
-        
-    }; 
+
+
 
     //  Voting for arg
 
