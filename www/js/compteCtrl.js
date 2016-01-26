@@ -53,7 +53,7 @@ appBaztille.controller('CompteCtrl', function(User, $scope, $state, $ionicLoadin
             
             $scope.data.pointsdetails.contribution_day_points = 3 * $scope.data.pointsdetails.contribution_day;
             $scope.data.pointsdetails.validated_nbr = 0;
-            if( $scope.data.pointsdetails.validated_answer ) {  $scope.data.pointsdetails.validated_nbr += $scope.data.pointsdetails.validated_answer };
+            if( $scope.data.pointsdetails.validated_answer ) { $scope.data.pointsdetails.validated_nbr += $scope.data.pointsdetails.validated_answer };
             if( $scope.data.pointsdetails.validated_question ) { $scope.data.pointsdetails.validated_nbr += $scope.data.pointsdetails.validated_question };
             $scope.data.pointsdetails.validated_nbr_points = 100 * $scope.data.pointsdetails.validated_nbr;
         }
