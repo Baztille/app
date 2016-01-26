@@ -39,7 +39,14 @@ appBaztille.controller('NewsreadCtrl', function(User, News, $scope, $state, $ion
                 {
                     var p = resp.data.content.bodyModel.paragraphs[i];
 
-                    html += '<p>'+p.text+'</p>';
+                    if( p.type == 13 )
+                    {
+                        html += '<h3>'+p.text+'</h3>';
+                    }
+                    else
+                    {
+                        html += '<p>'+p.text+'</p>';
+                    }
                     
                     if( p.metadata )
                     {
