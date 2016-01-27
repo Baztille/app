@@ -25,9 +25,9 @@ var appBaztille = angular.module('app.controllers', ['angularMoment']);
      
 var serviceBaztille = angular.module('app.services',[]);
 
-var initBaztille = angular.module('starter', ['ionic','ionic.service.core', 'ionic.service.analytics', 'ionic.service.push' , 'app.controllers', 'app.services']);
+var initBaztille = angular.module('starter', ['ionic','ionic.service.core', 'ionic.service.analytics', 'app.controllers', 'app.services']);
 
-initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootScope, $ionicPopup, $ionicPush, $ionicSideMenuDelegate, $ionicHistory, $state, $window) {
+initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootScope, $ionicPopup, $ionicSideMenuDelegate, $ionicHistory, $state, $window) {
 
    $rootScope.currentVersion = window.VERSION;
    $rootScope.currentPlatform = ionic.Platform.platform();
