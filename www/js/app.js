@@ -120,6 +120,23 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
       day_of_week: (new Date()).getDay()
     });
 
+    if( window.universalLinks ) {
+      window.universalLinks.subscribe(null, function(eventData) { 
+        var substrHash    = eventData.hash.substr(1);
+            arrayHash = substrHash.split('/');
+            if(arrayHash[0] == "question") {
+              if(arrayHash[1] == "voted") {
+                $state.go('question.voted');
+              } else {
+                $state.go('question.questions');
+              }              
+            }
+            if(arrayHash[0] == "compte") {
+              $state.go('compte.infos');
+            }
+      });
+    }
+
     if( window.cordova ) {
 
       // PUSH only for native cordova
