@@ -9,7 +9,8 @@
       <div class="item item-text-wrap nopad">
 
         <h1>{{question.title}}</h1>
-          
+        
+        <a class="button button-icon button-clear ion-edit" href="#" ng-click="editContribution()" ng-show="modificationStatus!='none'"></a>
       </div>
 
       <div class="item item-text-wrap item-header card {{question.status}}">

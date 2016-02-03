@@ -43,6 +43,14 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         $scope.your_answer = 'Votre réponse';
         $scope.ngCharacterCount = $scope.maxChars;
         $scope.modalNewArg.show();
+        
+        // Characters left counter
+        $scope.maxChars = 200;
+        $scope.ngCharacterCount = $scope.maxChars;
+        $scope.inputChange = function() { 
+            UxQuestions.inputChange( $scope, $scope.newArgData.text ); 
+        }
+        
       };
 
 
@@ -78,6 +86,14 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                 $scope.valid_answer_class= 'valid_anwser';
                 $scope.question_vote_visible = false;
                 $scope.question_header_margin = 0;
+                if( typeof resp.category != 'undefined' )
+                {
+                    $scope.questionCategory = $scope.categories[ resp.category ];
+                }
+                else
+                {
+                    $scope.questionCategory = $scope.categories[ 15-1 ]; // "others"
+                }
 
                 var voted = '';
 
@@ -119,6 +135,26 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     date_prefix = 'Question débattue et votée ';
                     $scope.new_answer_visible = false;
                 }
+
+                // Modification status
+                var author_is_you = false;
+                $scope.modificationStatus = 'none';
+                if( typeof resp.data.question.author_is_you != 'undefined' )
+                {   author_is_you = true;    }
+                if( status == 'proposed' || status == 'vote' )
+                {
+                    if( author_is_you && ( ( resp.data.question.vote == 0 ) || ( resp.data.question.vote == 1 && resp.data.questionvoted ) ) )
+                    {
+                        // Can modify the question without a moderator
+                        $scope.modificationStatus = 'possible';
+                    }
+                    else
+                    {
+                        // Can suggest a modification to the moderator
+                        $scope.modificationStatus = 'moderator';
+                    }
+                }
+
 
                 $scope.question = { 
                     title: resp.data.question.text,
@@ -180,33 +216,34 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
     };
 
     $scope.confirmNewArg = function() {
-        // Post new arg
-          $scope.newArgData.id = $scope.questionId;
-          $scope.newArgData.session = $window.localStorage.token;
-          $scope.newArgData.parent = 0;  // Root argument
+    
+              // Post new arg
+              $scope.newArgData.id = $scope.questionId;
+              $scope.newArgData.session = $window.localStorage.token;
+              $scope.newArgData.parent = 0;  // Root argument
 
-          Questions.newArg($scope.newArgData).success(function(data){
+              Questions.newArg($scope.newArgData).success(function(data){
 
-            if( data.error )
-            {
-                if( data.error_code != 570 )
+                if( data.error )
                 {
-                    var alertPopup = $ionicPopup.alert({
-                     title: 'Erreur',
-                     template: data.error_descr
-                    });
+                    if( data.error_code != 570 )
+                    {
+                        var alertPopup = $ionicPopup.alert({
+                         title: 'Erreur',
+                         template: data.error_descr
+                        });
+                    }
+                    else
+                    {  
+                        UxQuestions.errorEmailNotConfirmed(data);
+                    }
                 }
                 else
-                {  
-                    UxQuestions.errorEmailNotConfirmed(data);
+                {
+                    $scope.modalNewArg.hide();
+                    $scope.reloadQuestion();
                 }
-            }
-            else
-            {
-                $scope.modalNewArg.hide();
-                $scope.reloadQuestion();
-            }
-         });
+             });
 
     };
 
@@ -250,10 +287,6 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
 
     };
 
-    // Characters left counter
-    $scope.maxChars = 200;
-    $scope.ngCharacterCount = $scope.maxChars;
-    $scope.inputChange = function() { UxQuestions.inputChange( $scope, $scope.newArgData.text ); }
     
     // Voting for question
 
@@ -306,6 +339,109 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
 
         $state.go('question.voters', {questionId: question_id});
     };   
+    
+    /* Contribution editing */
+    
+      // Create the arg proposing modal that we will use later
+      $ionicModal.fromTemplateUrl('templates/newquestion.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalNewQuestion = modal;
+      });
+    
+    $scope.newQuestion = { text: '' };
+    
+    $scope.editContribution = function() {
+
+        //$scope.newQuestion.category = $scope.questionCategory.code;
+        $scope.newQuestion.text = $scope.question.title;
+        $scope.newQuestion.bConfirmation = false;
+        $scope.ngCharacterCount = $scope.maxChars;
+        $scope.modalNewQuestion.show();
+        $scope.modal_title = 'Modifier une question';
+        $scope.updateQuestion = true;
+
+        // Characters left counter
+        $scope.maxChars = 200;
+        $scope.ngCharacterCount = $scope.maxChars;
+        $scope.inputChange = function() { 
+            UxQuestions.inputChange( $scope, $scope.newQuestion.text ); 
+        }
+
+        $scope.modal_title = 'Modifier une question';
+        
+        if( $scope.modificationStatus == 'possible' )
+        {        
+            $scope.modal_subtitle = 'Modification de votre question.';
+        }
+        else
+        {
+            $scope.modal_subtitle = 'Cette question a déjà reçue des soutiens et donc votre modification ne doit porter que sur des corrections syntaxiques qui ne change pas le sens de la contribution.';
+        }
+        
+        UxQuestions.inputChange( $scope, $scope.newQuestion.text );         
+
+
+    };
+    
+    // Propose a modified question
+    $scope.categories = UxQuestions.categoryChoice();
+
+    $scope.doPropose = function() {
+          $ionicLoading.show({
+            content: 'Loading',
+            animation: 'fade-in',
+            showBackdrop: true,
+            maxWidth: 200,
+            showDelay: 0
+          });
+          
+          // TODO : cannot manage to retrieve question category from Dropdown :(
+          console.log( $scope.questionCategory );
+          //$scope.newQuestion.category =  $scope.questionCategory.code;
+        // For now : force category to 14
+          $scope.newQuestion.category = 14;
+
+
+          $scope.newQuestion.session = $window.localStorage.token;
+          $scope.newQuestion.id = $scope.questionId;
+
+          Questions.updateQuestion($scope.newQuestion).success(function(data){
+
+            $ionicLoading.hide();
+            
+            if( data.error )
+            {
+                if( data.error_code != 570 )
+                {
+                    var alertPopup = $ionicPopup.alert({
+                     title: 'Erreur',
+                     template: data.error_descr
+                    });
+                }
+                else
+                {  
+                    UxQuestions.errorEmailNotConfirmed(data);
+                }            
+            }
+            else
+            {
+                // Question has been added with success. Redirect to this question
+                $scope.modalNewQuestion.hide();
+                $scope.reloadQuestion();
+                
+                if( data.id == 0 )
+                {
+                    var alertPopup = $ionicPopup.alert({
+                     title: 'Merci',
+                     template: "Votre modification a été soumise aux modérateurs"
+                    });
+                    
+                }
+            }
+         });
+        
+    };
 
 
     /* Sort answers & arguments */

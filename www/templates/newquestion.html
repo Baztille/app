@@ -1,18 +1,25 @@
 <ion-modal-view>
   <ion-header-bar>
-    <h1 class="title">Nouvelle question</h1>
+    <h1 class="title">{{modal_title}}</h1>
     <div class="buttons">
       <button class="button icon ion-close-circled button-clear" ng-click="closeNewQuestion()"></button>
     </div>
   </ion-header-bar>
 
   <ion-content>
-    <div class="card">
+    <div class="card" ng-show="!updateQuestion">
       <div class="item item-text-wrap">
         <p>Proposez une nouvelle question à la communauté Baztille.</p>
         <p>Chaque vendredi à 14h, la question qui a intéressé le plus de membres est mise au vote.</p>
       </div>
     </div>
+
+    <div class="card" ng-show="updateQuestion">
+      <div class="item item-text-wrap">
+        <p>{{modal_subtitle}}</p>
+      </div>
+    </div>
+
     
     <form ng-submit="doPropose()" ng-show="!newQuestion.bConfirmation">
         <div class="list">

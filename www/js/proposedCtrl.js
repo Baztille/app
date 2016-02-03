@@ -38,7 +38,9 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
   // Open the login modal
   $scope.addNewQuestion = function() {
     $scope.newQuestion.text = '';
+    $scope.modal_title = 'Nouvelle question';
     $scope.newQuestion.bConfirmation = false;
+    $scope.updateQuestion = false;
     $scope.ngCharacterCount = $scope.maxChars;
     $scope.modalNewQuestion.show();
   };

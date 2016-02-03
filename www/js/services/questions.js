@@ -83,6 +83,9 @@ serviceBaztille.factory('Questions',['$http','config','Webservice', '$cacheFacto
                 return webservice.callGetBaztilleWs( data, '/question/voters/'+data.id );
             }
         },   
+        updateQuestion: function( data ) {
+            return webservice.callPostBaztilleWs( data, '/question/updateQuestion' );
+        }
     }
 }]);
 

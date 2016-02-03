@@ -585,6 +585,14 @@ ion-view.splash ion-content {
         background:lighten($calm,10%);
       }
     }
+    h1 {
+        padding-right: 10px;
+    }
+    .ion-edit {
+        position: absolute;
+        top: -8px;
+        right: 0px;
+    }
 }
 
 // card
