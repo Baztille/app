@@ -25,9 +25,9 @@ var appBaztille = angular.module('app.controllers', ['angularMoment']);
      
 var serviceBaztille = angular.module('app.services',[]);
 
-var initBaztille = angular.module('starter', ['ionic','ionic.service.core', 'ionic.service.analytics', 'ionic.service.push' , 'app.controllers', 'app.services']);
+var initBaztille = angular.module('starter', ['ionic','ionic.service.core', 'ionic.service.analytics', 'app.controllers', 'app.services']);
 
-initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootScope, $ionicPopup, $ionicPush, $ionicSideMenuDelegate, $ionicHistory, $state, $window) {
+initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootScope, $ionicPopup, $ionicSideMenuDelegate, $ionicHistory, $state, $window) {
 
    $rootScope.currentVersion = window.VERSION;
    $rootScope.currentPlatform = ionic.Platform.platform();
@@ -119,6 +119,23 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
       user_device_version: $rootScope.currentPlatformVersion,
       day_of_week: (new Date()).getDay()
     });
+
+    if( window.universalLinks ) {
+      window.universalLinks.subscribe(null, function(eventData) { 
+        var substrHash    = eventData.hash.substr(1);
+            arrayHash = substrHash.split('/');
+            if(arrayHash[0] == "question") {
+              if(arrayHash[1] == "voted") {
+                $state.go('question.voted');
+              } else {
+                $state.go('question.questions');
+              }              
+            }
+            if(arrayHash[0] == "compte") {
+              $state.go('compte.infos');
+            }
+      });
+    }
 
     if( window.cordova ) {
 
