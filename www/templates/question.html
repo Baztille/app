@@ -10,7 +10,7 @@
 
         <h1>{{question.title}}</h1>
         
-        <a class="button button-icon button-clear ion-edit" href="#" ng-click="editContribution()" ng-show="modificationStatus!='none'"></a>
+        <a class="button button-icon button-clear ion-edit" ng-click="editContribution()" ng-show="modificationStatus!='none'"></a>
       </div>
 
       <div class="item item-text-wrap item-header card {{question.status}}">
@@ -49,9 +49,9 @@
         
     </div>
 
-
         <div class="questionFilterSort item">
-          <div class="icon-right ion-chevron-down _ion-ios-settings-strong button button-clear filter-button" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
+          <div class="icon-right ion-android-add-circle button button-clear" style="float:right;" ng-click="newArg()" ng-show="new_answer_visible"></div>
+          <div class="icon-right ion-chevron-down button button-clear filter-button" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
         </div>   
   
     <ion-list class="questions">

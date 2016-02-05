@@ -32,7 +32,7 @@
           </label>
 
           <label class="item item-input item-select select-categoryfilter full">
-            <select ng-options="filter as filter.name for filter in categories " ng-model="questionCategory"></select>
+            <select ng-options="filter as filter.name for filter in categories " ng-model="questionCategory" ng-change="updateNewQuestionCategory(questionCategory)"></select>
           </label>
 
           <label class="item noborder">

@@ -62,7 +62,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     /* Filter questions by Category*/
   
     $scope.categories = UxQuestions.categoryChoice();
-    $scope.questionCategory = ($window.localStorage.proposedCategory) ? $scope.categories[$window.localStorage.proposedCategory-1] : $scope.categories[0]; //;
+    $scope.questionCategory = ($window.localStorage.proposedCategory) ? $scope.categories[$window.localStorage.proposedCategory-1] : $scope.categories[0];
 
     $scope.filters = UxQuestions.filterChoice();
     $scope.questionFilter = ($window.localStorage.proposedFilter) ? $scope.filters[$window.localStorage.proposedFilter-1] : $scope.filters[0]; 
@@ -230,11 +230,20 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
 
     //  Doing question proposal
     //  $scope.newQuestion
+    
+    $scope.updateNewQuestionCategory = function(item) {
+        
+            $scope.questionCategory = item;
+
+    }
 
     $scope.doPropose = function() {
         // At first, we do a confirmation step
         $scope.newQuestion.text_br = $scope.newQuestion.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
         $scope.newQuestion.bConfirmation = true;
+        console.log($scope.questionCategory);
+        $scope.newQuestion.category = $scope.questionCategory.code;
+        console.log($scope.newQuestion);
     }; 
 
     $scope.fixNewQuestion = function() {

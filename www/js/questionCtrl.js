@@ -86,9 +86,10 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                 $scope.valid_answer_class= 'valid_anwser';
                 $scope.question_vote_visible = false;
                 $scope.question_header_margin = 0;
-                if( typeof resp.category != 'undefined' )
+
+                if( typeof resp.data.question.category != 'undefined' )
                 {
-                    $scope.questionCategory = $scope.categories[ resp.category ];
+                    $scope.questionCategory = $scope.categories[ resp.data.question.category ];
                 }
                 else
                 {
@@ -162,6 +163,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     date_prefix: date_prefix,
                     status_explanation: status_explanation,
                     vote: resp.data.question.vote,
+                    category : resp.data.question.category,
                     voted: voted,
                     status: status,
                     id: $scope.questionId
@@ -348,12 +350,17 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
       }).then(function(modal) {
         $scope.modalNewQuestion = modal;
       });
+
+      // Triggered in the login modal to close it
+      $scope.closeNewQuestion = function() {
+        $scope.modalNewQuestion.hide();
+      };
     
     $scope.newQuestion = { text: '' };
     
     $scope.editContribution = function() {
 
-        //$scope.newQuestion.category = $scope.questionCategory.code;
+        $scope.newQuestion.category = $scope.question.category;
         $scope.newQuestion.text = $scope.question.title;
         $scope.newQuestion.bConfirmation = false;
         $scope.ngCharacterCount = $scope.maxChars;
@@ -361,11 +368,16 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         $scope.modal_title = 'Modifier une question';
         $scope.updateQuestion = true;
 
+        $scope.questionCategory = $scope.categories[$scope.question.category-1];
+
         // Characters left counter
         $scope.maxChars = 200;
         $scope.ngCharacterCount = $scope.maxChars;
         $scope.inputChange = function() { 
             UxQuestions.inputChange( $scope, $scope.newQuestion.text ); 
+        }
+        $scope.updateNewQuestionCategory = function(item) {
+            $scope.questionCategory = item;
         }
 
         $scope.modal_title = 'Modifier une question';
@@ -386,6 +398,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
     
     // Propose a modified question
     $scope.categories = UxQuestions.categoryChoice();
+    
 
     $scope.doPropose = function() {
           $ionicLoading.show({
@@ -396,12 +409,8 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
             showDelay: 0
           });
           
-          // TODO : cannot manage to retrieve question category from Dropdown :(
-          console.log( $scope.questionCategory );
-          //$scope.newQuestion.category =  $scope.questionCategory.code;
-        // For now : force category to 14
-          $scope.newQuestion.category = 14;
 
+          $scope.newQuestion.category = $scope.questionCategory.code;
 
           $scope.newQuestion.session = $window.localStorage.token;
           $scope.newQuestion.id = $scope.questionId;
