@@ -257,9 +257,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
           $scope.newArgData.session = $window.localStorage.token;
           $scope.newArgData.parent = $scope.argId;  // Parent argument
 
-          Questions.newArg($scope.newArgData).success(function(data){
-            console.log( 'reply '+data );
-            
+          Questions.newArg($scope.newArgData).success(function(data){            
             if( data.error )
             {
                 

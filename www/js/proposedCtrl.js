@@ -154,7 +154,6 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
                 if( typeof resp.data.myvotes[ question._id.$id ] != 'undefined' )
                 {   voted = 'voted';    }
                 
-                //console.log(question);
                 if( question.failedSelection == 0 )
                 {
                     attempts_status = 'Nouvelle question';
@@ -241,9 +240,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
         // At first, we do a confirmation step
         $scope.newQuestion.text_br = $scope.newQuestion.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
         $scope.newQuestion.bConfirmation = true;
-        console.log($scope.questionCategory);
         $scope.newQuestion.category = $scope.questionCategory.code;
-        console.log($scope.newQuestion);
     }; 
 
     $scope.fixNewQuestion = function() {

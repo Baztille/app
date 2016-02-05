@@ -105,7 +105,6 @@ appBaztille.controller('RejectedCtrl', function(Questions, $scope, $state, $ioni
           $scope.newQuestion.session = $window.localStorage.token;
 
           Questions.newQuestion($scope.newQuestion).success(function(data){
-            console.log( 'reply '+data );
             $ionicLoading.hide();
             
             if( data.error )
