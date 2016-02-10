@@ -141,7 +141,8 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
         Questions.getProposed({
             session: $window.localStorage.token,
             filter: $scope.questionFilter.code,
-            category: $scope.questionCategory.code
+            category: $scope.questionCategory.code,
+            page: 1
         }).then( function(resp) {
 
             $scope.questions = [];
