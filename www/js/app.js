@@ -40,13 +40,41 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
       showDelay: 200})
     
     if($window.localStorage.points)
-    {
+    { 
         $rootScope.points = $window.localStorage.points;
-    }
+    } 
   })
 
   $rootScope.$on('loading:hide', function() {
     $ionicLoading.hide()
+  })
+
+  $rootScope.$on('unloggedin:show', function() {
+    var alertPopup = $ionicPopup.show({
+        title: 'Accès Membre',
+        subTitle: 'cette fonctionnalité n\'est pas disponible',
+        template: 'Vous devez être connecté pour accéder à cette page',
+        cssClass: "popup-vertical-buttons",
+        buttons: [
+        {
+            text: '<b>Inscription</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              $state.go('splash');
+            }
+        },
+        { 
+            text: 'Connexion',
+            type: 'button-dark',
+            onTap: function(e) {
+              $state.go('splash');
+            }
+        },
+        { text: 'Retour' }
+
+        ]
+    });
+
   })
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
@@ -71,7 +99,8 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
 
     if($window.localStorage.token) {
       $rootScope.currentUser = $window.localStorage.token;
-
+    } else {
+      $rootScope.currentUser = undefined;
     }
 
     var requireLogin = toState.access.requireLogin;
@@ -100,6 +129,11 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
   //  GoBack Function on ion-nav
   $rootScope.goBack = function() {
       window.history.back();
+  }
+
+  //  NotLogged Function on ion-nav
+  $rootScope.notLogged = function() {
+    $rootScope.$broadcast('unloggedin:show');
   }
 
 
