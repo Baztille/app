@@ -48,7 +48,6 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
     $scope.modalforgetPassword = modal;
   });
 
-
   if(typeof $rootScope.currentUser !== 'undefined' && typeof $window.localStorage.token !== 'undefined') {
     $state.go('question.questions');
   }
@@ -67,14 +66,6 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
   // $scope.loginData
 
   $scope.doLogin = function() {
-
-      $ionicLoading.show({
-        content: 'Loading',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-      });
   
     // Simulate a login delay. Remove this and replace with your login
     // code if using a login system
@@ -85,7 +76,6 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
         {
             $window.localStorage.token = data.auth.token;
             $window.localStorage.points= data.auth.points;
-            $ionicLoading.hide();
             $scope.closeLogin();
             $ionicHistory.nextViewOptions({
                 disableAnimate: false,
@@ -98,7 +88,6 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
         }
         else
         {
-            $ionicLoading.hide();
 
             $ionicAnalytics.track('Login', {
               status: 'Problème de connexion',
@@ -128,20 +117,11 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
   // $scope.forgetdata
 
   $scope.doForget = function() {
-
-      $ionicLoading.show({
-        content: 'Loading',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-      });
   
     User.forgetpassword($scope.forgetdata).success(function(data){
 
         if(data.id) 
         {
-            $ionicLoading.hide();
             $scope.closeForgetPassord();
             $ionicHistory.nextViewOptions({
                 disableAnimate: false,
@@ -157,7 +137,6 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
         }
         else
         {
-            $ionicLoading.hide();
 
             $ionicAnalytics.track('ForgetPassword', {
               status: 'Problème de connexion',
@@ -201,15 +180,7 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
   // $scope.signinData
 
   $scope.doSignin = function() {
-
-    $ionicLoading.show({
-        content: 'Loading',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-    });    
-    
+      
     User.create($scope.signinData).success(function(data){
 
         if( data.error )
@@ -225,7 +196,7 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
             {
                 $window.localStorage.token = data.auth.token;
                 $window.localStorage.points= data.auth.points;
-                $ionicLoading.hide();
+
                 $scope.modal.hide();
                 $ionicHistory.nextViewOptions({
                     disableAnimate: false,

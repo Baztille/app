@@ -148,19 +148,9 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
 
     $scope.doPropose = function() {
         
-        $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
-
         $scope.newQuestion.session = $window.localStorage.token;
 
         Questions.newQuestion($scope.newQuestion).success(function(data){
-
-            $ionicLoading.hide();
             
             if( data.error )
             {

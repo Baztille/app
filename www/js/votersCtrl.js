@@ -36,22 +36,12 @@ appBaztille.controller('VotersCtrl', function(User,Questions, $scope, $state, $i
 
     $scope.loadVoters = function() 
     {
-        $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
-
 
         Questions.listVoters( {
             id:$scope.id,
             isArg: $scope.isArg,
             session: $window.localStorage.token
         } ).success(function(data){
-
-            $ionicLoading.hide();
             
             $scope.contribution_text = data.text;
             $scope.data = data;
