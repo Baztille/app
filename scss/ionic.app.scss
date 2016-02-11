@@ -136,14 +136,30 @@ body {
 .nopad {
     padding:0px 16px;
 }
+.nopad-rowcol {
+  margin-top:10px;
+  .row, .col {
+    padding:0px;
+    min-height: 60px;
+  }
+  
+}
 
 .bar {
   .buttons-right {
     .points {
       margin-top: 6px;
       text-decoration: none;
+          margin-right: -8px;
+    height: 19px;
+    background: beige;
+    border-radius: 20px;
+    padding-right: 4px;
       span {
         color: $dark;
+      }
+      .ion-ribbon-b {
+        padding-left:0;
       }
     }
   }
@@ -197,6 +213,9 @@ body {
   position: absolute;
   bottom: 5px;
   color:white;
+  span {
+      text-transform: uppercase;
+  }
 }
 .logoicon_vote_nb {
   position: absolute;
@@ -532,6 +551,7 @@ ion-view.splash ion-content {
     .divider {
       padding-top:25px;
       text-transform: uppercase;
+      font-size:16px;
     }
 
 }
@@ -644,6 +664,8 @@ ion-view.splash ion-content {
     text-transform: uppercase;
     font-weight:700;
     color:white;
+    left: inherit!important;
+    right: inherit!important;
   }
 }
 
@@ -743,7 +765,7 @@ ion-view.splash ion-content {
 /* popup alert */
 
 .popup-container .popup {
-  border-radius:10px;
+  border-radius:5px;
 }
 
 .popup-buttons  {
@@ -751,6 +773,20 @@ ion-view.splash ion-content {
     border:0;
     font-weight: bold;
   }
+  .button.button-energized {
+    font-size: 16px;
+    text-transform: inherit;
+  }
+}
+
+.popup-vertical-buttons button
+{
+    min-width: 100%;
+    margin-bottom: 5px;
+}
+.popup-vertical-buttons .popup-buttons
+{
+    display: block;
 }
 
 /* MENU */
@@ -837,3 +873,18 @@ ion-view.splash ion-content {
   }
 
 }
+
+/*1.10 to 1.24 */
+
+.item.active.item-complex>.item-content, .item-complex.active .item-content {
+border-color: inherit;
+background-color: inherit;
+}
+
+.bar .button.button-clear {
+  padding-right:6px;
+}
+
+
+
+
