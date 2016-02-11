@@ -26,8 +26,7 @@ serviceBaztille.factory('$exceptionHandler', ['$injector', '$ionicAnalytics', fu
 
         exception.message += ' (caused by "' + cause + '")';
 
-        $ionicAnalytics.track('Bug', {
-              exception: exception,
+        $ionicAnalytics.track('Exception', {
               exception_message: exception.message
             });
         throw exception;
