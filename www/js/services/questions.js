@@ -30,24 +30,33 @@ serviceBaztille.factory('Questions',['$http','config','Webservice', '$cacheFacto
 		    return webservice.callGetBaztilleWs( data, '/question/list/vote/1' );
         },
         getProposed: function(data){
-            if(data.filter && data.category) {
+            if(data.filter && data.category && data.page) {
+                return webservice.callGetBaztilleWs( data, '/question/pagelist/proposed/'+data.page+'/'+data.category+'/'+data.filter );
+            }
+            else if(data.filter && data.category) {
+                // DEPRECATED : you should specify page all the time
                 return webservice.callGetBaztilleWs( data, '/question/list/proposed/1/'+data.category+'/'+data.filter );
             }
             else if (data.filter && data.category == 1) {
                 return webservice.callGetBaztilleWs( data, '/question/list/proposed/1/all/'+data.filter );
+                // DEPRECATED : you should specify page all the time
             } 
             else {
+                // DEPRECATED : you should specify filter & category all the time
                 return webservice.callGetBaztilleWs( data, '/question/list/proposed/1' );
             }
-
-            
-           
-            
         },
         getVoted: function(data){
-            return webservice.callGetBaztilleWs( data, '/question/list/decided/1' );
+            if( data.page) {
+                return webservice.callGetBaztilleWs( data, '/question/pagelist/decided/'+data.page+'/1/1' );
+            }
+            else {
+                // DEPRECATED : you should specify page all the time
+                return webservice.callGetBaztilleWs( data, '/question/list/decided/1' );
+            }
         },
         getRejected: function(data){
+            // DEPRECATED : there is no more rejected question
             return webservice.callGetBaztilleWs( data, '/question/list/rejected/1' );
         },
         newQuestion: function( data ) {

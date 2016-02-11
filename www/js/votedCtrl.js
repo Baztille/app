@@ -66,7 +66,8 @@ appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $timeout
     $scope.reloadQuestions = function() 
     {
         Questions.getVoted({
-            session: $window.localStorage.token
+            session: $window.localStorage.token,
+            page:1
         }).then( function(resp) {
 
             $scope.questions = [];
