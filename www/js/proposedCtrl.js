@@ -59,6 +59,23 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     return false;
   }; 
 
+  $scope.questions = [];
+  $scope.questionPage = 1;
+  $scope.questionPageEnd = true;
+
+  /* Load More */
+
+  $scope.loadMore = function() {
+    $scope.questionPage++
+    $scope.reloadQuestions($scope.questionPage);
+    $scope.$broadcast('scroll.infiniteScrollComplete');
+  };
+
+  $scope.moreDataCanBeLoaded = function(number) {
+    return $scope.questionPageEnd;
+  };
+
+
     /* Filter questions by Category*/
   
     $scope.categories = UxQuestions.categoryChoice();
@@ -84,6 +101,8 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
             $scope.closePopover();
         }
         //reload scope question
+        $scope.questions = [];
+        $scope.questionPage = 1;
         $scope.reloadQuestions();
     }
 
@@ -136,16 +155,20 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
   });
   
 
-    $scope.reloadQuestions = function() 
+    $scope.reloadQuestions = function(numPage) 
     {
         Questions.getProposed({
             session: $window.localStorage.token,
             filter: $scope.questionFilter.code,
             category: $scope.questionCategory.code,
-            page: 1
+            page: (numPage) ? numPage : 1
         }).then( function(resp) {
 
-            $scope.questions = [];
+            if(resp.data.list.length == 0) {
+              $scope.questionPageEnd = false;
+            } else {
+              $scope.questionPageEnd = true;
+            }
             
             for( var i in resp.data.list )
             {
@@ -185,7 +208,10 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
         } );
     };
     
-    $scope.reloadQuestions();
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.reloadQuestions();
+    });
+    
 
     //  Voting for question
 
@@ -233,7 +259,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     
     $scope.updateNewQuestionCategory = function(item) {
         
-            $scope.questionCategory = item;
+      $scope.questionCategory = item;
 
     }
 
@@ -251,20 +277,10 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
 
     $scope.confirmNewQuestion = function() {
 
-          $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-          });
-
           $scope.newQuestion.category = $scope.questionCategory.code;
           $scope.newQuestion.session = $window.localStorage.token;
 
           Questions.newQuestion($scope.newQuestion).success(function(data){
-
-            $ionicLoading.hide();
             
             if( data.error )
             {
@@ -305,7 +321,4 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     $scope.inputChange = function() { UxQuestions.inputChange( $scope, $scope.newQuestion.text ); }
     
    
-
-    
-    
 });

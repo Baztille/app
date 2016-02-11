@@ -27,43 +27,18 @@
 
   <div ng-if="templateUnique == true">
 
-    <div class="question question-unique">
+    <div class="question question-unique question-encours">
 
         <br/>
 
         <div class="item item-text-wrap nopad">
+
+          <small style="opacity:0.4;"><b style="text-transform:uppercase;">{{questionCategory.name}}</b> 
+          | <span am-time-ago="{{question.date_proposed}}" am-preprocess="unix">{{question.date_prefix}} {{question.date}}</span>
+          </small>
+
           <h1>{{question.title}}</h1> 
         </div>
-
-        <div class="item item-text-wrap item-header card {{question.status}}">
-          <!--{{question.status}}<br>-->
-
-            <div class="logoicon {{question.voted}}" style="margin:auto" ng-click="voteProposed('{{questionId}}', $event);" ng-show="question_vote_visible" ion-track-tap="Vote" ion-track-data="{ question: questionId}">
-                <div class="logoicon_inner button">
-                  <div class="logoicon_vote_nb">{{question.vote}}</div>
-                  <div class="logoicon_vote">
-                    <span ng-if="question.voted == 'voted'">a voté</span>
-                    <span ng-if="question.voted != 'voted'">je vote</span>
-                  </div>
-                </div>
-            </div>
-
-          <small style="margin-left: {{question_header_margin}}px;">
-              <p>
-                  <span am-time-ago="{{question.date_proposed}}" am-preprocess="unix"><b>{{question.date_prefix}} {{question.date}}</b></span>
-              </p>
-              <p>
-                {{question.status_explanation}}
-              </p>
-              <div class="label positive button" ng-if="question.status != 'vote'" ng-click="Voters('{{questionId}}', $event);" >
-            <div class="voters ion-android-contacts" >
-              Liste des votants
-            </div>
-          </div>
-          </small>
-          
-        </div>
-
 
         <p class="center padding-horizontal divider"><b>{{args.length}}</b> <span ng-if="args.length <= 1">Réponse</span><span ng-if="args.length > 1">Réponses</span></p>
     </div>

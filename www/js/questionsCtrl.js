@@ -62,6 +62,8 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
     }, 1000);
          
   });
+
+   $scope.categories = UxQuestions.categoryChoice();
   
 
     $scope.reloadQuestions = function() 
@@ -240,6 +242,15 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
                 $scope.valid_answer_class= 'valid_anwser';
                 $scope.question_vote_visible = false;
                 $scope.question_header_margin = 0;
+
+                if(  resp.data.question.category )
+                {
+                    $scope.questionCategory = $scope.categories[ resp.data.question.category -1 ];
+                }
+                else
+                {
+                    $scope.questionCategory = $scope.categories[ 15-1 ]; // "others"
+                }
 
                 var voted = '';
                 if( typeof resp.data.myvotes[ resp.data.question._id.$id ] != 'undefined' )
