@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams) {
+appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams,$ionicPopover) {
   $ionicSideMenuDelegate.canDragContent(true);
 
 
@@ -339,7 +339,27 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
         $event.returnValue = false;
 
         $state.go('question.votersarg', {argId: arg_id});
-    };     
+    };    
+
+    //Edit menu
+    //
+    $ionicPopover.fromTemplateUrl('templates/small/arg-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popoverMenu = popover;
+      });
+
+
+      $scope.openPopoverMenu = function($event) {
+        $scope.popoverMenu.show($event);
+      };
+      $scope.closePopoverMenu = function($event) {
+        $scope.popoverMenu.hide($event);
+      };
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popoverMenu.remove();
+      }); 
     
 
  

@@ -9767,7 +9767,8 @@ a.button {
     padding-left: 5px; }
 
 .platform-android .modal-wrapper .has-header {
-  top: 59px; }
+  top: 59px;
+  height: auto !important; }
 
 .platform-android .modal-wrapper textarea {
   font-size: 16px; }
@@ -10258,8 +10259,7 @@ ion-view.splash ion-content {
   line-height: normal; }
 
 .questions .valid_anwser {
-  background-color: #00A8D0;
-  padding: 40px 0px; }
+  background-color: #00A8D0; }
   .questions .valid_anwser .content {
     color: white; }
 
@@ -10290,7 +10290,7 @@ ion-view.splash ion-content {
   border: none; }
 
 .question .divider {
-  padding-top: 25px;
+  padding-top: 40px;
   text-transform: uppercase;
   font-size: 16px; }
 
@@ -10333,12 +10333,32 @@ ion-view.splash ion-content {
     background: #aaaaaa; }
 
 .question-unique h1 {
-  padding-right: 10px; }
+  padding-right: 10px;
+  margin-left: 80px;
+  min-height: 105px; }
+
+.question-unique .vote-h1 {
+  margin-top: 14px;
+  width: 100px;
+  display: block;
+  position: absolute;
+  height: 106px; }
 
 .question-unique .ion-edit {
   position: absolute;
   top: -8px;
   right: 0px; }
+
+.question-unique .decided h1 {
+  margin-left: inherit;
+  min-height: inherit; }
+
+.question-unique.question-encours h1 {
+  margin-left: inherit;
+  min-height: inherit; }
+
+.questionFilterSort.decided {
+  display: none; }
 
 .item .item-content.activated {
   background: none;
@@ -10346,6 +10366,8 @@ ion-view.splash ion-content {
 
 .item .item-content.activated .card {
   background: white; }
+  .item .item-content.activated .card.valid_anwser {
+    background-color: #00A8D0; }
 
 .bar .title {
   -webkit-transform: none !important; }

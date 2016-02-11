@@ -30,12 +30,18 @@
 		}
 		.has-header {
 		    top: 59px;
+        height: auto!important;
 		}
 
     textarea {
       font-size:16px;
     }
 	}
+
+  .bar .buttons-right .points {
+    margin-top: 4px;
+    height: 16px;
+  }
 	
 	.has-header {
   		top: 50px; 

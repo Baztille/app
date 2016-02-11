@@ -509,8 +509,6 @@ ion-view.splash ion-content {
 
   .valid_anwser {
       background-color: $energized;
-      padding: 40px 0px;
-
       .content{
         color:white;
       } 
@@ -549,7 +547,7 @@ ion-view.splash ion-content {
       border:none;
     }
     .divider {
-      padding-top:25px;
+      padding-top:40px;
       text-transform: uppercase;
       font-size:16px;
     }
@@ -607,12 +605,38 @@ ion-view.splash ion-content {
     }
     h1 {
         padding-right: 10px;
+        margin-left:80px;
+        min-height:105px;
+    }
+    .vote-h1 {
+        margin-top: 14px;
+        width: 100px;
+        display: block;
+        position: absolute;
+        height: 106px;
     }
     .ion-edit {
         position: absolute;
         top: -8px;
         right: 0px;
     }
+    .decided {
+      h1 {
+        margin-left:inherit;
+        min-height:inherit;
+      }
+    }
+    &.question-encours {
+      h1 {
+        margin-left:inherit;
+        min-height:inherit;
+      }
+    }
+
+}
+// filter for decided quest
+.questionFilterSort.decided {
+  display:none;
 }
 
 // card
@@ -624,6 +648,9 @@ ion-view.splash ion-content {
 
 .item .item-content.activated .card{
   background: lighten($positive,80%);
+  &.valid_anwser {
+    background-color: $energized;
+  }
 }
 
 
