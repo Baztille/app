@@ -9858,9 +9858,6 @@ a.button {
 .platform-browser {
   /* fix enable copy and paste */ }
   @media (min-width: 767px) {
-    .platform-browser .menu-content {
-      -webkit-transform: translate3d(270px, 0px, 0px) !important;
-      width: calc(100% - 270px) !important; }
     .platform-browser .bar-header button.ion-navicon {
       display: none; }
     .platform-browser ::-webkit-scrollbar {
@@ -10147,7 +10144,7 @@ ion-view.splash ion-content {
 
 .filter-button.button-clear {
   color: #00A8D0;
-  position: relative;
+  position: absolute;
   left: 0px;
   padding: 0 9px; }
   .filter-button.button-clear span {
@@ -10157,7 +10154,9 @@ ion-view.splash ion-content {
 .popover-filter i.radio-icon {
   visibility: inherit;
   float: right;
-  color: green; }
+  color: green;
+  position: absolute;
+  right: 20px; }
 
 .tabs-top > .tabs {
   border-bottom-width: 0px;

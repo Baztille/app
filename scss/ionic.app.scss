@@ -371,7 +371,7 @@ ion-view.splash ion-content {
 
 .filter-button.button-clear {
   color: $energized;
-  position:relative;
+  position:absolute;
   left:0px;
   padding:0 9px;
 
@@ -387,6 +387,8 @@ ion-view.splash ion-content {
     visibility:inherit;
     float: right;
     color: green;
+    position: absolute;
+    right: 20px;
   }
 }
 
