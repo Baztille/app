@@ -296,6 +296,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
                     date_prefix: date_prefix,
                     status: status,
                     status_explanation: status_explanation,
+                    category : resp.data.question.category,
                     vote: resp.data.question.vote,
                     voted: voted,
                     id: $scope.questionId

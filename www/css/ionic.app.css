@@ -9773,6 +9773,10 @@ a.button {
 .platform-android .modal-wrapper textarea {
   font-size: 16px; }
 
+.platform-android .bar .buttons-right .points {
+  margin-top: 4px;
+  height: 16px; }
+
 .platform-android .has-header {
   top: 50px; }
 

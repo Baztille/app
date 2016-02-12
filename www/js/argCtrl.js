@@ -150,6 +150,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                         status_explanation = "Votez pour la ou les réponses qui vous paraissent les meilleures.";
                         date = moment(resp.data.question.date_vote_,'X').fromNow();
                         date_prefix = 'En cours de vote jusque ';
+                        $scope.question_vote_visible = true;
 
                     }
                     else if( status == 'decided' )

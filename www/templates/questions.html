@@ -33,8 +33,8 @@
 
         <div class="item item-text-wrap nopad">
 
-          <small style="opacity:0.4;"><b style="text-transform:uppercase;">{{questionCategory.name}}</b> 
-          | <span am-time-ago="{{question.date_proposed}}" am-preprocess="unix">{{question.date_prefix}} {{question.date}}</span>
+          <small style="opacity:0.4;"><span ng-if="questionCategory.code!=1"><b style="text-transform:uppercase;">{{questionCategory.name}}</b> 
+          | </span><span am-time-ago="{{question.date_proposed}}" am-preprocess="unix">{{question.date_prefix}} {{question.date}}</span>
           </small>
 
           <h1>{{question.title}}</h1> 
