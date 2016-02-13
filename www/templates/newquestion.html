@@ -27,11 +27,12 @@
             <textarea type="text" placeholder="Votre question" ng-model="newQuestion.text" ng-change="inputChange()" style="min-height:100px;" maxlength="200"></textarea>
              
           </label>
-          <label class="item noborder">
-            <div style="text-align: right;" id="characters_count" ng-bind-html="ngCharacterCount">0</div>
+          <label class="item nopad noborder">
+            <div style="text-align: right;font-size:80%;" id="characters_count" ng-bind-html="ngCharacterCount">0</div>
           </label>
 
           <label class="item item-input item-select select-categoryfilter full">
+            Thématique : 
             <select ng-options="filter as filter.name for filter in categories " ng-model="questionCategory" ng-change="updateNewQuestionCategory(questionCategory)"></select>
           </label>
 
@@ -46,22 +47,22 @@
 
     <form ng-submit="confirmNewQuestion()" ng-show="newQuestion.bConfirmation">
         <div class="list">
-          <label class="item"  >
-            Merci de confirmer votre contribution :
-            <br/>
-            <br/>
-            <p ng-bind-html="newQuestion.text_br">
+          <label class="item assertive">
+            <b>Merci de confirmer votre contribution</b>
+            <br/><br/>
+            <p ng-bind-html="newQuestion.text_br" style="white-space:normal;">
             </p>
           </label>
-          <label class="item noborder">
+          <label class="item noborder nopad">
             <button class="button button-block button-energized" type="submit">Confirmer et publier</button>
           </label>
+          <label class="item noborder nopad"  ng-show="newQuestion.bConfirmation">
+        <button class="button button-block" ng-click="fixNewQuestion()">Corriger</button>
+      </label>
         </div>
     </form>
 
-      <label class="item noborder"  ng-show="newQuestion.bConfirmation">
-        <button class="button button-block" ng-click="fixNewQuestion()">Corriger</button>
-      </label>
+      
 
   
   </ion-content>
