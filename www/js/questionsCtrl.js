@@ -50,16 +50,20 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
   /* keep scroll position */
 
   $scope.scrollSavePos = function( ) {
-    var scrollPosition = document.querySelector('.overflow-scroll');
-    $window.localStorage.questionsLastPos = scrollPosition.scrollTop;
+    if (!ionic.Platform.isIOS()) {
+        var scrollPosition = document.querySelector('.overflow-scroll');
+        $window.localStorage.questionsLastPos = scrollPosition.scrollTop;
+    }
   }
   
   $scope.$on('$ionicView.loaded', function(){
-    $timeout(function () {
-      var scrolldiv = document.querySelector('.overflow-scroll');
-          scrolldiv.scrollTop = $window.localStorage.questionsLastPos;
-          delete $window.localStorage.questionsLastPos;
-    }, 1000);
+    if (!ionic.Platform.isIOS()) {
+        $timeout(function () {
+          var scrolldiv = document.querySelector('.overflow-scroll');
+              scrolldiv.scrollTop = $window.localStorage.questionsLastPos;
+              delete $window.localStorage.questionsLastPos;
+        }, 1000);
+    }
          
   });
 

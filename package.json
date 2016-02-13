@@ -30,10 +30,13 @@
       "id": "cordova-plugin-whitelist"
     },
     "cordova-plugin-device",
-    "cordova-plugin-splashscreen",
     "com.ionic.keyboard",
     "onesignal-cordova-plugin",
     "cordova-plugin-inappbrowser",
+    {
+      "locator": "https://github.com/apache/cordova-plugin-splashscreen.git",
+      "id": "cordova-plugin-splashscreen"
+    },
     "cordova-universal-links-plugin"
   ],
   "cordovaPlatforms": [
