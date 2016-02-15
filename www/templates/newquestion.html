@@ -38,7 +38,7 @@
 
           <label class="item noborder">
            
-            <button class="button button-block button-energized" type="submit">Proposer</button>
+            <button class="button button-block button-energized"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form'}" type="submit">Proposer</button>
           </label>
 
 
@@ -54,10 +54,10 @@
             </p>
           </label>
           <label class="item noborder nopad">
-            <button class="button button-block button-energized" type="submit">Confirmer et publier</button>
+            <button class="button button-block button-energized"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form-confirm'}" type="submit">Confirmer et publier</button>
           </label>
           <label class="item noborder nopad"  ng-show="newQuestion.bConfirmation">
-        <button class="button button-block" ng-click="fixNewQuestion()">Corriger</button>
+        <button class="button button-block"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form-corriger'}" ng-click="fixNewQuestion()">Corriger</button>
       </label>
         </div>
     </form>

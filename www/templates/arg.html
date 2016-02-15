@@ -75,7 +75,7 @@
   </ion-content>
 
   <ion-footer-bar align-title="center" class="bar-energized bar-footer-container" ng-show="show_new_argument">
-    <div class="bar bar-footer bar-energized button" ng-click="newArg()">
+    <div class="bar bar-footer bar-energized button" ng-click="newArg()" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-open'}">
       <div class="title">{{propose_a_new_argument}}</div>
     </div>
   </ion-footer-bar>
