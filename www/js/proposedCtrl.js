@@ -208,7 +208,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
 
 
         }, function( err ) {
-            //console.error('ERR', err);
+
         } );
     };
     

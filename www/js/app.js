@@ -139,6 +139,10 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
 
   $ionicPlatform.ready(function() {
 
+    if (navigator.splashscreen) {
+      navigator.splashscreen.hide();
+    }
+
     // IONIC ANALYTICS
 
     $ionicAnalytics.register({

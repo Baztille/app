@@ -47,7 +47,6 @@ appBaztille.controller('SigninCtrl', function($scope, $ionicModal, $timeout, $st
   
   $scope.doSignin = function() {
 
-    $timeout(function() {
       $scope.closeSignin();
       $ionicHistory.nextViewOptions({
         disableAnimate: false,
@@ -55,7 +54,6 @@ appBaztille.controller('SigninCtrl', function($scope, $ionicModal, $timeout, $st
         disableBack: true
       });   
       $state.go('question.questions');
-      
-    }, 1000);
+
   };
 });

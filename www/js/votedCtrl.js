@@ -123,7 +123,7 @@ appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $timeout
 
 
         }, function( err ) {
-            //console.error('ERR', err);
+
         } );
     };
     
