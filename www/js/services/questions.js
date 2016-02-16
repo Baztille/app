@@ -48,7 +48,7 @@ serviceBaztille.factory('Questions',['$http','config','Webservice', '$cacheFacto
         },
         getVoted: function(data){
             if( data.page) {
-                return webservice.callGetBaztilleWs( data, '/question/pagelist/decided/'+data.page+'/1/1' );
+                return webservice.callGetBaztilleWs( data, '/question/pagelist/decided/'+data.page+'/1/0' );
             }
             else {
                 // DEPRECATED : you should specify page all the time
