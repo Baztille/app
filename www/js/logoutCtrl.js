@@ -24,7 +24,9 @@ appBaztille.controller('logoutCtrl', function(User, $rootScope, $window, $scope,
   User.logout({session: $window.localStorage.token}).success(function(data){
 
         $rootScope.currentUser = 'undefined';
-        delete $window.localStorage.token;
+        $window.localStorage.clear();
+        $ionicHistory.clearCache();
+        $ionicHistory.clearHistory();
         
         $state.go('splash');
     });

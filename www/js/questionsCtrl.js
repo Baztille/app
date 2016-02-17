@@ -50,18 +50,24 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
   /* keep scroll position */
 
   $scope.scrollSavePos = function( ) {
-    var scrollPosition = document.querySelector('.overflow-scroll');
-    $window.localStorage.questionsLastPos = scrollPosition.scrollTop;
+    if (!ionic.Platform.isIOS()) {
+        var scrollPosition = document.querySelector('.overflow-scroll');
+        $window.localStorage.questionsLastPos = scrollPosition.scrollTop;
+    }
   }
   
   $scope.$on('$ionicView.loaded', function(){
-    $timeout(function () {
-      var scrolldiv = document.querySelector('.overflow-scroll');
-          scrolldiv.scrollTop = $window.localStorage.questionsLastPos;
-          delete $window.localStorage.questionsLastPos;
-    }, 1000);
+    if (!ionic.Platform.isIOS()) {
+        $timeout(function () {
+          var scrolldiv = document.querySelector('.overflow-scroll');
+              scrolldiv.scrollTop = $window.localStorage.questionsLastPos;
+              delete $window.localStorage.questionsLastPos;
+        }, 1000);
+    }
          
   });
+
+   $scope.categories = UxQuestions.categoryChoice();
   
 
     $scope.reloadQuestions = function() 
@@ -148,19 +154,9 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
 
     $scope.doPropose = function() {
         
-        $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-        });
-
         $scope.newQuestion.session = $window.localStorage.token;
 
         Questions.newQuestion($scope.newQuestion).success(function(data){
-
-            $ionicLoading.hide();
             
             if( data.error )
             {
@@ -251,6 +247,15 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
                 $scope.question_vote_visible = false;
                 $scope.question_header_margin = 0;
 
+                if(  resp.data.question.category )
+                {
+                    $scope.questionCategory = $scope.categories[ resp.data.question.category -1 ];
+                }
+                else
+                {
+                    $scope.questionCategory = $scope.categories[ 15-1 ]; // "others"
+                }
+
                 var voted = '';
                 if( typeof resp.data.myvotes[ resp.data.question._id.$id ] != 'undefined' )
                 {   voted = 'voted';    }
@@ -295,6 +300,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
                     date_prefix: date_prefix,
                     status: status,
                     status_explanation: status_explanation,
+                    category : resp.data.question.category,
                     vote: resp.data.question.vote,
                     voted: voted,
                     id: $scope.questionId

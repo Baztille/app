@@ -89,8 +89,10 @@ appBaztille.controller('AccountCtrl', function(User, $scope, $state, $ionicLoadi
            confirmPopup.then(function(res) {
              if(res) {
                 User.removeAccount( {} );
-                $scope.currentUser = 'undefined';
-                delete $window.localStorage.token;
+                $scope.currentUser = undefined;
+                $window.localStorage.clear();
+                $ionicHistory.clearCache();
+                $ionicHistory.clearHistory();
                 
                 $state.go('splash');
              } else {

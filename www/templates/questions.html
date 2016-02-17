@@ -1,13 +1,13 @@
 <ion-view view-title="Questions" hide-back-button="true" enable-menu-with-back-views="false" hide-nav-bar="false"  cache-view="true">
   <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
       <div class="tabs">
-        <a class="tab-item active" nav-transition="none" ui-sref="question.questions" >
+        <a class="tab-item active" nav-transition="none" menu-close ui-sref="question.questions" >
           En cours
         </a>
-        <a class="tab-item" nav-transition="none" ui-sref="question.proposed" >
+        <a class="tab-item" nav-transition="none" menu-close ui-sref="question.proposed" >
           Proposées
         </a>
-        <a class="tab-item" nav-transition="none" ui-sref="question.voted" >
+        <a class="tab-item" nav-transition="none" menu-close ui-sref="question.voted" >
           Votées
         </a>
       </div>
@@ -27,43 +27,18 @@
 
   <div ng-if="templateUnique == true">
 
-    <div class="question question-unique">
+    <div class="question question-unique question-encours">
 
         <br/>
 
         <div class="item item-text-wrap nopad">
+
+          <small style="opacity:0.4;"><span ng-if="questionCategory.code!=1"><b style="text-transform:uppercase;">{{questionCategory.name}}</b> 
+          | </span><span am-time-ago="{{question.date_proposed}}" am-preprocess="unix">{{question.date_prefix}} {{question.date}}</span>
+          </small>
+
           <h1>{{question.title}}</h1> 
         </div>
-
-        <div class="item item-text-wrap item-header card {{question.status}}">
-          <!--{{question.status}}<br>-->
-
-            <div class="logoicon {{question.voted}}" style="margin:auto" ng-click="voteProposed('{{questionId}}', $event);" ng-show="question_vote_visible" ion-track-tap="Vote" ion-track-data="{ question: questionId}">
-                <div class="logoicon_inner button">
-                  <div class="logoicon_vote_nb">{{question.vote}}</div>
-                  <div class="logoicon_vote">
-                    <span ng-if="question.voted == 'voted'">a voté</span>
-                    <span ng-if="question.voted != 'voted'">je vote</span>
-                  </div>
-                </div>
-            </div>
-
-          <small style="margin-left: {{question_header_margin}}px;">
-              <p>
-                  <span am-time-ago="{{question.date_proposed}}" am-preprocess="unix"><b>{{question.date_prefix}} {{question.date}}</b></span>
-              </p>
-              <p>
-                {{question.status_explanation}}
-              </p>
-              <div class="label positive button" ng-if="question.status != 'vote'" ng-click="Voters('{{questionId}}', $event);" >
-            <div class="voters ion-android-contacts" >
-              Liste des votants
-            </div>
-          </div>
-          </small>
-          
-        </div>
-
 
         <p class="center padding-horizontal divider"><b>{{args.length}}</b> <span ng-if="args.length <= 1">Réponse</span><span ng-if="args.length > 1">Réponses</span></p>
     </div>
@@ -145,7 +120,7 @@
   </ion-footer-bar>
   
    <ion-footer-bar align-title="center" class="bar-energized bar-footer-container" ng-show="new_answer_visible" >
-      <div class="bar bar-footer bar-energized button" ng-click="newArg()">
+      <div class="bar bar-footer bar-energized button"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-nouvelle-reponse-open'}" ng-click="newArg()">
           <div class="title">Proposer une nouvelle réponse</div>
       </div>
   </ion-footer-bar>

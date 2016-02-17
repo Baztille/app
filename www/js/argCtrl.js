@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams) {
+appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams,$ionicPopover) {
   $ionicSideMenuDelegate.canDragContent(true);
 
 
@@ -150,6 +150,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                         status_explanation = "Votez pour la ou les réponses qui vous paraissent les meilleures.";
                         date = moment(resp.data.question.date_vote_,'X').fromNow();
                         date_prefix = 'En cours de vote jusque ';
+                        $scope.question_vote_visible = true;
 
                     }
                     else if( status == 'decided' )
@@ -339,7 +340,27 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
         $event.returnValue = false;
 
         $state.go('question.votersarg', {argId: arg_id});
-    };     
+    };    
+
+    //Edit menu
+    //
+    $ionicPopover.fromTemplateUrl('templates/small/arg-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popoverMenu = popover;
+      });
+
+
+      $scope.openPopoverMenu = function($event) {
+        $scope.popoverMenu.show($event);
+      };
+      $scope.closePopoverMenu = function($event) {
+        $scope.popoverMenu.hide($event);
+      };
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popoverMenu.remove();
+      }); 
     
 
  

@@ -59,14 +59,36 @@ appBaztille.controller('CompteCtrl', function(User, $scope, $state, $ionicLoadin
         }
         else
         {
-          
-            var alertPopup = $ionicPopup.alert({
-             title: 'Erreur',
-             template: 'Vous devez être connecté pour voir cette page.'
-           });
 
-            
+            // delete old session locally
+            $scope.currentUser = undefined;
+            $window.localStorage.clear();
 
+            var alertPopup = $ionicPopup.show({
+                title: 'Accès Membre',
+                subTitle: 'cette fonctionnalité n\'est pas disponible',
+                template: 'Vous devez être connecté pour accéder à cette page',
+                scope: $scope,
+                cssClass: "popup-vertical-buttons",
+                buttons: [
+                {
+                    text: '<b>Inscription</b>',
+                    type: 'button-positive',
+                    onTap: function(e) {
+                      $state.go('splash');
+                    }
+                },
+                { 
+                    text: 'Connexion',
+                    type: 'button-dark',
+                    onTap: function(e) {
+                      $state.go('splash');
+                    } 
+                },
+                { text: 'Retour' }
+
+                ]
+            });
         }
     });
 

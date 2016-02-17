@@ -46,31 +46,53 @@ appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $timeout
     return false;
   }; 
 
+  $scope.questions = [];
+  $scope.questionPage = 1;
+  $scope.questionPageEnd = true;
+
+  /* Load More */
+
+  $scope.loadMore = function() {
+    $scope.questionPage++
+    $scope.reloadQuestions($scope.questionPage);
+  };
+
+  $scope.moreDataCanBeLoaded = function(number) {
+    return $scope.questionPageEnd;
+  };
+
   /* keep scroll position */
 
   $scope.scrollSavePos = function( ) {
-    var scrollPosition = document.querySelector('.overflow-scroll');
-    $window.localStorage.votedLastPos = scrollPosition.scrollTop;
+    if (!ionic.Platform.isIOS()) {
+      var scrollPosition = document.querySelector('.overflow-scroll');
+      $window.localStorage.votedLastPos = scrollPosition.scrollTop;
+    }
   }
   
   $scope.$on('$ionicView.loaded', function(){
-    $timeout(function () {
-      var scrolldiv = document.querySelector('.overflow-scroll');
-          scrolldiv.scrollTop = $window.localStorage.votedLastPos;
-          delete $window.localStorage.votedLastPos;
-    }, 1000);
-         
+    if (!ionic.Platform.isIOS()) {
+      $timeout(function () {
+        var scrolldiv = document.querySelector('.overflow-scroll');
+            scrolldiv.scrollTop = $window.localStorage.votedLastPos;
+            delete $window.localStorage.votedLastPos;
+      }, 1000);
+    }
   });
   
 
-    $scope.reloadQuestions = function() 
+    $scope.reloadQuestions = function(numPage) 
     {
         Questions.getVoted({
             session: $window.localStorage.token,
-            page:1
+            page: (numPage) ? numPage : 1
         }).then( function(resp) {
 
-            $scope.questions = [];
+            if(resp.data.list.length == 0) {
+              $scope.questionPageEnd = false;
+            } else {
+              $scope.questionPageEnd = true;
+            }
             
             for( var i in resp.data.list )
             {
@@ -96,34 +118,28 @@ appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $timeout
                     voted: voted,
                     validated_answers: validated_answers
                 } );
+
+                $scope.$broadcast('scroll.infiniteScrollComplete');
             }
 
 
         }, function( err ) {
-            //console.error('ERR', err);
+
         } );
     };
     
-    $scope.reloadQuestions();
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.reloadQuestions();
+    });
 
 
     //  Doing question proposal
 
     $scope.doPropose = function() {
         
-          $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-          });
-
           $scope.newQuestion.session = $window.localStorage.token;
 
           Questions.newQuestion($scope.newQuestion).success(function(data){
-            console.log( 'reply '+data );
-            $ionicLoading.hide();
             
             if( data.error )
             {

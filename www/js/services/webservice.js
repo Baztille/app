@@ -67,9 +67,9 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
             $scope.$broadcast('loading:hide')
             $ionicAnalytics.track('Bug', {
               type: 'Webservice',
-              error: 'Baztille Webservice error ('+result.$$state.value+') during call '+url+' with args: ',
-              error_data: data,
-              error_result : result
+              error: 'Baztille Webservice error during call '+url+' with args: ',
+              error_url: url,
+              error_data: data
             });
             
             if( config.alertForWsError )
@@ -98,9 +98,9 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
                     $scope.$broadcast('loading:hide')
                     $ionicAnalytics.track('Bug', {
                       type: 'Webservice',
-                      error: 'Baztille Webservice error (server replay not JSON) during call '+url+' with args: ',
+                      error: 'Baztille Webservice error (server replay not JSON) during call with args ',
                       error_data: data,
-                      error_result : result
+                      error_url: url
                     });
 
                     if( config.alertForWsError )
@@ -115,15 +115,36 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
                     {
                         if( reply.error_descr == 'Not logged' )
                         {
+                            // delete old session locally
+                            $scope.currentUser = undefined;
+                            $window.localStorage.clear();
 
-                              var alertPopup = $ionicPopup.alert({
-                                title: 'Attention',
-                                template: 'Vous devez être connecté pour accéder à cette page'
-                              });
+                            var alertPopup = $ionicPopup.show({
+                                title: 'Accès Membre',
+                                subTitle: 'cette fonctionnalité n\'est pas disponible',
+                                template: 'Vous devez être connecté pour accéder à cette page',
+                                scope: $scope,
+                                cssClass: "popup-vertical-buttons",
+                                buttons: [
+                                  {
+                                    text: '<b>Inscription</b>',
+                                    type: 'button-positive',
+                                    onTap: function(e) {
+                                      $state.go('splash');
+                                    }
+                                  },
+                                  { 
+                                    text: 'Connexion',
+                                    type: 'button-dark',
+                                    onTap: function(e) {
+                                      $state.go('splash');
+                                    }
+                                  },
+                                  { text: 'Retour' }
+                                  
+                                ]
+                            });
 
-                              alertPopup.then(function(res) {
-                                $state.go('splash');
-                              });
                             delete reply.error; // Make sure no error message is displayed afterwards
                         }                        
                     }
@@ -135,7 +156,8 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
             $scope.$broadcast('loading:hide')
             $ionicAnalytics.track('Bug', {
               type: 'Webservice',
-              error: 'Baztille Webservice error ('+result.$$state.value+') during call '+url+' with args: ',
+              error: 'Baztille Webservice error during call url with args',
+              error_url: url,
               error_data: data,
               error_result : result
             });
@@ -148,9 +170,5 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
         return result;      
     }
     
-
-    
     } // return
 }]);
-
-

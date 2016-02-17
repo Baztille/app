@@ -47,18 +47,6 @@ appBaztille.controller('SigninCtrl', function($scope, $ionicModal, $timeout, $st
   
   $scope.doSignin = function() {
 
-      $ionicLoading.show({
-        content: 'Loading',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 0
-      });
-  
-    // Simulate a login delay. Remove this and replace with your login
-    // code if using a login system
-    $timeout(function() {
-      $ionicLoading.hide();
       $scope.closeSignin();
       $ionicHistory.nextViewOptions({
         disableAnimate: false,
@@ -66,7 +54,6 @@ appBaztille.controller('SigninCtrl', function($scope, $ionicModal, $timeout, $st
         disableBack: true
       });   
       $state.go('question.questions');
-      
-    }, 1000);
+
   };
 });

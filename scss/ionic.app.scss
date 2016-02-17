@@ -136,14 +136,30 @@ body {
 .nopad {
     padding:0px 16px;
 }
+.nopad-rowcol {
+  margin-top:10px;
+  .row, .col {
+    padding:0px;
+    min-height: 60px;
+  }
+  
+}
 
 .bar {
   .buttons-right {
     .points {
       margin-top: 6px;
       text-decoration: none;
+          margin-right: -8px;
+    height: 19px;
+    background: beige;
+    border-radius: 20px;
+    padding-right: 4px;
       span {
         color: $dark;
+      }
+      .ion-ribbon-b {
+        padding-left:0;
       }
     }
   }
@@ -197,6 +213,9 @@ body {
   position: absolute;
   bottom: 5px;
   color:white;
+  span {
+      text-transform: uppercase;
+  }
 }
 .logoicon_vote_nb {
   position: absolute;
@@ -352,7 +371,7 @@ ion-view.splash ion-content {
 
 .filter-button.button-clear {
   color: $energized;
-  position:relative;
+  position:absolute;
   left:0px;
   padding:0 9px;
 
@@ -368,6 +387,8 @@ ion-view.splash ion-content {
     visibility:inherit;
     float: right;
     color: green;
+    position: absolute;
+    right: 20px;
   }
 }
 
@@ -490,8 +511,6 @@ ion-view.splash ion-content {
 
   .valid_anwser {
       background-color: $energized;
-      padding: 40px 0px;
-
       .content{
         color:white;
       } 
@@ -530,8 +549,9 @@ ion-view.splash ion-content {
       border:none;
     }
     .divider {
-      padding-top:25px;
+      padding-top:40px;
       text-transform: uppercase;
+      font-size:16px;
     }
 
 }
@@ -587,12 +607,38 @@ ion-view.splash ion-content {
     }
     h1 {
         padding-right: 10px;
+        margin-left:80px;
+        min-height:105px;
+    }
+    .vote-h1 {
+        margin-top: 14px;
+        width: 100px;
+        display: block;
+        position: absolute;
+        height: 106px;
     }
     .ion-edit {
         position: absolute;
         top: -8px;
         right: 0px;
     }
+    .decided {
+      h1 {
+        margin-left:inherit;
+        min-height:inherit;
+      }
+    }
+    &.question-encours {
+      h1 {
+        margin-left:inherit;
+        min-height:inherit;
+      }
+    }
+
+}
+// filter for decided quest
+.questionFilterSort.decided {
+  display:none;
 }
 
 // card
@@ -604,6 +650,9 @@ ion-view.splash ion-content {
 
 .item .item-content.activated .card{
   background: lighten($positive,80%);
+  &.valid_anwser {
+    background-color: $energized;
+  }
 }
 
 
@@ -644,6 +693,8 @@ ion-view.splash ion-content {
     text-transform: uppercase;
     font-weight:700;
     color:white;
+    left: inherit!important;
+    right: inherit!important;
   }
 }
 
@@ -743,7 +794,7 @@ ion-view.splash ion-content {
 /* popup alert */
 
 .popup-container .popup {
-  border-radius:10px;
+  border-radius:5px;
 }
 
 .popup-buttons  {
@@ -751,6 +802,20 @@ ion-view.splash ion-content {
     border:0;
     font-weight: bold;
   }
+  .button.button-energized {
+    font-size: 16px;
+    text-transform: inherit;
+  }
+}
+
+.popup-vertical-buttons button
+{
+    min-width: 100%;
+    margin-bottom: 5px;
+}
+.popup-vertical-buttons .popup-buttons
+{
+    display: block;
 }
 
 /* MENU */
@@ -837,3 +902,18 @@ ion-view.splash ion-content {
   }
 
 }
+
+/*1.10 to 1.24 */
+
+.item.active.item-complex>.item-content, .item-complex.active .item-content {
+border-color: inherit;
+background-color: inherit;
+}
+
+.bar .button.button-clear {
+  padding-right:6px;
+}
+
+
+
+

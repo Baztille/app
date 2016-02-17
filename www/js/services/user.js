@@ -56,7 +56,7 @@ serviceBaztille.factory('User',['$http','config', 'Webservice', function($http, 
         },
         removeAccount: function( data ){    
             return webservice.callPostBaztilleWs( data, '/session/removeAccount' );
-        },
+        }
     }
 }]);
 

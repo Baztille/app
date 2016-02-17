@@ -1,13 +1,13 @@
 <ion-view view-title="Questions" hide-back-button="true" hide-nav-bar="false" enable-menu-with-back-views="true" cache-view="true">
   <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
     <div class="tabs">
-      <a class="tab-item" nav-transition="none" ui-sref="question.questions" >
+      <a class="tab-item" nav-transition="none" menu-close ui-sref="question.questions" >
         En cours
       </a>
-      <a class="tab-item active" nav-transition="none" ui-sref="question.proposed" >
+      <a class="tab-item active" nav-transition="none" menu-close ui-sref="question.proposed" >
         Proposées
       </a>
-      <a class="tab-item" nav-transition="none" ui-sref="question.voted">
+      <a class="tab-item" nav-transition="none" menu-close ui-sref="question.voted">
         Votées
       </a>
     </div>
@@ -67,12 +67,18 @@
         
       </ion-item>
     </ion-list>
+
+    <ion-infinite-scroll
+      ng-if="moreDataCanBeLoaded()"
+      on-infinite="loadMore()"
+      distance="10%">
+    </ion-infinite-scroll>
     
   <br>
 
   </ion-content>
   <ion-footer-bar align-title="center" class="bar-energized bar-footer-container">
-    <div class="bar bar-footer bar-energized button" ng-click="addNewQuestion();">
+    <div class="bar bar-footer bar-energized button"  ion-track-tap="Action" ion-track-data="{ titre: 'ajouter-ma-question-open'}" ng-click="addNewQuestion();">
       <div class="title">Ajouter ma question</div>
     </div>
   </ion-footer-bar>

@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover) {
+appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $rootScope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover) {
   $ionicSideMenuDelegate.canDragContent(true);
 
       // Create the arg proposing modal that we will use later
@@ -59,17 +59,20 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
       /* keep scroll position */
 
       $scope.scrollSavePos = function( ) {
-        var scrollPosition = document.querySelector('.overflow-scroll');
-        $window.localStorage.questionLastPos = scrollPosition.scrollTop;
+        if (!ionic.Platform.isIOS()) {
+            var scrollPosition = document.querySelector('.overflow-scroll');
+            $window.localStorage.questionLastPos = scrollPosition.scrollTop;
+        }
       }
       
       $scope.$on('$ionicView.loaded', function(){
-        $timeout(function () {
-          var scrolldiv = document.querySelector('.overflow-scroll');
-              scrolldiv.scrollTop = $window.localStorage.questionLastPos;
-              delete $window.localStorage.questionLastPos;
-        }, 1000);
-             
+        if (!ionic.Platform.isIOS()) {
+            $timeout(function () {
+              var scrolldiv = document.querySelector('.overflow-scroll');
+                  scrolldiv.scrollTop = $window.localStorage.questionLastPos;
+                  delete $window.localStorage.questionLastPos;
+            }, 1000);
+        }
       });
 
       $scope.reloadQuestion = function()
@@ -87,9 +90,9 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                 $scope.question_vote_visible = false;
                 $scope.question_header_margin = 0;
 
-                if( typeof resp.data.question.category != 'undefined' )
+                if(  resp.data.question.category )
                 {
-                    $scope.questionCategory = $scope.categories[ resp.data.question.category ];
+                    $scope.questionCategory = $scope.categories[ resp.data.question.category -1 ];
                 }
                 else
                 {
@@ -202,8 +205,6 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
     $scope.newArgData = { text: '' };
 
     //  Doing new argument posting
-    //  $scope.newArgData
-
 
     $scope.doNewArg = function() {
 
@@ -360,6 +361,8 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
     
     $scope.editContribution = function() {
 
+        $scope.closePopoverMenu();
+
         $scope.newQuestion.category = $scope.question.category;
         $scope.newQuestion.text = $scope.question.title;
         $scope.newQuestion.bConfirmation = false;
@@ -401,14 +404,6 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
     
 
     $scope.doPropose = function() {
-          $ionicLoading.show({
-            content: 'Loading',
-            animation: 'fade-in',
-            showBackdrop: true,
-            maxWidth: 200,
-            showDelay: 0
-          });
-          
 
           $scope.newQuestion.category = $scope.questionCategory.code;
 
@@ -416,8 +411,6 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
           $scope.newQuestion.id = $scope.questionId;
 
           Questions.updateQuestion($scope.newQuestion).success(function(data){
-
-            $ionicLoading.hide();
             
             if( data.error )
             {
@@ -494,6 +487,27 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
       
 
     //end sorting
+    //
+    
+    //Edit menu
+    //
+    $ionicPopover.fromTemplateUrl('templates/small/question-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popoverMenu = popover;
+      });
+
+
+      $scope.openPopoverMenu = function($event) {
+        $scope.popoverMenu.show($event);
+      };
+      $scope.closePopoverMenu = function($event) {
+        $scope.popoverMenu.hide($event);
+      };
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popoverMenu.remove();
+      });
 
     
      // Initial question load    

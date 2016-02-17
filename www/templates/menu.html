@@ -1,5 +1,6 @@
 <ion-side-menus>
-  <ion-side-menu-content>
+  <ion-side-menu-content edge-drag-threshold="60"
+  drag-content="true">
     <ion-nav-bar class="bar-positive" align-title="center">
       <ion-nav-buttons side="left">
         <button ng-class="$root.showCustomBack ? 'show' : 'hide'" ng-click="$root.goBack()" class="button button-clear back-button"><i class="icon ion-ios-arrow-back"></i></button>
@@ -8,7 +9,9 @@
         </button>
         </ion-nav-buttons>
         <ion-nav-buttons side="right">
-        <a href="#/compte/points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a><a class="button button-icon button-clear ion-ribbon-b" href="#/compte/points"></a>
+          <a href="#/compte/points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
+          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser!==undefined" href="#/compte/points"></a>
+          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
       </ion-nav-buttons>
     </ion-nav-bar>
 
@@ -16,7 +19,7 @@
 
   </ion-side-menu-content>
 
-  <ion-side-menu side="left" class="menu-dark">
+  <ion-side-menu side="left" class="menu-dark" expose-aside-when="large">
    
     <ion-content>
 
@@ -24,19 +27,19 @@
         <ion-item menu-toggle="left" class="item-divider item-divider-logo" ui-sref="question.questions">
          <img id="logo-menu" src="img/logo_complet_blanc.png" alt="Baztille"></img>
         </ion-item>
-        <ion-item menu-toggle="left" nav-transition="none" ui-sref="question.questions"
+        <ion-item menu-toggle="left" nav-transition="none" menu-close ui-sref="question.questions"
               ui-sref-active="active">
             Question en cours de vote
           </ion-item>
-          <ion-item menu-toggle="left" nav-transition="none" ui-sref="question.proposed"
+          <ion-item menu-toggle="left" nav-transition="none" menu-close ui-sref="question.proposed"
               ui-sref-active="active">
             Questions proposées
           </ion-item>
-          <ion-item menu-toggle="left" nav-transition="none" ui-sref="question.voted"
+          <ion-item menu-toggle="left" nav-transition="none" menu-close ui-sref="question.voted"
               ui-sref-active="active">
             Questions votées
           </ion-item>
-          <ion-item menu-toggle="left" nav-transition="none" ui-sref="question.rejected"
+          <ion-item menu-toggle="left" nav-transition="none" menu-close ui-sref="question.rejected"
               ui-sref-active="active" style="display:none;">
             Questions rejetées
           </ion-item>
@@ -45,18 +48,18 @@
          Compte
         </ion-item>
 
-           <ion-item menu-toggle="left" ui-sref="splash" ng-if="currentUser==undefined"
+           <ion-item menu-toggle="left" ui-sref="splash" menu-close ng-if="currentUser==undefined"
               ui-sref-active="active">
             S'inscrire
           </ion-item>
 
 
-          <ion-item menu-toggle="left"  nav-transition="none" ui-sref="compte.infos" ng-if="currentUser!==undefined"
+          <ion-item menu-toggle="left"  nav-transition="none" menu-close ui-sref="compte.infos" ng-if="currentUser!==undefined"
               ui-sref-active="active">
             Mon compte
           </ion-item>
 
-          <ion-item menu-toggle="left"  nav-transition="none" ui-sref="compte.points" ng-if="currentUser!==undefined"
+          <ion-item menu-toggle="left"  nav-transition="none" menu-close ui-sref="compte.points" ng-if="currentUser!==undefined"
               ui-sref-active="active">
             Mes points Baztille
           </ion-item>
@@ -66,15 +69,15 @@
           <ion-item menu-toggle="left" class="item-divider">
          En savoir plus
         </ion-item>
-         <ion-item menu-toggle="left" ui-sref="app.news"
+         <ion-item menu-toggle="left" menu-close ui-sref="app.news"
             ui-sref-active="active">
           Actualités
         </ion-item>
-        <ion-item menu-toggle="left"  nav-transition="none" ui-sref="app.about"
+        <ion-item menu-toggle="left" menu-close nav-transition="none" ui-sref="app.about"
             ui-sref-active="active">
           Aide
         </ion-item>
-         <ion-item menu-toggle="left" ui-sref="app.contact"
+         <ion-item menu-toggle="left" menu-close ui-sref="app.contact"
             ui-sref-active="active">
 		      Contact
         </ion-item>

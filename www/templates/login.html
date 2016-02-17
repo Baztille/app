@@ -17,13 +17,13 @@
           <input type="password" ng-model="loginData.password" placeholder="" required>
         </label>
         <label class="item no-b">
-          <button class="button button-block button-dark t-upper t-b no-b" type="submit">Se connecter</button>
+          <button class="button button-block button-dark t-upper t-b no-b" ion-track-tap="Action" ion-track-data="{ titre: 'login-form'}" type="submit">Se connecter</button>
         </label>
       </div>
     </form>
        
     <label class="item no-b">
-      <button class="button button-small button-block b-none t-upper t-b no-b" ng-click="forget()">Mot de passe oublié</button>
+      <button class="button button-small button-block b-none t-upper t-b no-b" ion-track-tap="Action" ion-track-data="{ titre: 'mdp-oublie-open'}" ng-click="forget()">Mot de passe oublié</button>
     </label>
 
   </ion-content>
