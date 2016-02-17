@@ -68,7 +68,6 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
   $scope.loadMore = function() {
     $scope.questionPage++
     $scope.reloadQuestions($scope.questionPage);
-    $scope.$broadcast('scroll.infiniteScrollComplete');
   };
 
   $scope.moreDataCanBeLoaded = function(number) {
@@ -204,6 +203,8 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
                     voted: voted,
                     attempts_status: attempts_status
                 } );
+
+                $scope.$broadcast('scroll.infiniteScrollComplete');
             }
 
 

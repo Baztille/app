@@ -55,7 +55,6 @@ appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $timeout
   $scope.loadMore = function() {
     $scope.questionPage++
     $scope.reloadQuestions($scope.questionPage);
-    $scope.$broadcast('scroll.infiniteScrollComplete');
   };
 
   $scope.moreDataCanBeLoaded = function(number) {
@@ -119,6 +118,8 @@ appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $timeout
                     voted: voted,
                     validated_answers: validated_answers
                 } );
+
+                $scope.$broadcast('scroll.infiniteScrollComplete');
             }
 
 
