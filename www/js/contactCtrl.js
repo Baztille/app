@@ -27,27 +27,36 @@ appBaztille.controller('ContactCtrl', function(User, $window, $scope, $ionicModa
 
           $scope.msgdata.session = $window.localStorage.token;
 
-          User.sendContactMessage($scope.msgdata).success(function(data){
+          if ($scope.msgdata.text) {
 
-            if( data.error )
-            {
+              User.sendContactMessage($scope.msgdata).success(function(data){
+
+                if( data.error )
+                {
+                    var alertPopup = $ionicPopup.alert({
+                     title: 'Erreur',
+                     template: data.error_descr
+                   });
+                }
+                else
+                {
+                    var alertPopup = $ionicPopup.alert({
+                     title: 'Merci pour votre message',
+                     template: "Votre message a bien été envoyé. Nous vous répondrons rapidement."
+                   });
+                   
+                   $scope.msgdata.text = '';
+                   
+                   $state.go('question.questions', {reload: true});
+                }
+             });
+
+          } else {
                 var alertPopup = $ionicPopup.alert({
-                 title: 'Erreur',
-                 template: data.error_descr
-               });
-            }
-            else
-            {
-                var alertPopup = $ionicPopup.alert({
-                 title: 'Merci pour votre message',
-                 template: "Votre message a bien été envoyé. Nous vous répondrons rapidement."
-               });
-               
-               $scope.msgdata.text = '';
-               
-               $state.go('question.questions', {reload: true});
-            }
-         });
+                    title: 'Message vide',
+                    template: "Veuillez saisir votre message."
+                });
+          }
 
 
     };
