@@ -10395,7 +10395,8 @@ ion-view.splash ion-content {
     font-weight: 700;
     color: white;
     left: inherit !important;
-    right: inherit !important; }
+    right: inherit !important;
+    width: inherit !important; }
 
 .bar-dark {
   background: #222222;
