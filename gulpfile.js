@@ -64,3 +64,8 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+require('gulp-ionic-webbuild')(gulp, {
+  templatesModule: 'app.controllers',
+  wwwWeb: 'dist'
+});
