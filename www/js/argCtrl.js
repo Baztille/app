@@ -49,13 +49,13 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
       /* keep scroll position */
 
       $scope.scrollSavePos = function( ) {
-        var scrollPosition = document.querySelector('.overflow-scroll');
+        var scrollPosition = document.querySelector('.ionic-scroll');
         $window.localStorage.argLastPos = scrollPosition.scrollTop;
       }
       
       $scope.$on('$ionicView.loaded', function(){
         $timeout(function () {
-          var scrolldiv = document.querySelector('.overflow-scroll');
+          var scrolldiv = document.querySelector('.ionic-scroll');
               scrolldiv.scrollTop = $window.localStorage.argLastPos;
               delete $window.localStorage.argLastPos;
         }, 1000);
@@ -195,10 +195,10 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                             argnbr: arg.args.length,
                             showargnbr: current_arg.depth==2 ? 0: 1,
                             question_id: $scope.questionId ,
-                             voted: voted,
-                             date: date,
-                             arguments: arg.args.length==0 ? '': ( arg.args.length > 1 ? 'sous-arguments' : 'sous-argument' ),
-                             link: current_arg.depth == 2 ? '' :  '#/question/questions/'+$scope.questionId+'/'+arg._id.$id
+                            voted: voted,
+                            date: date,
+                            arguments: arg.args.length==0 ? '': ( arg.args.length > 1 ? 'sous-arguments' : 'sous-argument' ),
+                            link: current_arg.depth == 2 ? true : false
                         } );
                     }
                 }
