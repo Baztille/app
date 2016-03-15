@@ -29,6 +29,12 @@ serviceBaztille.factory('$exceptionHandler', ['$injector', '$ionicAnalytics', fu
         $ionicAnalytics.track('Exception', {
               exception_message: exception.message
             });
-        throw exception;
+        try {
+            throw exception;
+        }
+        catch (e) {
+
+        }
+        
     };
 }])

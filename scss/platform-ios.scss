@@ -52,3 +52,29 @@
   }
 
 }
+
+.platform-browser.platform-ios {
+
+  .nav-bar-block .bar {
+     .buttons {
+      padding-top: inherit;
+     }
+     .title {
+      top: inherit;
+     }
+  }
+
+  .has-header {
+    top: 50px;
+  }
+
+  .modal-wrapper {
+    .bar {
+      height: 50px;
+      .title, .button {
+          top: 20px;
+      }
+    }
+  }
+
+}

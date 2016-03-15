@@ -9835,6 +9835,20 @@ a.button {
   .platform-ios .modal-wrapper .bar .title, .platform-ios .modal-wrapper .bar .button {
     top: 20px; }
 
+.platform-browser.platform-ios .nav-bar-block .bar .buttons {
+  padding-top: inherit; }
+
+.platform-browser.platform-ios .nav-bar-block .bar .title {
+  top: inherit; }
+
+.platform-browser.platform-ios .has-header {
+  top: 50px; }
+
+.platform-browser.platform-ios .modal-wrapper .bar {
+  height: 50px; }
+  .platform-browser.platform-ios .modal-wrapper .bar .title, .platform-browser.platform-ios .modal-wrapper .bar .button {
+    top: 20px; }
+
 /*********************************************************************************
 
     Baztille
@@ -9868,7 +9882,8 @@ a.button {
       background-color: rgba(0, 0, 0, 0.5);
       -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5); }
     .platform-browser .modal-backdrop .overflow-scroll {
-      overflow-y: hidden; }
+      overflow-y: hidden;
+      height: inherit !important; }
     .platform-browser .headlines .row-social .col img {
       width: 15%; }
     .platform-browser .modal {
