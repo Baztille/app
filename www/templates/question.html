@@ -4,7 +4,7 @@
         <a ui-sref="compte.points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
           <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser!==undefined" ui-sref="compte.points"ui-sref="compte.points"></a>
           <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
-        <a class="button button-icon button-clear ion-android-more-vertical" style="margin-left:10px;" ng-click="popoverMenu.show($event);"></a>
+        <a class="button button-icon button-clear ion-android-more-vertical" style="margin-left:10px;" ng-if="currentUser!==undefined" ng-click="popoverMenu.show($event);"></a>
   </ion-nav-buttons>
 
 <ion-nav-title>{{question.title}}</ion-nav-title>

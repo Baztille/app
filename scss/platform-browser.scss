@@ -56,6 +56,11 @@
 		    min-height: 240px;
 		    width: 80%;
 		}
+
+		.popup-container .popup {
+    		width: 450px;
+    		border-radius: 0px;
+    	}
 		
 		
 	}
@@ -71,6 +76,10 @@
 
 	.only-ios {
 		display: none;
+	}
+
+	.questions .card .quest {
+    	font-weight: 400;
 	}
 
 }

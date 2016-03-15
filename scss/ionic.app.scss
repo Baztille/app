@@ -75,6 +75,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 .p-10 {
   padding:10px;
 }
+
 /* SUSCRIBE FORMS */
 
 form input[type="text"], form input[type="password"] {
@@ -89,6 +90,20 @@ form input.ng-invalid.ng-touched {
 form input.ng-valid.ng-touched {
     border-color: $balanced;
     border-left: solid 2px $balanced;
+}
+.item-input {
+  padding: 6px 10px 6px 10px;
+  input, textarea {
+    width: 100%;
+  }
+  textarea {
+    padding:6px;
+    border: 1px solid darken($grey,10%);
+  }
+}
+#characters_count {
+  text-align: right;
+  font-size:80%;
 }
 
 

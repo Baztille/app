@@ -14,11 +14,11 @@
     
     <form ng-submit="doNewArg()" ng-show="!newArgData.bConfirmation">
         <div class="list">
-          <label class="item item-input"  >
+          <label class="item item-input noborder"  >
             <textarea type="text" placeholder="{{your_answer}}" ng-model="newArgData.text" ng-change="inputChange()" style="min-height:100px;" maxlength="200"></textarea>
           </label>
           <label class="item noborder">
-            <div style="text-align: right" id="characters_count" ng-bind-html="ngCharacterCount" >0</div>
+            <div id="characters_count" ng-bind-html="ngCharacterCount" >0</div>
             <button class="button button-block button-energized" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-form'}" type="submit">Publier</button>
           </label>
 

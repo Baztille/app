@@ -10,7 +10,6 @@
     <div class="card" ng-show="!updateQuestion">
       <div class="item item-text-wrap">
         <p>Proposez une nouvelle question à la communauté Baztille.</p>
-        <p>Chaque vendredi à 14h, la question qui a intéressé le plus de membres est mise au vote.</p>
       </div>
     </div>
 
@@ -23,12 +22,12 @@
     
     <form ng-submit="doPropose()" ng-show="!newQuestion.bConfirmation">
         <div class="list">
-          <label class="item item-input">
+          <label class="item item-input noborder">
             <textarea type="text" placeholder="Votre question" ng-model="newQuestion.text" ng-change="inputChange()" style="min-height:100px;" maxlength="200"></textarea>
              
           </label>
           <label class="item nopad noborder">
-            <div style="text-align: right;font-size:80%;" id="characters_count" ng-bind-html="ngCharacterCount">0</div>
+            <div id="characters_count" ng-bind-html="ngCharacterCount">0</div>
           </label>
 
           <label class="item item-input item-select select-categoryfilter full">

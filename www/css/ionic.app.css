@@ -9847,7 +9847,7 @@ a.button {
 .platform-browser.platform-ios .modal-wrapper .bar {
   height: 50px; }
   .platform-browser.platform-ios .modal-wrapper .bar .title, .platform-browser.platform-ios .modal-wrapper .bar .button {
-    top: 20px; }
+    top: 0px; }
 
 /*********************************************************************************
 
@@ -9892,7 +9892,10 @@ a.button {
       bottom: 10%;
       left: 10%;
       min-height: 240px;
-      width: 80%; } }
+      width: 80%; }
+    .platform-browser .popup-container .popup {
+      width: 450px;
+      border-radius: 0px; } }
   .platform-browser * {
     -webkit-user-select: auto !important;
     -moz-user-select: auto !important;
@@ -9900,6 +9903,8 @@ a.button {
     user-select: auto !important; }
   .platform-browser .only-ios {
     display: none; }
+  .platform-browser .questions .card .quest {
+    font-weight: 400; }
 
 /* BEM RULES */
 .t-upper {
@@ -9940,6 +9945,18 @@ form input.ng-invalid.ng-touched {
 form input.ng-valid.ng-touched {
   border-color: #557E19;
   border-left: solid 2px #557E19; }
+
+.item-input {
+  padding: 6px 10px 6px 10px; }
+  .item-input input, .item-input textarea {
+    width: 100%; }
+  .item-input textarea {
+    padding: 6px;
+    border: 1px solid #e0e0e0; }
+
+#characters_count {
+  text-align: right;
+  font-size: 80%; }
 
 /* Generic **/
 .bar.bar-positive, .bar-positive .button.button-clear, .button.button-positive, .bar-energized .button, .bar.bar-energized .title, .bar.bar-positive .title, .tabs-striped.tabs-color-light .tab-item.tab-item-active, .tabs-striped.tabs-color-light .tab-item.active, .tabs-striped.tabs-color-light .tab-item.activated {
