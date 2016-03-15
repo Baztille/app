@@ -12,7 +12,7 @@
   </div>
   
     <ion-list>
-      <ion-item ng-repeat="news in headlines" href="#/app/news/{{news.id}}" class="item-text-wrap">
+      <ion-item ng-repeat="news in headlines" ui-sref="app.newsread({ newsID: news.id })" class="item-text-wrap">
 
       <small><img src="img/back-in-time.svg" width="10"> <span am-time-ago="{{news.date}}" am-preprocess="unix"></span></small>
 
@@ -20,7 +20,7 @@
        
       <p ng-bind-html="news.preview"></p>
 
-      <p><a href="#/app/news/{{news.id}}" class="l-simple">Lire plus...</a><p>
+      <p><a ui-sref="app.newsread({ newsID: news.id })" class="l-simple">Lire plus...</a><p>
 
       </ion-item>
     </ion-list>

@@ -9,8 +9,8 @@
         </button>
         </ion-nav-buttons>
         <ion-nav-buttons side="right">
-          <a href="#/compte/points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
-          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser!==undefined" href="#/compte/points"></a>
+          <a ui-sref="compte.points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
+          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser!==undefined" ui-sref="compte.points"></a>
           <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
       </ion-nav-buttons>
     </ion-nav-bar>

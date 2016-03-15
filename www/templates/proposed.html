@@ -37,7 +37,7 @@
 
 
     <ion-list class="questions">
-      <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" href="#/question/questions/{{question.id}}" >
+      <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" ui-sref="question.single({ questionID: question.id })" >
       
       <div class="card">
 

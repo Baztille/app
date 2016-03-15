@@ -1,8 +1,8 @@
 <ion-view view-title="{{question.title}}">
 
   <ion-nav-buttons side="right">
-        <a href="#/compte/points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
-          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser!==undefined" href="#/compte/points"></a>
+        <a ui-sref="compte.points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
+          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser!==undefined" ui-sref="compte.points"ui-sref="compte.points"></a>
           <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
         <a class="button button-icon button-clear ion-android-more-vertical" style="margin-left:10px;" ng-click="popoverMenu.show($event);"></a>
   </ion-nav-buttons>
@@ -48,7 +48,7 @@
         </div>   
   
     <ion-list class="questions">
-      <ion-item ng-repeat="arg in args" ng-click="scrollSavePos();" href="#/question/questions/{{arg.question_id}}/{{arg.id}}">
+      <ion-item ng-repeat="arg in args" ng-click="scrollSavePos();" ui-sref="question.arg({ questionID: arg.question_id, argID: arg.id })">
           
           <div class="card {{arg.valid}}">
               

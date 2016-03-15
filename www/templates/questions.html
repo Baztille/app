@@ -18,7 +18,7 @@
     <div class="expli-txt" ng-show="showExplanationlink">
         {{explanation}}
         <br/>
-        <a class="button button-block" href="#/question/proposed">{{explanationlink}}</a>
+        <a class="button button-block" ui-sref="question.proposed">{{explanationlink}}</a>
     </div>
 
 
@@ -47,7 +47,7 @@
    
   
   <ion-list class="questions">
-      <ion-item ng-repeat="arg in args" ng-click="scrollSavePos();" href="#/question/questions/{{arg.question_id}}/{{arg.id}}">
+      <ion-item ng-repeat="arg in args" ng-click="scrollSavePos();" ui-sref="question.arg({ questionID: arg.question_id, argID: arg.id })">
           
           <div class="card {{arg.valid}}">
               
@@ -87,7 +87,7 @@
 
 
     <ion-list class="questions">
-      <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" href="#/question/questions/{{question.id}}" >
+      <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" ui-sref="question.single({ questionID: question.id })" >
         <div class="card card-encours">
           <div class="item item-text-wrap">
             <div class="logoicon {{question.voted}}">
