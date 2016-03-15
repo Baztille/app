@@ -16,6 +16,7 @@
     "gulp-cordova-bump": "^1.3.0",
     "gulp-header": "^1.7.1",
     "gulp-ionic-webbuild": "^1.0.0",
+    "gulp-replace": "^0.5.4",
     "gulp-util": "^2.2.14",
     "lodash": "^4.1.0",
     "mkpath": "^1.0.0",

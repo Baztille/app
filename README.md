@@ -4,9 +4,6 @@ Baztille App
 Baztille est un mouvement de citoyens pour réinventer la démocratie.
 [En savoir plus](http://baztille.org)
 
-[![Télécharger sur le Play Store](https://developer.android.com/images/brand/en_generic_rgb_wo_45.png)](https://play.google.com/store/apps/details?id=org.baztille.app&hl=fr)
-
-
 ## A propos du client Baztille
 
 Le client Baztille est développé avec [Ionic Framework](http://ionicframework.com/).
@@ -34,8 +31,9 @@ $ bower install
 # Se connecter aux services de ionic.io (Push & analytics) (obligatoire après bower install)
 $ ionic config build
 
-# Configurer l'URL de l'API
-# config.js : this.apiUrl
+# Configurer l'URL de l'API et services tiers dans config.js
+# après configuration, lancer la configuration de baztille
+$ gulp install-baztille
 
 # Demarrer le serveur
 $ ionic serve

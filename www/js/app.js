@@ -27,11 +27,25 @@ var serviceBaztille = angular.module('app.services',[]);
 
 var initBaztille = angular.module('starter', ['ionic','ionic.service.core', 'ionic.service.analytics', 'app.controllers', 'app.services']);
 
-initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootScope, $ionicPopup, $ionicSideMenuDelegate, $ionicHistory, $state, $window) {
+initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootScope, $ionicPopup, $ionicSideMenuDelegate, $ionicHistory, $state, $window, config) {
+    
+   // Analytics If keenIO config
+   if (config.KeenProjectId && config.KeenWriteKey) {
+    
+     var wsAnalytics = new Keen({
+        projectId: config.KeenProjectId,
+        writeKey: config.KeenWriteKey
+     });
 
+     $rootScope.isFirstLoadedPage = true; // Track Load
+
+   } 
+  
+   $rootScope.isDev = (document.URL.indexOf( 'localhost' ) > -1) ? true : false;
    $rootScope.currentVersion = window.VERSION;
    $rootScope.currentPlatform = ionic.Platform.platform();
    $rootScope.currentPlatformVersion = ionic.Platform.version();
+/////console.log($rootScope.currentPlatformVersion, $rootScope.currentPlatform)
 
    $rootScope.$on('loading:show', function() {
     $ionicLoading.show({templateUrl: 'templates/loader.html', animation: 'fade-in',
@@ -120,6 +134,79 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
     }
    
   });
+
+  $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
+    
+    if(wsAnalytics) {
+      
+      if($rootScope.isFirstLoadedPage) {
+
+        wsAnalytics.addEvent("load", {
+          user : {
+            id : $rootScope.userID,
+            points : $rootScope.points,
+            device: $rootScope.currentPlatform,
+            device_version: $rootScope.currentPlatformVersion
+          },
+          app: {
+            version_number: $rootScope.currentVersion,
+            dev_mode: $rootScope.isDev
+          },
+          ip_address: "${keen.ip}",
+          user_agent: "${keen.user_agent}",
+          referrer_url: document.referrer,
+          page_url : toState.name,
+          keen: {
+            addons: [
+              {
+                name: "keen:ip_to_geo",
+                input: {
+                  ip: "ip_address"
+                },
+                output: "ip_geo_info"
+              },
+              {
+                name: "keen:ua_parser",
+                input: {
+                  ua_string: "user_agent"
+                },
+                output: "parsed_user_agent"
+              },
+              {
+                name: "keen:referrer_parser",
+                input: {
+                  referrer_url: "referrer_url",
+                  page_url: "page_url"
+                },
+                output: "referrer.info"
+              }
+            ]
+          }
+        });
+      
+        $rootScope.isFirstLoadedPage = false;
+
+      } else {
+
+        wsAnalytics.addEvent("pageviews", {
+          user : {
+            id : $rootScope.userID,
+            points : $rootScope.points,
+            device: $rootScope.currentPlatform,
+            device_version: $rootScope.currentPlatformVersion
+          },
+          app: {
+            version_number: $rootScope.currentVersion,
+            dev_mode: $rootScope.isDev
+          },
+          page_url : toState.name
+        });
+
+      }
+      
+    }
+
+  });
   
   //  Toggle menu on ion-nav
   $rootScope.toggleLeftSideMenu = function() {
@@ -151,12 +238,15 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
       //dryRun: true
       silent: true
     });
+
     $ionicAnalytics.setGlobalProperties({
       app_version_number: $rootScope.currentVersion,
       user_device: $rootScope.currentPlatform,
       user_device_version: $rootScope.currentPlatformVersion,
+      dev_mode: $rootScope.isDev,
       day_of_week: (new Date()).getDay()
     });
+    
 
     if( window.universalLinks ) {
       window.universalLinks.subscribe(null, function(eventData) { 
@@ -178,7 +268,7 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
     if( window.cordova ) {
 
       // PUSH only for native cordova
-     // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+      // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
       var notificationOpenedCallback = function(jsonData) {
         //alert("Notification received:\n" + JSON.stringify(jsonData));
@@ -194,7 +284,7 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
 
     ionic.Platform.fullScreen(true,true);
 
-     if (window.cordova && window.cordova.plugins.Keyboard) {
+    if (window.cordova && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
 

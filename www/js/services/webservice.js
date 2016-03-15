@@ -31,6 +31,11 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
                 $window.localStorage.points = data.user.points;
                 $scope.points = data.user.points;
             }
+            if( data.user._id )
+            {
+                $scope.userID = data.user._id.$id;
+            }
+            
         }    
     }
 

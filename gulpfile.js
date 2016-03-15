@@ -9,6 +9,7 @@ var sh = require('shelljs');
 var header = require('gulp-header');
 var pkg = require('./package.json');
 var clean = require('gulp-clean');
+var replace = require('gulp-replace');
 
 var paths = {
   sass: ['./scss/**/*.scss']
@@ -16,15 +17,16 @@ var paths = {
 
 gulp.task('default', ['sass']);
 
-gulp.task('clean-script-config', function () {
-  return gulp.src('www/js/config.js', {read: false})
-    .pipe(clean());
-});
+gulp.task('versionJs', function() {
 
-gulp.task('versionJs', ['clean-script-config'], function() {
   gulp.src('config.js')
-    .pipe(header('window.VERSION = "<%= pkg.version %>";', { pkg : pkg } ))
-    .pipe(gulp.dest('www/js/'))
+    .pipe(replace(/window\.VERSION = (\"\d?\.\d?\.1?\d?\d\")/g, 'window.VERSION = "'+pkg.version+'"'))
+    .pipe(gulp.dest('.'));
+
+  gulp.src('www/js/config.js')
+    .pipe(replace(/window\.VERSION = (\"\d?\.\d?\.1?\d?\d\")/g, 'window.VERSION = "'+pkg.version+'"'))
+    .pipe(gulp.dest('www/js/'));
+
 });
 
 gulp.task('sass', function(done) {
@@ -63,6 +65,11 @@ gulp.task('git-check', function(done) {
     process.exit(1);
   }
   done();
+});
+
+gulp.task('install-baztille', function(done) {
+  gulp.src('./config.js')
+    .pipe(gulp.dest('./www/js/'));
 });
 
 require('gulp-ionic-webbuild')(gulp, {

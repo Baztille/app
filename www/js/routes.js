@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
+initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider, $locationProvider, BaztilleConfig) {
   
   $httpProvider.interceptors.push(function($rootScope) {
 
@@ -138,19 +138,6 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       'menuContent': {
         templateUrl: "templates/voted.html",
         controller: 'VotedCtrl'
-      }
-    },
-    access: {
-      requireLogin: false
-    }
-  })
-
-  .state('question.rejected', {
-    url: "/rejected",
-    views: {
-      'menuContent': {
-        templateUrl: "templates/rejected.html",
-        controller: 'RejectedCtrl'
       }
     },
     access: {
@@ -354,4 +341,17 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
   $httpProvider.interceptors.push('authInterceptor');
   $ionicConfigProvider.views.maxCache(0);
   $ionicConfigProvider.views.forwardCache(false);
+
+  if(!window.cordova & BaztilleConfig.HTML5mode) { 
+    if (window.history && window.history.pushState) {
+      $locationProvider.html5Mode(true).hashPrefix('!');
+    }
+    else {         
+      $locationProvider.html5Mode(false);
+    }
+    
+  }
+
+
+
 });
