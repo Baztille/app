@@ -28,12 +28,12 @@ $ npm install
 $ ionic state restore
 $ npm install -g bower (si pas installer)
 $ bower install
-# Se connecter aux services de ionic.io (Push & analytics) (obligatoire après bower install)
-$ ionic config build
-
 # Configurer l'URL de l'API et services tiers dans config.js
 # après configuration, lancer la configuration de baztille
 $ gulp install-baztille
+
+# Se connecter aux services de ionic.io (analytics) (obligatoire)
+$ ionic config build
 
 # Demarrer le serveur
 $ ionic serve

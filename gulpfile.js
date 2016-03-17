@@ -11,6 +11,24 @@ var pkg = require('./package.json');
 var clean = require('gulp-clean');
 var replace = require('gulp-replace');
 
+// fork gulp-ionic-webbuild
+var del = require('del');
+var templateCache = require('gulp-angular-templatecache');
+var gulpif = require('gulp-if');
+var inject = require('gulp-inject');
+var minifyHtml = require('gulp-minify-html');
+var ngAnnotate = require('gulp-ng-annotate');
+var uglify = require('gulp-uglify');
+var useref = require('gulp-useref');
+
+//opts build-web
+var opts = {
+    dist: 'www-dist',
+    partials: 'www-dist/partials',
+    templatesModule: 'app.controllers',
+    wwwWeb: 'dist'
+};
+
 var paths = {
   sass: ['./scss/**/*.scss']
 };
@@ -70,9 +88,56 @@ gulp.task('git-check', function(done) {
 gulp.task('install-baztille', function(done) {
   gulp.src('./config.js')
     .pipe(gulp.dest('./www/js/'));
+
+  gulp.src('./.io-config.sample.json')
+    .pipe(rename('.io-config.json'))
+    .pipe(gulp.dest('./'));
 });
 
-require('gulp-ionic-webbuild')(gulp, {
-  templatesModule: 'app.controllers',
-  wwwWeb: 'dist'
+gulp.task('build-web-partials', function() {
+  return gulp.src('www/{js,templates}/**/*.html')
+    .pipe(minifyHtml({
+      empty: true,
+      spare: true,
+      quotes: true
+    }))
+    .pipe(templateCache('templateCacheHtml.js', { module: opts.templatesModule }))
+    .pipe(gulp.dest(opts.partials));
 });
+
+gulp.task('build-web-cleanup', ['build-web-js'], function() {
+  del([opts.partials]);
+});
+
+gulp.task('build-web-assets', function() {
+  return gulp.src(['www/{css,img,lib/ionic/css,lib/ionic/fonts}/**/*'], { base: 'www' })
+    .pipe(gulp.dest(opts.dist));
+});
+
+gulp.task('build-web-other', function() {
+  return gulp.src(['www/favicon.ico'], { base: 'www' })
+    .pipe(gulp.dest(opts.dist));
+});
+
+gulp.task('build-web-js', ['build-web-partials'], function() {
+  var assets = useref.assets();
+  var partialsInjectFile = gulp.src(opts.partials + '/templateCacheHtml.js', { read: false });
+  var partialsInjectOptions = {
+    starttag: '<!-- inject:partials -->',
+    ignorePath: opts.partials,
+    addRootSlash: false
+  };
+
+  return gulp.src(opts.wwwWeb+'/index.html')
+    .pipe(inject(partialsInjectFile, partialsInjectOptions))
+    .pipe(assets)
+    .pipe(gulpif('*.js', ngAnnotate()))
+    .pipe(gulpif('*.js', uglify()))
+    .pipe(assets.restore())
+    .pipe(useref())
+    .pipe(gulp.dest(opts.dist));
+});
+
+gulp.task('build-web', ['build-web-assets', 'build-web-js', 'build-web-other', 'build-web-cleanup']);
+
+

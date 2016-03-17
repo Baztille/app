@@ -12,3 +12,4 @@ plugins
 *.log
 *.DS_Store
 www/js/config.js
+.io-config.json
