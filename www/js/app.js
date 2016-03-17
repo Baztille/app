@@ -45,7 +45,6 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
    $rootScope.currentVersion = window.VERSION;
    $rootScope.currentPlatform = ionic.Platform.platform();
    $rootScope.currentPlatformVersion = ionic.Platform.version();
-/////console.log($rootScope.currentPlatformVersion, $rootScope.currentPlatform)
 
    $rootScope.$on('loading:show', function() {
     $ionicLoading.show({templateUrl: 'templates/loader.html', animation: 'fade-in',
@@ -136,11 +135,19 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
   });
 
   $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
-    
+  
     if(wsAnalytics) {
       
       if($rootScope.isFirstLoadedPage) {
+        
+        var campaign={};
 
+        if(!window.cordova) { // Only Desktop
+          if(getParameterByName('source')) {
+            campaign = { source: getParameterByName('source'), title: getParameterByName('title')};
+          }
+        }
+        
         wsAnalytics.addEvent("load", {
           user : {
             id : $rootScope.userID,
@@ -156,6 +163,7 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
           user_agent: "${keen.user_agent}",
           referrer_url: document.referrer,
           page_url : toState.name,
+          campaign : campaign, 
           keen: {
             addons: [
               {
@@ -250,25 +258,49 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
 
     if( window.universalLinks ) {
       window.universalLinks.subscribe(null, function(eventData) { 
-        var substrHash    = eventData.hash.substr(1);
-            arrayHash = substrHash.split('/');
+
+        if(eventData.hash) { // if !html5mode
+          var substrHash    = eventData.hash.substr(1);
+              arrayHash = substrHash.split('/');
+        } else {
+          var substrHash    = eventData.path.substr(1);
+              arrayHash = substrHash.split('/');
+        }
+        
             if(arrayHash[0] == "question") {
               if(arrayHash[1] == "voted") {
                 $state.go('question.voted');
-              } else {
+              }
+              if(arrayHash[1] == "questions") {
                 $state.go('question.questions');
+                if(arrayHash[2]) {
+                  $state.go('question.single',{ questionID: arrayHash[2] });
+                  if(arrayHash[3]) {
+                    $state.go('question.arg',{ questionID: arrayHash[2], argID: arrayHash[3] });
+                  }
+                }
+              }  
+              if(arrayHash[1] == "proposed") {
+                $state.go('question.proposed');
               }              
             }
             if(arrayHash[0] == "compte") {
-              $state.go('compte.infos');
+              if(arrayHash[1] == "infos") {
+                $state.go('compte.infos');
+              }
+              if(arrayHash[1] == "points") {
+                $state.go('compte.points');
+              }
             }
       });
     }
 
     if( window.cordova ) {
 
+      if (config.oneSignal && config.googleProjectNumber) {
+      
       // PUSH only for native cordova
-      // window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
+      //window.plugins.OneSignal.setLogLevel({logLevel: 4, visualLevel: 4});
 
       var notificationOpenedCallback = function(jsonData) {
         //alert("Notification received:\n" + JSON.stringify(jsonData));
@@ -276,9 +308,10 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
       };
 
       // Update with your OneSignal AppId and googleProjectNumber before running.
-      window.plugins.OneSignal.init("9a776ddd-c745-4a52-b515-5b248d683465",
-                                     {googleProjectNumber: "488668833089"},
-                                     notificationOpenedCallback);
+      window.plugins.OneSignal.init(config.oneSignal,
+        {googleProjectNumber: config.googleProjectNumber},
+        notificationOpenedCallback);
+      }
     
     }
 
