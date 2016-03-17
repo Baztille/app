@@ -675,6 +675,13 @@ ion-view.splash ion-content {
 
 .bar .title {
   -webkit-transform:none!important;
+  min-width:100px!important;
+  margin:0 0!important;
+}
+.bar.bar-footer .title {
+  -webkit-transform:none!important;
+  min-width:300px!important; // hack size mini
+  margin:0 0!important;
 }
 .bar.bar-positive {
   border-color:$positive;
@@ -710,7 +717,7 @@ ion-view.splash ion-content {
     color:white;
     left: inherit!important;
     right: inherit!important;
-    width: inherit!important;
+    width: 100%!important;
   }
 }
 

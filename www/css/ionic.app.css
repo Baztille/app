@@ -9844,6 +9844,9 @@ a.button {
 .platform-browser.platform-ios .has-header {
   top: 50px; }
 
+.platform-browser.platform-ios .bar-header.has-tabs-top {
+  height: 50px; }
+
 .platform-browser.platform-ios .modal-wrapper .bar {
   height: 50px; }
   .platform-browser.platform-ios .modal-wrapper .bar .title, .platform-browser.platform-ios .modal-wrapper .bar .button {
@@ -10405,7 +10408,14 @@ ion-view.splash ion-content {
     background-color: #00A8D0; }
 
 .bar .title {
-  -webkit-transform: none !important; }
+  -webkit-transform: none !important;
+  min-width: 100px !important;
+  margin: 0 0 !important; }
+
+.bar.bar-footer .title {
+  -webkit-transform: none !important;
+  min-width: 300px !important;
+  margin: 0 0 !important; }
 
 .bar.bar-positive {
   border-color: #F9DA00; }
@@ -10428,7 +10438,7 @@ ion-view.splash ion-content {
     color: white;
     left: inherit !important;
     right: inherit !important;
-    width: inherit !important; }
+    width: 100% !important; }
 
 .bar-dark {
   background: #222222;
