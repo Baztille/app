@@ -9764,7 +9764,7 @@ a.button {
 .platform-android .modal-wrapper .bar {
   margin-top: 10px; }
   .platform-android .modal-wrapper .bar h1 {
-    padding-left: 5px; }
+    padding-left: 10px; }
 
 .platform-android .modal-wrapper .has-header {
   top: 59px;
@@ -9781,7 +9781,7 @@ a.button {
   top: 50px; }
 
 .platform-android .bar-positive.bar.bar-header .header-item {
-  margin-top: 4px; }
+  margin-top: 4px !important; }
 
 .platform-android .bar.bar-footer .bar {
   border: 0; }
