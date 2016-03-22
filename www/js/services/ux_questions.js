@@ -75,18 +75,32 @@ serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', 
             }
         },
 
-        incrementVote : function($event) {
+        incrementVote : function($event, context) {
 
                 var nbVoteInitial = parseInt($event.target.firstElementChild.innerHTML);
                 var isVoted = $event.target.parentElement.classList.contains('voted');
 
                 if(isVoted) {
                     $event.target.firstElementChild.innerHTML = nbVoteInitial - 1;
-                    $event.target.lastElementChild.innerHTML = "je vote";
+                    if( typeof context != 'undefined' && context == 'proposed'  )
+                    {
+                        $event.target.lastElementChild.innerHTML = "choisir";
+                    }
+                    else
+                    {
+                        $event.target.lastElementChild.innerHTML = "je vote";
+                    }
                     $event.target.parentElement.classList.remove('voted');
                 } else {
                     $event.target.firstElementChild.innerHTML = nbVoteInitial + 1;
-                    $event.target.lastElementChild.innerHTML = "a voté";
+                    if( typeof context != 'undefined' && context == 'proposed'  )
+                    {
+                        $event.target.lastElementChild.innerHTML = "a choisi";
+                    }
+                    else
+                    {
+                        $event.target.lastElementChild.innerHTML = "a voté";
+                    }
                     $event.target.parentElement.classList.add('voted');
                 }
         },

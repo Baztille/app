@@ -327,7 +327,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
             }
             else
             {
-                UxQuestions.incrementVote($event);
+                UxQuestions.incrementVote($event, 'proposed');
             }            
         } );
         
