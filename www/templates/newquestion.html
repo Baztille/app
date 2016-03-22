@@ -28,6 +28,7 @@
           </label>
           <label class="item nopad noborder">
             <div id="characters_count" ng-bind-html="ngCharacterCount">0</div>
+            <div id="characters_count_explanation" ng-show="ngCountExplanation"><button type="button" class="button" ng-click="onWhyLimit();">Pourquoi cette limite ?</button></div>
           </label>
 
           <label class="item item-input item-select select-categoryfilter full">
@@ -37,9 +38,19 @@
 
           <label class="item noborder">
            
-            <button class="button button-block button-energized"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form'}" type="submit">Proposer</button>
+            <button type="submit" class="button button-block button-energized"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form'}" >Proposer</button>
           </label>
 
+
+          <div class="item item-text-wrap">
+            <p>Quelques conseils pour que votre question soit sélectionnée :</p>
+            <ul>
+                <li><p>&bull; Posez une question liée à un problème d’actualité</p></li>
+                <li><p>&bull; Vérifiez dans les “questions votées” que cette question n’a pas déjà été votée récemment.</p></li>
+                <li><p>&bull; Posez votre question de manière non-orientée, de manière à ce que les autres utilisateurs puisse la trouver intéressante quelque soit leur avis (ex: Démarrez votre question par : Doit-on, Faut-il, Voulez-vous, Peut-on,... )
+                </p></li>
+            </ul>
+          </div>
 
         </div>
     </form>
@@ -53,10 +64,10 @@
             </p>
           </label>
           <label class="item noborder nopad">
-            <button class="button button-block button-energized"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form-confirm'}" type="submit">Confirmer et publier</button>
+            <button type="submit" class="button button-block button-energized"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form-confirm'}" >Confirmer et publier</button>
           </label>
           <label class="item noborder nopad"  ng-show="newQuestion.bConfirmation">
-        <button class="button button-block"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form-corriger'}" ng-click="fixNewQuestion()">Corriger</button>
+        <button type="button" class="button button-block"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form-corriger'}" ng-click="fixNewQuestion()">Corriger</button>
       </label>
         </div>
     </form>

@@ -61,6 +61,11 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
         }, 1000);
              
       });
+      
+    $scope.onWhyLimit = function() {
+        UxQuestions.onWhyLimit();
+    };
+      
 
       $scope.reloadQuestion = function()
       {

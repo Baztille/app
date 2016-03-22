@@ -266,7 +266,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
         
       $scope.questionCategory = item;
 
-    }
+    };
 
     $scope.doPropose = function() {
         // At first, we do a confirmation step
@@ -274,6 +274,10 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
         $scope.newQuestion.bConfirmation = true;
         $scope.newQuestion.category = $scope.questionCategory.code;
     }; 
+    
+    $scope.onWhyLimit = function() {
+        UxQuestions.onWhyLimit();
+    };
 
     $scope.fixNewQuestion = function() {
         // Back to edition

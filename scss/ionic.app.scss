@@ -101,7 +101,7 @@ form input.ng-valid.ng-touched {
     border: 1px solid darken($grey,10%);
   }
 }
-#characters_count {
+#characters_count, #characters_count_explanation {
   text-align: right;
   font-size:80%;
 }

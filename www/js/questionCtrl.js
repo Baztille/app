@@ -334,6 +334,11 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
 
     };
     
+    $scope.onWhyLimit = function() {
+        UxQuestions.onWhyLimit();
+    };
+    
+    
       $scope.Voters = function( question_id, $event ) {
         if ($event.stopPropagation) $event.stopPropagation();
         if ($event.preventDefault) $event.preventDefault();

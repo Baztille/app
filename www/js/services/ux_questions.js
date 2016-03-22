@@ -64,15 +64,27 @@ serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', 
         inputChange : function( $scope, text )
         {
             $scope.ngCharacterCount = ( $scope.maxChars - text.length );
+            $scope.ngCountExplanation = false;
 
             if( $scope.ngCharacterCount < 20 )
             {
                 angular.element(  document.querySelector( "#characters_count") ).addClass( 'character_count_almost_over' );
+                $scope.ngCountExplanation = true;
             }
             else
             {
                 angular.element(  document.querySelector( "#characters_count") ).removeClass( 'character_count_almost_over' );
+                $scope.ngCountExplanation = false;
             }
+        },
+        
+        onWhyLimit: function()
+        {
+            var alertPopup = $ionicPopup.alert({
+             title: 'Limite des 200 caractères',
+             template: "Certains d'entre vous ont peu de temps à consacrer à Baztille, et pourtant nous souhaitons que tout le monde prenne part aux décisions.<br/>C'est pourquoi vous devez aller à l'essentiel et que la taille des contributions est limitée.<br/>N'oubliez pas que si vous voulez argumenter vous pouvez proposer autant d'arguments et de sous-arguments que vous le souhaitez !"
+            });
+        
         },
 
         incrementVote : function($event, context) {
