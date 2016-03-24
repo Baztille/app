@@ -9957,7 +9957,7 @@ form input.ng-valid.ng-touched {
     padding: 6px;
     border: 1px solid #e0e0e0; }
 
-#characters_count {
+#characters_count, #characters_count_explanation {
   text-align: right;
   font-size: 80%; }
 

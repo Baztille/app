@@ -193,10 +193,9 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
         });
       
         $rootScope.isFirstLoadedPage = false;
-        console.log(wsAnalytics);
 
       } else {
-console.log('aaaaa');
+
         wsAnalytics.addEvent("pageviews", {
           user : {
             id : $rootScope.userID,
