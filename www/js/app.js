@@ -40,23 +40,23 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
      $rootScope.isFirstLoadedPage = true; // Track Load
 
    } 
-  
+    
+   // Globals vars
+
    $rootScope.isDev = (document.URL.indexOf( 'localhost' ) > -1) ? true : false;
    $rootScope.currentVersion = window.VERSION;
    $rootScope.currentPlatform = ionic.Platform.platform();
    $rootScope.currentPlatformVersion = ionic.Platform.version();
+   if($window.localStorage.points){ $rootScope.points = $window.localStorage.points; }
+   if($window.localStorage.userID){ $rootScope.userID = $window.localStorage.userID; } 
 
    $rootScope.$on('loading:show', function() {
     $ionicLoading.show({templateUrl: 'templates/loader.html', animation: 'fade-in',
       maxWidth: 60,
       noBackdrop: true,
       showDelay: 200})
-    
-    if($window.localStorage.points)
-    { 
-        $rootScope.points = $window.localStorage.points;
-    } 
-  })
+   })
+
 
   $rootScope.$on('loading:hide', function() {
     $ionicLoading.hide()
@@ -135,11 +135,11 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
   });
 
   $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams) {
-  
+
     if(wsAnalytics) {
-      
-      if($rootScope.isFirstLoadedPage) {
         
+      if($rootScope.isFirstLoadedPage) {
+
         var campaign={};
 
         if(!window.cordova) { // Only Desktop
@@ -193,9 +193,10 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
         });
       
         $rootScope.isFirstLoadedPage = false;
+        console.log(wsAnalytics);
 
       } else {
-
+console.log('aaaaa');
         wsAnalytics.addEvent("pageviews", {
           user : {
             id : $rootScope.userID,

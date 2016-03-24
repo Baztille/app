@@ -33,6 +33,7 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
             }
             if( data.user._id )
             {
+                $window.localStorage.userID = data.user._id.$id;
                 $scope.userID = data.user._id.$id;
             }
             
