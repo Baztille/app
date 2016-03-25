@@ -5,8 +5,8 @@ if(window.location.hash) {
 		}, 1000);
 	}
 }
-// To follow camapign
-function getParameterByName(name, url) {
+// To follow Campaign
+window.getParameterByName = function(name, url) {
     if (!url) url = window.location.href;
     url = url.toLowerCase(); // This is just to avoid case sensitiveness  
     name = name.replace(/[\[\]]/g, "\\$&").toLowerCase();// This is just to avoid case sensitiveness for query parameter name

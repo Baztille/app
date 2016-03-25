@@ -143,8 +143,8 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
         var campaign={};
 
         if(!window.cordova) { // Only Desktop
-          if(getParameterByName('source')) {
-            campaign = { source: getParameterByName('source'), title: getParameterByName('title')};
+          if(window.getParameterByName('source')) {
+            campaign = { source: window.getParameterByName('source'), title: window.getParameterByName('title')};
           }
         }
         
