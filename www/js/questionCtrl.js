@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $rootScope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover) {
+appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $rootScope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover, $ionicNavBarDelegate) {
   $ionicSideMenuDelegate.canDragContent(true);
 
       // Create the arg proposing modal that we will use later
@@ -171,6 +171,10 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     status: status,
                     id: $scope.questionId
                 };
+
+                if(!window.cordova) { // Force update title
+                    document.title = 'Baztille - ' + $scope.question.title;
+                }
                 
                 $scope.args = [];
                 

@@ -180,6 +180,10 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                         voted: voted,
                         argnbr: current_arg.args.length,
                     };
+
+                    if(!window.cordova) { // Force update title
+                        document.title = 'Baztille - Argument : ' + $scope.question.title;
+                    }
                     
                     $scope.args = [];
 
