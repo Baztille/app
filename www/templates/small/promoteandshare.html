@@ -1,0 +1,62 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title"></h1>
+    <div class="buttons">
+      <button class="button icon ion-close-circled button-clear" ng-click="closePromoteShare()"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+
+      <div class="share-box {{sharebox}}">
+
+        <div class="promote-box {{promotebox}}">
+        
+          <h3><div class="ion-ios-checkmark-outline balanced"></div>Votre question vient d'être publiée avec succès.</h3>
+
+          <p class="expli-txt">Promotionnez votre question en invitant vos amis à voter et contribuer pour votre question : </p>
+
+        </div>
+
+        <div class="for-native">
+
+          <h3 class="share-box-title item-input {{shareboxTitle}}">Partager la question</h3>
+
+          <button class="button for-native button-energized ion-android-share-alt" ng-click="shareNative(question.title, question.url)">Partager la question</button>
+
+        </div>
+        <div class="list for-browser">
+
+          <h3 class="share-box-title item-input {{shareboxTitle}}">Partager la question</h3>
+
+          <div class="item item-input">
+            <a href="#" class="ion-social-facebook button button-energized" socialshare socialshare-provider="facebook"
+              socialshare-text="{{question.title}}"
+              socialshare-url="{{question.url}}">
+            </a>
+            <a href="#" class="ion-social-twitter button button-energized" socialshare socialshare-provider="twitter"
+              socialshare-text="{{question.title}}"
+              socialshare-hashtags="vote"
+              socialshare-url="{{question.url}}">
+            </a>
+            <a href="#" class="ion-social-reddit button button-energized" socialshare socialshare-provider="reddit"
+              socialshare-text="{{question.title}}"
+              socialshare-url="{{question.url}}">
+            </a>
+            <a href="#" class="ion-social-tumblr button button-energized" socialshare socialshare-provider="tumblr"
+              socialshare-text="{{question.title}}"
+              socialshare-url="{{question.url}}">
+            </a>
+          </div>
+
+          <div class="item item-input">
+            
+            <label>Copier le lien</label>
+            
+            <input class="copy-link {{copied}}" ng-copy="copied=true" ng-init="copied=false;" ng-model="question.url" select-on-click>
+  
+          </div>
+
+        </div>
+      </div>
+  </ion-content>
+</ion-modal-view>
