@@ -21,7 +21,12 @@
 
 appBaztille.controller('CompteCtrl', function(User, $scope, $state, $ionicLoading, $ionicModal, $ionicPopup, $window, $ionicHistory, $ionicSideMenuDelegate, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
-  
+    
+    // destroy modals on destroy view
+    $scope.$on('$destroy', function() { 
+        $scope.ExplainedModal.remove();
+    });
+    
     // Modal point expliqués
 
     $ionicModal.fromTemplateUrl('templates/pointsexplained.html', {
