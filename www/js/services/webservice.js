@@ -35,6 +35,7 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
             {
                 $window.localStorage.userID = data.user._id.$id;
                 $scope.userID = data.user._id.$id;
+                $scope.userLastSession = data.user.last_session;
             }
             
         }    
