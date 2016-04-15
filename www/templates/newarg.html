@@ -6,48 +6,48 @@
     </div>
   </ion-header-bar>
   <ion-content>
-    <div class="card">
-      <div class="item item-text-wrap">
-        {{new_answer_on}}: "{{question.title}}"
-      </div>
-    </div>
-    
+ 
     <form ng-submit="doNewArg()" ng-show="!newArgData.bConfirmation">
+
+      <div class="expli-txt">
+        {{new_answer_on}}: <span class="energized">"{{question.title}}"</span>
+      </div>
+
         <div class="list">
           <label class="item item-input noborder"  >
             <textarea type="text" placeholder="{{your_answer}}" ng-model="newArgData.text" ng-change="inputChange()" style="min-height:100px;" maxlength="200"></textarea>
           </label>
-          <label class="item noborder">
+          <label class="item nopad noborder">
             <div id="characters_count" ng-bind-html="ngCharacterCount" >0</div>
             <div id="characters_count_explanation" ng-show="ngCountExplanation"><button type="button" class="button" ng-click="onWhyLimit();">Pourquoi cette limite ?</button></div>
           </label>
           <label class="item noborder">
-            <button type="submit" class="button button-block button-energized" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-form'}">Publier</button>
+            <button type="submit" class="button button-block button-energized" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-form'}">{{propose_a_new_argument}}</button>
           </label>
 
         </div>
     </form>
-
 
     <form ng-submit="confirmNewArg()" ng-show="newArgData.bConfirmation">
+      
+      <div class="expli-txt assertive">
+         Merci de confirmer votre contribution
+      </div>
+
         <div class="list">
-          <label class="item"  >
-            Merci de confirmer votre contribution :
-            <br/>
-            <br/>
-            <p ng-bind-html="newArgData.text_br">
+          <label class="item item-input noborder">
+            <p ng-bind-html="newArgData.text_br" style="white-space:normal;min-height:100px;">
             </p>
           </label>
-          <label class="item noborder">
+          <label class="item noborder nopad">
             <button type="submit" class="button button-block button-energized" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-confirm'}" >Confirmer et publier</button>
+          </label>
+          <label class="item noborder nopad"  ng-show="newArgData.bConfirmation">
+            <button type="button" class="button button-block button-assertive" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-corriger'}" ng-click="fixNewArg()">Corriger</button>
           </label>
         </div>
     </form>
 
-      <label class="item noborder"  ng-show="newArgData.bConfirmation">
-        <button type="button" class="button button-block" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-corriger'}" ng-click="fixNewArg()">Corriger</button>
-      </label>
-
-        
+       
   </ion-content>
 </ion-modal-view>
