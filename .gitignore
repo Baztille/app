@@ -4,6 +4,7 @@ node_modules
 .sass-cache
 bower_components
 www/lib
+www-dist
 coverage
 platforms
 plugins
