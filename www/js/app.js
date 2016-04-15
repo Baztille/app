@@ -21,8 +21,12 @@
 
 
 /* load controllers*/
-var appBaztille = angular.module('app.controllers', ['angularMoment']); 
-     
+if(window.cordova) {
+  var appBaztille = angular.module('app.controllers', ['angularMoment']); 
+} else {
+  var appBaztille = angular.module('app.controllers', ['720kb.socialshare']); 
+}
+
 var serviceBaztille = angular.module('app.services',[]);
 
 var initBaztille = angular.module('starter', ['ionic','ionic.service.core', 'ionic.service.analytics', 'app.controllers', 'app.services']);
@@ -88,7 +92,8 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
         ]
     });
 
-  })
+  });
+
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     

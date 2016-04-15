@@ -46,7 +46,8 @@
       "id": "cordova-plugin-splashscreen"
     },
     "onesignal-cordova-plugin",
-    "cordova-universal-links-plugin"
+    "cordova-universal-links-plugin",
+    "cordova-plugin-x-socialsharing"
   ],
   "cordovaPlatforms": [
     "ios",

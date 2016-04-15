@@ -20,7 +20,7 @@
 ***********************************************************************************/
 
 
-serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', '$rootScope', '$ionicAnalytics','$ionicPopup', '$window',function($http, config, User, $cacheFactory, $rootScope, $ionicAnalytics,$ionicPopup, $window){
+serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', '$rootScope', '$ionicAnalytics','$ionicPopup', '$window', function($http, config, User, $cacheFactory, $rootScope, $ionicAnalytics,$ionicPopup, $window){
 
   
 
@@ -67,7 +67,7 @@ serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', 
             $scope.ngCountExplanation = false;
 
             if( $scope.ngCharacterCount < 20 )
-            {
+            {   
                 angular.element(  document.querySelector( "#characters_count") ).addClass( 'character_count_almost_over' );
                 $scope.ngCountExplanation = true;
             }
@@ -85,6 +85,27 @@ serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', 
              template: "Certains d'entre vous ont peu de temps à consacrer à Baztille, et pourtant nous souhaitons que tout le monde prenne part aux décisions.<br/>C'est pourquoi vous devez aller à l'essentiel et que la taille des contributions est limitée.<br/>N'oubliez pas que si vous voulez argumenter vous pouvez proposer autant d'arguments et de sous-arguments que vous le souhaitez !"
             });
         
+        },
+
+        onConseilsRedaction: function()
+        {
+            var alertPopup = $ionicPopup.alert({
+             title: 'Conseils de rédaction',
+             template: "<p>Quelques conseils pour que votre question soit sélectionnée :</p><ul><li><p>&bull; Posez une question liée à un problème d’actualité</p></li><li><p>&bull; Vérifiez dans les “questions votées” que cette question n’a pas déjà été votée récemment.</p></li><li><p>&bull; Posez votre question de manière non-orientée, de manière à ce que les autres utilisateurs puisse la trouver intéressante quelque soit leur avis (ex: Démarrez votre question par : Doit-on, Faut-il, Voulez-vous, Peut-on,... )</p></li></ul>"
+            });
+        
+        },
+
+        shareNative: function(message,link) {
+            if(window.plugins.socialsharing) {
+                window.plugins.socialsharing
+                .share(message, null, null, link) // Share via native share sheet
+                .then(function(result) {
+                  //success
+                }, function(err) {
+                  // An error occured. Show a message to the user
+                });
+            }
         },
 
         incrementVote : function($event, context) {
@@ -202,3 +223,17 @@ appBaztille.directive('eatClickIf', ['$parse', '$rootScope',
     }
   }
 ]);
+
+appBaztille.directive('selectOnClick', ['$window', function ($window) {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            element.on('click', function () {
+                if (!$window.getSelection().toString()) {
+                    // Required for mobile Safari
+                    this.setSelectionRange(0, this.value.length)
+                }
+            });
+        }
+    };
+}]);
