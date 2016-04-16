@@ -14,7 +14,7 @@
     <ion-list>
       <ion-item ng-repeat="news in headlines" ui-sref="app.newsread({ newsID: news.id })" class="item-text-wrap">
 
-      <small><img src="img/back-in-time.svg" width="10"> <span am-time-ago="{{news.date}}" am-preprocess="unix"></span></small>
+      <small><img src="img/back-in-time.svg" width="10">  {{news.date}}</small>
 
       <h2>{{news.title}}</h2>
        

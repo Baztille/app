@@ -42,7 +42,7 @@ appBaztille.controller('NewsCtrl', function(User, News, $scope, $state, $ionicLo
                             id: news.id,
                             title: news.title,
                             preview: preview,
-                            date: Math.round( news.firstPublishedAt/1000 )
+                            date: moment( Math.round( news.firstPublishedAt / 1000 ),'X').fromNow()
                         } );
                     }                   
                 }

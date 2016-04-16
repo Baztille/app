@@ -1,13 +1,14 @@
 <ion-view view-title="{{news.title}}">
 <ion-nav-title>{{news.title}}</ion-nav-title>
   <ion-content class="headlines">
-    
-    <div class="row">
-      <div class="col text-left">
+    <div class="news-unique">
+   
+      <div class=" text-left">
       	<small><img src="img/back-in-time.svg" width="10"> {{date}}</small>
-      	<h2>{{news.title}}</h2>
-		<div ng-bind-html="news.content"></div>       
+      	<h1>{{news.title}}</h1>
+		    <div ng-bind-html="news.content"></div>       
       </div>
+
     </div>
 
   </ion-content>

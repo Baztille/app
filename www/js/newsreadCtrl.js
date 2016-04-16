@@ -64,7 +64,7 @@ appBaztille.controller('NewsreadCtrl', function(User, News, $scope, $state, $ion
                     document.title = 'Baztille - News : ' + $scope.news.title;
                }
 
-                $scope.date = moment( Math.round( resp.data.firstPublishedAt / 1000 ),'X').fromNow();;
+                $scope.date = moment( Math.round( resp.data.firstPublishedAt / 1000 ),'X').fromNow();
 
             }, function( err ) {} );
       
