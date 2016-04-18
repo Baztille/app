@@ -20,10 +20,15 @@
           <span class="input-label">E -mail</span>
           <input type="email" ng-model="signinData.email" placeholder="" required>
         </label>
-        <label class="item no-b">
+        <label class="item no-b nopad">
           <button class="button button-block button-positive t-upper t-b no-b"  ion-track-tap="Action" ion-track-data="{ titre: 'inscription-form'}" type="submit">S'inscrire</button>
         </label>
       </div>
     </form>
+
+    <label class="item no-b nopad">
+      <button class="button button-small button-block b-none t-upper t-b no-b t-lower" ng-click="login()">Se connecter</button>
+    </label>
+
   </ion-content>
 </ion-modal-view>

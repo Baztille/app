@@ -21,6 +21,13 @@
 
 appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal, $ionicAnalytics, $timeout, $state, $ionicLoading, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $rootScope) {
 
+  // destroy modals on destroy view
+  $scope.$on('$destroy', function() { 
+    $scope.modalLogin.remove();
+    $scope.modal.remove();
+    $scope.modalforgetPassword.remove();
+  });
+
   $scope.isAuthenticated = false;
 
   // Form data for the login modal
