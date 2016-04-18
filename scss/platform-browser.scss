@@ -20,9 +20,19 @@
 ***********************************************************************************/
 
 .platform-browser {
+
+	.for-native {
+		display:none;
+	}
+	.for-browser {
+		display:block;
+	}
 	
 	@media (min-width: 767px) {
-
+		.splash .button {
+			width:50%;
+			margin:auto;
+		}
 		.bar-header button.ion-navicon {
 			display: none;
 		}
@@ -39,7 +49,7 @@
 
 		.modal-backdrop {
 			.overflow-scroll {
-				overflow-y: hidden;
+				overflow-y: auto;
 				height:inherit !important;
 			}
 		}
@@ -50,18 +60,28 @@
 
 		.modal {
 		    top: 10%;
-		    right: 10%;
+		    right: 15%;
 		    bottom: 10%;
-		    left: 10%;
+		    left: 15%;
 		    min-height: 240px;
-		    width: 80%;
+		    width: 70%;
 		}
 
 		.popup-container .popup {
     		width: 450px;
     		border-radius: 0px;
     	}
-		
+    	.bar .title.title-left {
+          padding-left:inherit!important;
+          //left:inherit!important;
+          //right:inherit!important;
+          text-align: center;
+        }
+
+        .promote-box.expanded, .list.for-browser {
+        	width:450px;
+        	margin:auto;
+        }
 		
 	}
 

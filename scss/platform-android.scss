@@ -24,6 +24,7 @@
 	.modal-wrapper {
 		.bar {
 			margin-top: 10px;
+      background: white;
 			h1 {
 				padding-left: 10px;
 			}
@@ -60,6 +61,7 @@
 
   	.questions .label {
   		min-height: 15px;
+      padding-top: 3px;
   	}
 
   .filter-button.button-clear, .button-clear.button-clear.filter-active, .button-clear.button-clear.filter-inactive {
@@ -68,6 +70,10 @@
 
   .only-ios {
     display: none;
+  }
+
+  .button-clear.button-clear.filter-inactive {
+    padding-top:0px;
   }
 
 }
