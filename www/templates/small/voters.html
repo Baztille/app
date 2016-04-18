@@ -1,0 +1,28 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Liste des votants</h1>
+    <div class="buttons">
+      <button class="button icon ion-close-circled button-clear" ng-click="closeVoters()"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+
+    <div class="expli-txt">
+      <p>
+        Les votes sur Baztille sont <b>publics</b>, de cette manière les votes sont <b>transparents</b> et <b>non-manipulables</b>.
+      </p>
+    </div>
+
+    <div class="item item-text-wrap item-divider">
+      <h2><b>{{voters_nbr}} utilisateurs</b> ont voté pour {{contribution_text}}</h2>
+    </div>
+    
+    <div class="item item-text-wrap">
+      <ion ng-repeat="voter in data.voters">
+        {{voter.name}}, 
+      </ion>
+    </div>
+
+
+  </ion-content>
+</ion-modal-view>
