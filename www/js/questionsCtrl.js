@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory,$ionicPopup, $ionicSideMenuDelegate, $http) {
+appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory,$ionicPopup,$ionicPopover, $ionicSideMenuDelegate, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
   
   // Create the arg proposing modal that we will use later
@@ -47,12 +47,20 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
     return false;
   }; 
 
+  $scope.shareNative = function(message,link) {
+        UxQuestions.shareNative(message,link);
+  };
+  $scope.simpleShare = function(question) { console.log(question);
+        $state.go('question.share',{ questionID: question.id });
+  };
+
   /* keep scroll position */
 
   $scope.scrollSavePos = function( ) {
     if (!ionic.Platform.isIOS()) {
         var scrollPosition = document.querySelector('.ionic-scroll');
         $window.localStorage.questionsLastPos = scrollPosition.scrollTop;
+        delete $window.localStorage.questionLastPos;
     }
   }
   
@@ -66,6 +74,8 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
     }
          
   });
+
+
 
    $scope.categories = UxQuestions.categoryChoice();
   
@@ -137,6 +147,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
                         id: question._id.$id,
                         nbReponse: question.nbReponse,
                         voted: voted,
+                        url: 'http://app.baztille.org/question/questions/'+question._id.$id,
                         validated_answers: validated_answers
                     } );
                 }
@@ -151,6 +162,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
 
     //  Doing question proposal
     //  $scope.newQuestion
+    $scope.propose_a_new_argument = 'Proposer une réponse';
 
     $scope.doPropose = function() {
         
@@ -237,6 +249,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
       
             Questions.getQuestion( {
                 id:$scope.questionId,
+                filter: $scope.questionFilter.code,
                 session: $window.localStorage.token
             } ).then( function(resp) {
 
@@ -303,6 +316,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
                     category : resp.data.question.category,
                     vote: resp.data.question.vote,
                     voted: voted,
+                    url: 'http://app.baztille.org/question/questions/'+$scope.questionId,
                     id: $scope.questionId
                 };
                 
@@ -339,9 +353,21 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
     $scope.newArgData = { text: '' };
 
     // Doing New argument posting modal
-    // $scope.newArgData
-    
+    //  Doing new argument posting
+
     $scope.doNewArg = function() {
+
+        // At first, we do a confirmation step
+        $scope.newArgData.text_br = $scope.newArgData.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        $scope.newArgData.bConfirmation = true;
+    }; 
+
+    $scope.fixNewArg = function() {
+        // Back to edition
+        $scope.newArgData.bConfirmation = false;
+    };
+
+    $scope.confirmNewArg = function() {
           
           $scope.newArgData.id = $scope.questionId;
           $scope.newArgData.session = $window.localStorage.token;
@@ -367,7 +393,8 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
             {
 
                 $scope.modalNewArg.hide();
-                $scope.reloadQuestion();
+                $state.go('question.argpromote',{ questionID: $scope.questionId, argID: data.id.$id });
+                //$scope.reloadQuestion();
             }
          });
 
@@ -457,14 +484,38 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
             }            
         } );
     };
-    
-    $scope.Voters = function( question_id, $event ) {
-        if ($event.stopPropagation) $event.stopPropagation();
-        if ($event.preventDefault) $event.preventDefault();
-        $event.cancelBubble = true;
-        $event.returnValue = false;
 
-        $state.go('question.voters', {questionId: question_id});
-    };   
+    /* Sort answers & arguments */
+
+    $scope.filters = UxQuestions.filterChoice();
+    $scope.questionFilter = ($window.localStorage.proposedFilter) ? $scope.filters[$window.localStorage.proposedFilter-1] : $scope.filters[0]; 
+
+    $scope.update = function(item,type) {
+        
+        $window.localStorage.proposedFilter = item.code;
+        $scope.questionFilter = item;
+        $scope.closePopover();
+
+        //reload scope question
+        $scope.reloadQuestion();
+    }
+    
+    $ionicPopover.fromTemplateUrl('templates/small/filter-popover.html', {
+        scope: $scope
+      }).then(function(popover) {
+        $scope.popover = popover;
+      });
+
+
+      $scope.openPopover = function($event) {
+        $scope.popover.show($event);
+      };
+      $scope.closePopover = function() {
+        $scope.popover.hide();
+      };
+      //Cleanup the popover when we're done with it!
+      $scope.$on('$destroy', function() {
+        $scope.popover.remove();
+      });
     
 });

@@ -39,11 +39,35 @@
           </small>
 
           <h1>{{question.title}}</h1> 
+          
+          <div class="action-question">
+
+            <div class="for-native">
+              
+              <button class="button button-energized button-small icon-left" ng-click="newArg()" ng-show="new_answer_visible">Répondre</button>
+              <button class="button button-grey t-upper button-small icon-left" ng-click="shareNative(question.title, question.url)">Partager</button>
+
+            </div>
+
+            <div class="for-browser">
+             
+              <button class="button button-energized button-small icon-left" ng-click="newArg()" ng-show="new_answer_visible">Répondre</button>
+              <button class="button button-grey t-upper button-small icon-left" ng-click="simpleShare(question);">Partager</button>
+
+            </div>
+
+         </div>
+
         </div>
 
-        <p class="center padding-horizontal divider"><b>{{args.length}}</b> <span ng-if="args.length <= 1">Réponse</span><span ng-if="args.length > 1">Réponses</span></p>
+       
     </div>
+
+     <p class="center padding-horizontal divider"><b>{{args.length}}</b> <span ng-if="args.length <= 1">Réponse</span><span ng-if="args.length > 1">Réponses</span> <!--<span class="label positive button">PROPOSER</span>--></p>
    
+           <div class="questionFilterSort item item-croped {{question.status}}" style="text-align:center;">
+          <div class="icon-right ion-chevron-down button button-clear trier-button single" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
+        </div> 
   </div>
    
   
@@ -64,11 +88,11 @@
                 </div>
                      <div class="content">
                             <div class="quest">{{arg.text}}</div>
-                            <div class="label positive button">{{arg.argnbr}}
+                            <div class="label positive button inverted">{{arg.argnbr}}
                               <span ng-if="arg.argnbr <= 1">argument</span>
                               <span ng-if="arg.argnbr > 1">arguments</span>
                             </div>
-                            
+                            <div class="label white f-r positive button quest-new" ng-if="userLastSession<=arg.date">NOUVEAU</div>  
                              <div class="label arg_valid_footer">
                                   {{arg.arg_footer}}
                              </div>
