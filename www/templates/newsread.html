@@ -8,6 +8,40 @@
       	<h1>{{news.title}}</h1>
 		    <div ng-bind-html="news.content"></div>       
       </div>
+      <div class="share-box">
+        
+        <br/>
+
+        <div class="for-native">
+
+          <button class="button for-native button-energized ion-android-share-alt" ng-click="shareNative(news.title, news.canonicalUrl)">Partager l'actualité</button>
+
+        </div>
+        
+        <div class="list for-browser share-box">
+
+          <div class="item item-input">
+            <a href="#" class="ion-social-facebook button button-energized" socialshare socialshare-provider="facebook"
+              socialshare-text="{{news.title}}"
+              socialshare-url="{{news.canonicalUrl}}">
+            </a>
+            <a href="#" class="ion-social-twitter button button-energized" socialshare socialshare-provider="twitter"
+              socialshare-text="{{news.title}}"
+              socialshare-hashtags="Baztille"
+              socialshare-url="{{news.canonicalUrl}}">
+            </a>
+            <a href="#" class="ion-social-reddit button button-energized" socialshare socialshare-provider="reddit"
+              socialshare-text="{{news.title}}"
+              socialshare-url="{{news.canonicalUrl}}">
+            </a>
+            <a href="#" class="ion-social-tumblr button button-energized" socialshare socialshare-provider="tumblr"
+              socialshare-text="{{news.title}}"
+              socialshare-url="{{news.canonicalUrl}}">
+            </a>
+          </div>
+          <br><br>
+        </div>
+      </div>
 
     </div>
 
@@ -20,4 +54,3 @@
   </ion-footer-bar>
 
 </ion-view>
-

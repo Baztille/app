@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('NewsreadCtrl', function(User, News, $scope, $state, $ionicLoading,  $ionicModal, $ionicPopup, $window, $ionicHistory, $ionicSideMenuDelegate, $http, $stateParams ) {
+appBaztille.controller('NewsreadCtrl', function(User, News, UxQuestions, $scope, $state, $ionicLoading,  $ionicModal, $ionicPopup, $window, $ionicHistory, $ionicSideMenuDelegate, $http, $stateParams ) {
     
     $ionicSideMenuDelegate.canDragContent(true);
 
@@ -57,6 +57,7 @@ appBaztille.controller('NewsreadCtrl', function(User, News, $scope, $state, $ion
             
                 $scope.news = {
                     title: resp.data.title,
+                    canonicalUrl: resp.data.canonicalUrl,
                     content: html
                 };
 
@@ -70,7 +71,11 @@ appBaztille.controller('NewsreadCtrl', function(User, News, $scope, $state, $ion
       
       };
 
-     $scope.reloadOneNews();  
+    $scope.shareNative = function(message,link) {
+        UxQuestions.shareNative(message,link);
+    };
+
+    $scope.reloadOneNews();  
 
 
 });
