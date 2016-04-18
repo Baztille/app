@@ -170,7 +170,72 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       requireLogin: false
     }
   })
+
+  .state('question.share', {
+    url: "/questions/:questionID/share",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/question.html",
+        controller: 'QuestionCtrl'
+      }
+    },
+    access: {
+      requireLogin: false
+    }
+  })
+
+  .state('question.promote', {
+    url: "/questions/:questionID/promote",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/question.html",
+        controller: 'QuestionCtrl'
+      }
+    },
+    access: {
+      requireLogin: false
+    }
+  })
   
+  .state('question.edit', {
+    url: "/questions/:questionID/edit",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/question.html",
+        controller: 'QuestionCtrl'
+      }
+    },
+    access: {
+      requireLogin: true
+    }
+  })
+
+  .state('question.report', {
+    url: "/questions/:questionID/report",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/question.html",
+        controller: 'QuestionCtrl'
+      }
+    },
+    access: {
+      requireLogin: true
+    }
+  })
+
+  .state('question.voters', {
+    url: "/questions/:questionID/voters",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/question.html",
+        controller: 'QuestionCtrl'
+      }
+    },
+    access: {
+      requireLogin: true
+    }
+  }) 
+
   .state('question.arg', {
     url: "/questions/:questionID/:argID",
     views: {
@@ -182,33 +247,46 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
     access: {
       requireLogin: false
     }
-  })  
+  })
 
-  .state('question.voters', {
-    url: "/voters/:questionId",
+  .state('question.argvoters', {
+    url: "/questions/:questionID/:argID/voters",
     views: {
       'menuContent': {
-        templateUrl: "templates/voters.html",
-        controller: 'VotersCtrl'
+        templateUrl: "templates/arg.html",
+        controller: 'ArgCtrl'
       }
     },
     access: {
       requireLogin: true
     }
-  }) 
+  })
 
-  .state('question.votersarg', {
-    url: "/votersarg/:argId",
+  .state('question.argpromote', {
+    url: "/questions/:questionID/:argID/promote",
     views: {
       'menuContent': {
-        templateUrl: "templates/voters.html",
-        controller: 'VotersCtrl'
+        templateUrl: "templates/arg.html",
+        controller: 'ArgCtrl'
       }
     },
     access: {
       requireLogin: true
     }
-  })       
+  })
+
+  .state('question.argreport', {
+    url: "/questions/:questionID/:argID/report",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/arg.html",
+        controller: 'ArgCtrl'
+      }
+    },
+    access: {
+      requireLogin: true
+    }
+  })
   
   .state('compte', {
     url: "/compte",

@@ -22,6 +22,15 @@
 appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $rootScope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover, $ionicNavBarDelegate) {
   $ionicSideMenuDelegate.canDragContent(true);
 
+    // destroy modal on destroy view
+    $scope.$on('$destroy', function() { 
+        $scope.modalPromoteShare.remove();
+        $scope.modalNewQuestion.remove();
+        $scope.modalVoters.remove();
+        $scope.modalReport.remove();
+        $scope.modalNewArg.remove();
+    
+    });
       // Create the arg proposing modal that we will use later
       $ionicModal.fromTemplateUrl('templates/newarg.html', {
         scope: $scope
@@ -39,6 +48,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         $scope.newArgData.text = '';
         $scope.newArgData.bConfirmation = false;
         $scope.modal_title = 'Nouvelle réponse';
+        $scope.propose_a_new_argument = 'Proposer une réponse';
         $scope.new_answer_on = 'Nouvelle réponse à la question';
         $scope.your_answer = 'Votre réponse';
         $scope.ngCharacterCount = $scope.maxChars;
@@ -169,6 +179,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     category : resp.data.question.category,
                     voted: voted,
                     status: status,
+                    url: 'http://app.baztille.org/question/questions/'+$scope.questionId+'?source=share',
                     id: $scope.questionId
                 };
 
@@ -199,12 +210,94 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                         arg_footer: footer_text
                     } );
                 }
+                
+                // shared controller&Views
+                // 
+                // - show fullpage share-box
+                if($state.current.name == 'question.share' ) {
+                    $scope.simpleShare();
+                }
+                // - show edit modal
+                if($state.current.name == 'question.edit' ) { 
+                    $scope.editContribution();
+                }
+                // - show report modal
+                if($state.current.name == 'question.report' ) { 
+                    $scope.report();
+                }
+                // - show promotion 
+                if($state.current.name == 'question.promote' ) { 
+                    $scope.promoteShare();
+                }
+                // - show voters 
+                if($state.current.name == 'question.voters' ) { 
+                    $scope.openVoters();
+                }
+                 
 
             }, function( err ) {} );
       
       };
 
-    
+
+    $scope.onWhyLimit = function() {
+        UxQuestions.onWhyLimit();
+    };
+
+    $scope.onConseilsRedaction = function() {
+        UxQuestions.onConseilsRedaction();
+    };
+
+    $scope.shareNative = function(message,link) {
+        UxQuestions.shareNative(message,link);
+    };
+
+    $scope.actionQuest = function(question, $event) {
+
+    if ($event.stopPropagation) $event.stopPropagation();
+        if ($event.preventDefault) $event.preventDefault();
+        $event.cancelBubble = true;
+        $event.returnValue = false;
+
+        var alertPopup = $ionicPopup.show({
+        title: '',
+        subTitle: '',
+        template: question.id,
+        cssClass: "popup-vertical-buttons-no-head",
+        buttons: [
+        {
+            text: 'Liste votants',
+            type: 'button-default',
+            onTap: function(e) {
+                $scope.openVoters();
+            }
+        },
+        { 
+            text: 'Modifier',
+            type: 'button-default',
+            onTap: function(e) {
+               $scope.editContribution();
+            }
+        },
+        { 
+            text: 'Signaler',
+            type: 'button-default',
+            onTap: function(e) {
+              $state.go('question.report',{ questionID: question.id });
+            }
+        },
+        { 
+            text: 'Aide',
+            type: 'button-default',
+            onTap: function(e) {
+              $state.go('app.about');
+            }
+        },
+        { text: 'Retour' }
+
+        ]
+    });
+  }
     // Form data for the login modal
     $scope.newArgData = { text: '' };
 
@@ -248,7 +341,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                 else
                 {
                     $scope.modalNewArg.hide();
-                    $scope.reloadQuestion();
+                    $state.go('question.argpromote',{ questionID: $scope.questionId, argID: data.id.$id });
                 }
              });
 
@@ -342,18 +435,101 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         UxQuestions.onWhyLimit();
     };
     
-    
-      $scope.Voters = function( question_id, $event ) {
-        if ($event.stopPropagation) $event.stopPropagation();
-        if ($event.preventDefault) $event.preventDefault();
-        $event.cancelBubble = true;
-        $event.returnValue = false;
 
-        $state.go('question.voters', {questionId: question_id});
-    };   
+      /* voter */
+
+      // Create the promote/share modal
+      $ionicModal.fromTemplateUrl('templates/small/voters.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalVoters = modal;
+      });
+
+      // Triggered in the login modal to close it
+      $scope.closeVoters = function() {
+        $scope.modalVoters.hide();
+      };
+
+      $scope.openVoters = function() {
+        $scope.modalVoters.show();
+
+        $scope.isArg = false;
+
+        if( $stateParams.questionID )
+        {
+            $scope.id = $stateParams.questionID;
+        }
+
+        Questions.listVoters( {
+            id:$scope.id,
+            isArg: $scope.isArg,
+            session: $window.localStorage.token
+        } ).success(function(data){
+            
+            $scope.contribution_text = "cette question";
+            $scope.data = data;
+            $scope.voters_nbr = data.voters.length;
+            
+        } );    
     
-    /* Contribution editing */
-    
+
+      };
+
+      /* Share / promote modal */
+
+      // Create the promote/share modal
+      $ionicModal.fromTemplateUrl('templates/small/promoteandshare.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalPromoteShare = modal;
+      });
+
+      // Triggered in the login modal to close it
+      $scope.closePromoteShare = function() {
+        $scope.modalPromoteShare.hide();
+      };
+
+      $scope.promoteShare = function() {
+        $scope.sharebox = 'expanded';
+        $scope.promotebox = 'expanded';
+        $scope.modalPromoteShare.show();
+      };
+
+      $scope.simpleShare = function() {
+        $scope.sharebox = 'expanded';
+        $scope.promotebox = '';
+        $scope.shareboxTitle = 'show';
+        $scope.modalPromoteShare.show();
+      };
+
+      /* Report modal */
+
+      // Create the promote/share modal
+      $ionicModal.fromTemplateUrl('templates/small/report.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalReport = modal;
+      });
+
+      // Triggered in the login modal to close it
+      $scope.closeReport = function() {
+        $scope.modalReport.hide();
+      };
+
+      $scope.report = function() {
+        $scope.reportWhat = 'question';
+        $scope.reportID = $scope.question.id;
+        $scope.modalReport.show();
+      };
+
+      $scope.sendReport = function(reportAnswer) {
+        //console.log($scope.reportID,$scope.reportWhat,reportAnswer);
+        $scope.closeReport();
+      }
+
+
+      /* Contribution editing */
+
       // Create the arg proposing modal that we will use later
       $ionicModal.fromTemplateUrl('templates/newquestion.html', {
         scope: $scope
@@ -504,22 +680,24 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         scope: $scope
       }).then(function(popover) {
         $scope.popoverMenu = popover;
-      });
+    });
 
-
-      $scope.openPopoverMenu = function($event) {
+    $scope.openPopoverMenu = function($event) {
         $scope.popoverMenu.show($event);
-      };
-      $scope.closePopoverMenu = function($event) {
+    };
+    
+    $scope.closePopoverMenu = function($event) {
         $scope.popoverMenu.hide($event);
-      };
-      //Cleanup the popover when we're done with it!
-      $scope.$on('$destroy', function() {
+    };
+    
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function() {
         $scope.popoverMenu.remove();
-      });
+    });
 
     
-     // Initial question load    
-     $scope.reloadQuestion();
+    // Initial question load    
+    $scope.reloadQuestion();
+
 
 });

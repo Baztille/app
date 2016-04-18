@@ -7,7 +7,7 @@
         <a class="button button-icon button-clear ion-android-more-vertical" style="margin-left:10px;" ng-if="currentUser!==undefined" ng-click="popoverMenu.show($event);"></a>
   </ion-nav-buttons>
 
-<ion-nav-title>{{question.title}}</ion-nav-title>
+<ion-nav-title>{{question.date_prefix}}</ion-nav-title>
   
   <ion-content>
   
@@ -16,8 +16,10 @@
       <br/>
 
       <div class="item item-text-wrap nopad {{question.status}}">
-        <small style="opacity:0.4;"><span ng-if="questionCategory.code!=1"><b style="text-transform:uppercase;">{{questionCategory.name}}</b> 
-        | </span><span am-time-ago="{{question.date_proposed}}" am-preprocess="unix">{{question.date_prefix}} {{question.date}}</span>
+        <small><span am-time-ago="{{question.date_proposed}}" am-preprocess="unix" style="opacity:0.4;">{{question.date_prefix}} {{question.date}}</span><br>
+
+        <div class="label lower positive button inverted" ng-if="questionCategory.code!=1">{{questionCategory.name}}</div>
+                
         </small>
 
         <div class="vote-h1">
@@ -35,16 +37,42 @@
         </div>
         <h1>{{question.title}}</h1>
               
- 
-      </div>
 
-      <p class="center padding-horizontal divider"><b>{{args.length}}</b> <span ng-if="args.length <= 1">Réponse</span><span ng-if="args.length > 1">Réponses</span></p>
+      </div>
+      
+      <div class="action-question">
+
+        <div class="for-native">
+          
+          <button class="button button-energized button-small icon-left" ng-click="newArg()" ng-show="new_answer_visible">Répondre</button>
+          <button class="button button-grey t-upper button-small icon-left" ng-click="shareNative(question.title, question.url)">Partager</button>
+          <button class="button f-r button-light button-small button-icon ion-more icon-right button-more" ng-if="currentUser!==undefined" ng-click="actionQuest(question, $event);"><span>PLUS</span></button>
+
+        </div>
+
+        <div class="for-browser">
+         
+          <button class="button button-energized button-small icon-left" ng-click="newArg()" ng-show="new_answer_visible">Répondre</button>
+          <button class="button button-grey t-upper button-small icon-left" ng-click="simpleShare();">Partager</button>
+          <button class="button f-r button-light button-small button-icon ion-more icon-right button-more" ng-if="currentUser!==undefined" ng-click="actionQuest(question, $event);"><span>PLUS</span></button>
+
+        </div>
+
+     </div>
+      <!--
+      <ion-slide-box show-pager="true" style="display:none;">
+      <ion-slide><div style="height:100px;background:red;">related questions</div></ion-slide>
+      <ion-slide><div style="height:100px;background:yellow;">2</div></ion-slide>
+    </ion-slide-box>-->
 
     </div>
 
-        <div class="questionFilterSort item {{question.status}}">
-          <div class="icon-right ion-android-add-circle button button-clear button-energized" style="float:right;" ng-click="newArg()" ng-show="new_answer_visible"></div>
-          <div class="icon-right ion-chevron-down button button-clear filter-button" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
+
+
+     <p class="center padding-horizontal divider"><b>{{args.length}}</b> <span ng-if="args.length <= 1">Réponse</span><span ng-if="args.length > 1">Réponses</span></p>
+
+        <div class="questionFilterSort item item-croped {{question.status}}" style="text-align:center;">
+          <div class="icon-right ion-chevron-down button button-clear trier-button single" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
         </div>   
   
     <ion-list class="questions">
@@ -64,11 +92,11 @@
                 </div>
                      <div class="content">
                         <div class="quest">{{arg.text}}</div>
-                          <div class="label positive button">{{arg.argnbr}}
+                          <div class="label positive button inverted">{{arg.argnbr}}
                             <span ng-if="arg.argnbr <= 1">argument</span>
                             <span ng-if="arg.argnbr > 1">arguments</span>
                           </div>
-                            
+                          <div class="label white f-r positive button quest-new" ng-if="userLastSession<=arg.date">NOUVEAU</div>  
                           <div class="label arg_valid_footer">
                             {{arg.arg_footer}}
                           </div>
