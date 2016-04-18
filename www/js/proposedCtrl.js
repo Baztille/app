@@ -22,7 +22,10 @@
 appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $timeout, $scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $ionicPopover, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
 
-
+  // destroy modals on destroy view
+  $scope.$on('$destroy', function() { 
+    $scope.modalNewQuestion.remove();
+  });
   // Create the arg proposing modal that we will use later
   $ionicModal.fromTemplateUrl('templates/newquestion.html', {
     scope: $scope
@@ -38,7 +41,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
   // Open the login modal
   $scope.addNewQuestion = function() {
     $scope.newQuestion.text = '';
-    $scope.modal_title = 'Nouvelle question';
+    $scope.modal_title = 'Proposer une question';
     $scope.newQuestion.bConfirmation = false;
     $scope.updateQuestion = false;
     $scope.ngCharacterCount = $scope.maxChars;
@@ -58,6 +61,57 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     
     return false;
   }; 
+
+  $scope.actionQuest = function(question, $event) {
+
+    if ($event.stopPropagation) $event.stopPropagation();
+        if ($event.preventDefault) $event.preventDefault();
+        $event.cancelBubble = true;
+        $event.returnValue = false;
+
+        var alertPopup = $ionicPopup.show({
+        title: '',
+        subTitle: '',
+        template: question.id,
+        cssClass: "popup-vertical-buttons-no-head",
+        buttons: [
+        {
+            text: '<b>Partager</b>',
+            type: 'button-default',
+            onTap: function(e) {
+              if(!window.cordova) { 
+                $scope.scrollSavePos();
+                $state.go('question.share',{ questionID: question.id });
+              } else {
+                UxQuestions.shareNative(question.title,question.url);
+              }
+            }
+        },
+        { 
+            text: 'Modifier',
+            type: 'button-default',
+            onTap: function(e) {
+              $scope.scrollSavePos();
+              $state.go('question.edit',{ questionID: question.id });
+            }
+        },
+        { 
+            text: 'Signaler',
+            type: 'button-default',
+            onTap: function(e) {
+              $scope.scrollSavePos();
+              $state.go('question.report',{ questionID: question.id });
+            }
+        },
+        { text: 'Retour' }
+
+        ]
+    });
+  }
+
+  $scope.shareNative = function(message,link) {
+        UxQuestions.shareNative(message,link);
+  };
 
   $scope.questions = [];
   $scope.questionPage = 1;
@@ -143,6 +197,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     if (!ionic.Platform.isIOS()) {
       var scrollPosition = document.querySelector('.ionic-scroll');
       $window.localStorage.proposedLastPos = scrollPosition.scrollTop;
+      delete $window.localStorage.questionLastPos;
     }
   }
   
@@ -198,8 +253,9 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
                     title: question.text, 
                     vote: question.vote,
                     argnbr: question.nbReponse,
-                    date_proposed: question.date_proposed_end, 
+                    date_proposed: question.date_proposed, 
                     id: question._id.$id,
+                    url: 'http://app.baztille.org/question/questions/'+question._id.$id,
                     voted: voted,
                     attempts_status: attempts_status
                 } );
@@ -262,10 +318,8 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     //  Doing question proposal
     //  $scope.newQuestion
     
-    $scope.updateNewQuestionCategory = function(item) {
-        
+    $scope.updateNewQuestionCategory = function(item) { 
       $scope.questionCategory = item;
-
     };
 
     $scope.doPropose = function() {
@@ -277,6 +331,10 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     
     $scope.onWhyLimit = function() {
         UxQuestions.onWhyLimit();
+    };
+
+    $scope.onConseilsRedaction = function() {
+        UxQuestions.onConseilsRedaction();
     };
 
     $scope.fixNewQuestion = function() {
@@ -312,7 +370,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
                 var question_id = data.id;
                 $scope.ngCharacterCount = $scope.maxChars;
                 $scope.modalNewQuestion.hide();
-                $state.go('question.single', {questionID:question_id.$id} );
+                $state.go('question.promote', {questionID:question_id.$id} );
 
             }
          });

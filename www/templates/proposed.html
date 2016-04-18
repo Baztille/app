@@ -1,5 +1,12 @@
 <ion-view view-title="Baztille - Questions proposées" hide-back-button="true" hide-nav-bar="false" enable-menu-with-back-views="true" cache-view="true">
 <ion-nav-title>Questions</ion-nav-title>
+
+  <ion-nav-buttons side="right">
+        <a ui-sref="compte.points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
+          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser!==undefined" ui-sref="compte.points"ui-sref="compte.points"></a>
+          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
+  </ion-nav-buttons>
+
   <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
     <div class="tabs">
       <a class="tab-item" nav-transition="none" menu-close ui-sref="question.questions" >
@@ -17,10 +24,10 @@
   <ion-content>
 <br><br>
     <div class="expli-txt">
-        Choisissez la prochaine question qui sera posée à la communauté Baztille.
+        <b>Choisissez la prochaine question</b> qui sera posée à la communauté Baztille.
       </div>
 
-        <div class="questionFilterSort item">
+        <div class="questionFilterSort item item-croped">
           <div class="categoryfilter" ng-show="showCategoryfilter">
             <div class="icon-right ion-close-round button button-clear delete-filter" ng-show="showCategoryfilterDelete" ng-click="deleteCategoryFilter($event)"></div>
             <label class="item item-input item-select select-categoryfilter">
@@ -31,18 +38,17 @@
 
           </div>
 
-          <div class="icon-right ion-chevron-down _ion-ios-settings-strong button button-clear filter-button" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
-          <div class="icon-right ion-ios-settings-strong button button-clear filter-{{questionCategoryActive}}" ng-click="openCategoryFilter($event)"><span>FILTRER</span></div>
+          <div class="icon-right ion-chevron-down _ion-ios-settings-strong button button-clear trier-button" ng-click="openPopover($event)"><span>TRIER PAR {{questionFilter.name}}</span></div>
+          <div class="icon-right ion-ios-settings-strong button button-clear filter-button filter-{{questionCategoryActive}}" ng-click="openCategoryFilter($event)"><span>FILTRER</span></div>
         </div>
         
-
 
     <ion-list class="questions">
       <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" ui-sref="question.single({ questionID: question.id })" >
       
       <div class="card">
 
-        <div class="item item-text-wrap">
+        <div ng-class="$index==0 ? 'item item-text-wrap' : 'item item-text-wrap'">
           <div class="logoicon {{question.voted}}" ng-click="voteProposed('{{question.id}}', $event);" ion-track-tap="Vote" ion-track-data="{ question: question.id, type: 'proposé'}">
               <div class="logoicon_inner button">
                 <div class="logoicon_vote_nb">{{question.vote}}</div>
@@ -54,17 +60,20 @@
           </div>
 
           <div class="content"><div class="quest">{{question.title}}</div>
-          <div class="label positive button">{{question.argnbr}}
+          <div class="label inverted positive button">{{question.argnbr}}
             <span ng-if="question.argnbr <= 1">réponse</span>
             <span ng-if="question.argnbr > 1">réponses</span>
-          </div>
-            
+          </div> 
+          
+          <div class="label white f-r button-icon ion-more positive button info-dot" ng-if="currentUser!==undefined" ng-click="actionQuest(question, $event);"></div>
+          <div class="label white f-r positive button quest-new" ng-if="userLastSession<=question.date_proposed">NOUVEAU</div>
           <small style="display:none">{{question.attempts_status}}</small>
           </div>
 
         </div>
 
       </div>
+      <div ng-if="$index==0"></div>
         
       </ion-item>
     </ion-list>
@@ -72,6 +81,7 @@
     <ion-infinite-scroll
       ng-if="moreDataCanBeLoaded()"
       on-infinite="loadMore()"
+      icon="none"
       distance="10%">
     </ion-infinite-scroll>
     
