@@ -67,6 +67,7 @@ appBaztille.controller('VotedCtrl', function(Questions, $scope, $state, $timeout
     if (!ionic.Platform.isIOS()) {
       var scrollPosition = document.querySelector('.ionic-scroll');
       $window.localStorage.votedLastPos = scrollPosition.scrollTop;
+      delete $window.localStorage.questionLastPos;
     }
   }
   
