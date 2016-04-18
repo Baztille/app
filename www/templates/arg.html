@@ -15,9 +15,10 @@
       
       <br>
       
-      <div class="item item-text-wrap nopad {{initial_question_status}}">
-        
-          <h2>{{initial_question_title}}</h2>
+      <div class="arg item item-text-wrap nopad {{initial_question_status}}">
+          <div ui-sref="question.single({ questionID: questionId})">
+          <p><b>QUESTION</b></p><p>{{initial_question_title}}</p>
+          </div>
           <br>
            
             <small style="opacity:0.4;"><span am-time-ago="{{header_date_proposed}}" am-preprocess="unix">{{header_title}} {{header_date_proposed_formated}}</span></small>
@@ -38,11 +39,29 @@
 
       </div>
 
-       <p class="center padding-horizontal divider"><b>{{question.argnbr}}</b> <span ng-if="question.argnbr <= 1">{{label_title}}</span><span ng-if="question.argnbr > 1">{{label_title}}s</span></p>
+      <div class="action-question">
+
+        <div class="for-native">
+          
+          <button class="button button-energized button-small icon-left" ng-click="newArg()" ng-show="show_new_argument">Répondre</button>
+          <button class="button button-grey t-upper button-small icon-left" ng-click="shareNative(question.title, question.url)">Partager</button>
+          <button class="button f-r button-light button-small button-icon ion-more icon-right button-more" ng-if="currentUser!==undefined" ng-click="actionQuest(question, $event);"><span>PLUS</span></button>
+
+        </div>
+
+        <div class="for-browser">
+         
+          <button class="button button-energized button-small icon-left" ng-click="newArg()" ng-show="show_new_argument">Répondre</button>
+          <button class="button button-grey t-upper button-small icon-left" ng-click="simpleShare();">Partager</button>
+          <button class="button f-r button-light button-small button-icon ion-more icon-right button-more" ng-if="currentUser!==undefined" ng-click="actionQuest(question, $event);"><span>PLUS</span></button>
+
+        </div>
+
+      </div>
 
     </div>
 
-
+    <p class="center padding-horizontal divider"><b>{{question.argnbr}}</b> <span ng-if="question.argnbr <= 1">{{label_title}}</span><span ng-if="question.argnbr > 1">{{label_title}}s</span></p>
   
     <ion-list class="questions">
 
@@ -62,7 +81,7 @@
 
             <div class="content"><div class="quest">{{arg.text}}</div>
             
-            <div class="label positive button" ng-show="{{arg.showargnbr}}">{{arg.argnbr}} <span ng-if="arg.argnbr <= 1">{{label_title2}}</span><span ng-if="arg.argnbr > 1">{{label_title2}}s</span></div>
+            <div class="label positive button inverted" ng-show="{{arg.showargnbr}}">{{arg.argnbr}} <span ng-if="arg.argnbr <= 1">{{label_title2}}</span><span ng-if="arg.argnbr > 1">{{label_title2}}s</span></div>
             </div>
 
           </div>

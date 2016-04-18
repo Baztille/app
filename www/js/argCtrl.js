@@ -22,6 +22,13 @@
 appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams,$ionicPopover) {
   $ionicSideMenuDelegate.canDragContent(true);
 
+      // destroy modals on destroy view
+      $scope.$on('$destroy', function() { 
+        $scope.modalNewArg.remove();
+        $scope.modalPromoteShare.remove();
+        $scope.modalVoters.remove();
+        $scope.modalReport.remove();
+      });
 
       // Create the arg proposing modal that we will use later
       $ionicModal.fromTemplateUrl('templates/newarg.html', {
@@ -62,10 +69,13 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
              
       });
       
-    $scope.onWhyLimit = function() {
+      $scope.onWhyLimit = function() {
         UxQuestions.onWhyLimit();
-    };
+      };
       
+      $scope.shareNative = function(message,link) {
+        UxQuestions.shareNative(message,link);
+      };
 
       $scope.reloadQuestion = function()
       {
@@ -126,7 +136,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                         $scope.header_date_proposed_formated = moment(current_arg.date,'X').fromNow()
                     }
 
-                    
+                    $scope.current_arg_depth = current_arg.depth;
                     var status = resp.data.question.status;
                     $scope.initial_question_title = resp.data.question.text;
                     $scope.initial_question_status = status;
@@ -178,6 +188,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                         vote: current_arg.vote,
                         date_proposed: date,
                         voted: voted,
+                        url: 'http://app.baztille.org/question/questions/'+$scope.questionId+'/'+$scope.argId+'?source=share',
                         argnbr: current_arg.args.length,
                     };
 
@@ -210,6 +221,11 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                             link: current_arg.depth == 2 ? true : false
                         } );
                     }
+                }
+
+                // - show promotion 
+                if($state.current.name == 'question.argpromote' ) { 
+                    $scope.promoteShare();
                 }
 
             }, function( err ) {
@@ -288,13 +304,60 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
             {
 
                 $scope.modalNewArg.hide();
-                $scope.reloadQuestion();
+                $state.go('question.argpromote',{ questionID: $scope.questionId, argID: data.id.$id });
+                //$scope.reloadQuestion();
             }
          });
 
     };
 
+    /* voter */
 
+      // Create the promote/share modal
+      $ionicModal.fromTemplateUrl('templates/small/voters.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalVoters = modal;
+      });
+
+      // Triggered in the login modal to close it
+      $scope.closeVoters = function() {
+        $scope.modalVoters.hide();
+      };
+
+      $scope.openVoters = function() {
+        $scope.modalVoters.show();
+
+        $scope.isArg = true;
+
+        if( $stateParams.questionID )
+        {
+            $scope.id = $stateParams.argID;
+        }
+
+        Questions.listVoters( {
+            id:$scope.id,
+            isArg: $scope.isArg,
+            session: $window.localStorage.token
+        } ).success(function(data){
+            
+            if($scope.current_arg_depth==1) {
+                $scope.contribution_text = "cette réponse";
+            }
+            if($scope.current_arg_depth==2) {
+                $scope.contribution_text = "cet argument";
+            }
+            if($scope.current_arg_depth==3) {
+                $scope.contribution_text = "ce sous-argument";
+            }
+
+            $scope.data = data;
+            $scope.voters_nbr = data.voters.length;
+            
+        } );    
+    
+
+      };
 
 
     //  Voting for arg
@@ -335,41 +398,167 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
 
     };
 
+    $scope.actionQuest = function(question, $event) {
+
+        if ($event.stopPropagation) $event.stopPropagation();
+            if ($event.preventDefault) $event.preventDefault();
+            $event.cancelBubble = true;
+            $event.returnValue = false;
+
+            var alertPopup = $ionicPopup.show({
+            title: '',
+            subTitle: '',
+            template: question.id,
+            cssClass: "popup-vertical-buttons-no-head",
+            buttons: [
+            {
+                text: 'Liste votants',
+                type: 'button-default',
+                onTap: function(e) {
+                    $scope.openVoters();
+                }
+            },
+            /*{ 
+                text: 'Modifier',
+                type: 'button-default',
+                onTap: function(e) {
+                   $scope.editContribution();
+                }
+            },*/
+            { 
+                text: 'Signaler',
+                type: 'button-default',
+                onTap: function(e) {
+                  //$state.go('question.argreport',{ questionID: question.id, argID: arg.id });
+                  $scope.report();
+                }
+            },
+            { 
+                text: 'Aide',
+                type: 'button-default',
+                onTap: function(e) {
+                  $state.go('app.about');
+                }
+            },
+            { text: 'Retour' }
+
+            ]
+        });
+    }
+
+
+      /* Share / promote modal */
+
+      // Create the promote/share modal
+      $ionicModal.fromTemplateUrl('templates/small/promoteandsharearg.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalPromoteShare = modal;
+      });
+
+      // Triggered in the login modal to close it
+      $scope.closePromoteShare = function() {
+        $scope.modalPromoteShare.hide();
+      };
+
+      $scope.promoteShare = function() {
+        $scope.sharebox = 'expanded';
+        $scope.promotebox = 'expanded';
+       
+        if($scope.current_arg_depth==1) {
+            $scope.promote_text = "réponse";
+            $scope.promote_text2 = "publiée";
+            $scope.promote_text3 = "la réponse";
+        }
+        if($scope.current_arg_depth==2) {
+            $scope.promote_text = "argument";
+            $scope.promote_text2 = "publié";
+            $scope.promote_text3 = "l'argument";
+        }
+        if($scope.current_arg_depth==3) {
+            $scope.promote_text = "sous-argument";
+            $scope.promote_text2 = "publié";
+            $scope.promote_text3 = "le sous-argument";
+        }
+
+        $scope.modalPromoteShare.show();
+      };
+
+      $scope.simpleShare = function() {
+
+        if($scope.current_arg_depth==1) {
+            $scope.promote_text = "réponse";
+            $scope.promote_text2 = "publiée";
+            $scope.promote_text3 = "la réponse";
+        }
+        if($scope.current_arg_depth==2) {
+            $scope.promote_text = "argument";
+            $scope.promote_text2 = "publié";
+            $scope.promote_text3 = "l'argument";
+        }
+        if($scope.current_arg_depth==3) {
+            $scope.promote_text = "sous-argument";
+            $scope.promote_text2 = "publié";
+            $scope.promote_text3 = "le sous-argument";
+        }
+
+        $scope.sharebox = 'expanded';
+        $scope.promotebox = '';
+        $scope.shareboxTitle = 'show';
+        $scope.modalPromoteShare.show();
+      };
+
+    /* Report modal */
+
+      // Create the promote/share modal
+      $ionicModal.fromTemplateUrl('templates/small/report.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modalReport = modal;
+      });
+
+      // Triggered in the login modal to close it
+      $scope.closeReport = function() {
+        $scope.modalReport.hide();
+      };
+
+      $scope.report = function() {
+        $scope.reportWhat = 'argument';
+        $scope.reportID = $scope.argId;
+        $scope.modalReport.show();
+      };
+
+      $scope.sendReport = function(reportAnswer) {
+        //console.log($scope.reportID,$scope.reportWhat,reportAnswer);
+        $scope.closeReport();
+      }
 
     // Characters left counter
     $scope.maxChars = 200;
     $scope.ngCharacterCount = $scope.maxChars;
     $scope.inputChange = function() { UxQuestions.inputChange( $scope, $scope.newArgData.text ); }
     
-
-    $scope.Voters = function( arg_id, $event ) {
-        if ($event.stopPropagation) $event.stopPropagation();
-        if ($event.preventDefault) $event.preventDefault();
-        $event.cancelBubble = true;
-        $event.returnValue = false;
-
-        $state.go('question.votersarg', {argId: arg_id});
-    };    
-
+  
     //Edit menu
     //
     $ionicPopover.fromTemplateUrl('templates/small/arg-popover.html', {
         scope: $scope
-      }).then(function(popover) {
+    }).then(function(popover) {
         $scope.popoverMenu = popover;
-      });
+    });
 
 
-      $scope.openPopoverMenu = function($event) {
+    $scope.openPopoverMenu = function($event) {
         $scope.popoverMenu.show($event);
-      };
-      $scope.closePopoverMenu = function($event) {
+    };
+    $scope.closePopoverMenu = function($event) {
         $scope.popoverMenu.hide($event);
-      };
-      //Cleanup the popover when we're done with it!
-      $scope.$on('$destroy', function() {
+    };
+    
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function() {
         $scope.popoverMenu.remove();
-      }); 
+    }); 
     
 
  
