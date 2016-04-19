@@ -76,11 +76,18 @@
           //left:inherit!important;
           //right:inherit!important;
           text-align: center;
+          right:24px!important;
         }
 
         .promote-box.expanded, .list.for-browser {
         	width:450px;
         	margin:auto;
+        }
+
+        .menu.menu-left, .popover-wrapper {
+        	.overflow-scroll {
+        		overflow: hidden;
+        	}
         }
 		
 	}
