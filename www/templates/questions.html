@@ -16,10 +16,17 @@
   
   <ion-content>
   <br><br>
+
+  <div class="needtoreload" ng-if="needToReload">
+    <div class="inner-bar">Il semblerait que vous ayez un problème de connexion<br><br>
+      <a class="button button-small button-light" ng-click="reloadQuestions()">Réessayer</a>
+    </div>
+  </div>
+  
     <div class="expli-txt" ng-show="showExplanationlink">
         {{explanation}}
         <br/>
-        <a class="button button-block" ui-sref="question.proposed">{{explanationlink}}</a>
+        <a class="button button-light" ui-sref="question.proposed">{{explanationlink}}</a>
     </div>
 
 
@@ -45,7 +52,7 @@
             <div class="for-native">
               
               <button class="button button-energized button-small icon-left" ng-click="newArg()" ng-show="new_answer_visible">Répondre</button>
-              <button class="button button-grey t-upper button-small icon-left" ng-click="shareNative(question.title, question.url)">Partager</button>
+              <button class="button button-grey t-upper button-small icon-left button-share" ng-click="shareNative(question.title, question.url)">Partager</button>
 
             </div>
 

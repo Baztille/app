@@ -20,7 +20,7 @@
 ***********************************************************************************/
 
 
-serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootScope', '$ionicAnalytics', '$ionicPopup', '$state', '$window',function($http, config, $cacheFactory, $scope, $ionicAnalytics, $ionicPopup, $state, $window){
+serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootScope', '$ionicAnalytics', '$ionicPopup', '$state', '$window','$ionicContentBanner',function($http, config, $cacheFactory, $scope, $ionicAnalytics, $ionicPopup, $state, $window, $ionicContentBanner){
 
     var processBzComDatas = function( data )
     {
@@ -56,6 +56,8 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
                 'Content-Type':'application/json'
             }}).success(function(reply, status, headers, configlocal) {
             
+                $scope.needToReload = false;
+
                 if( typeof reply != 'object' )
                 {
                     console.log( reply );
@@ -70,6 +72,15 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
         })
         .error(function(data, status, headers, configlocal) {
 
+            $ionicContentBanner.show({
+              text: ['Vous êtes déconnecté'],
+              autoClose: 3000,
+              icon: 'none',
+              type: 'error',
+              transition: 'vertical'
+            });
+
+            $scope.needToReload = true;
 
             $scope.$broadcast('loading:hide')
             $ionicAnalytics.track('Bug', {

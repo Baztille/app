@@ -22,10 +22,18 @@
 </div>
 
   <ion-content>
-<br><br>
+  <br><br>
+  
+  <div class="needtoreload" ng-if="needToReload">
+    <div class="inner-bar">Il semblerait que vous ayez un problème de connexion<br><br>
+      <a class="button button-small button-light" ng-click="reloadQuestions()">Réessayer</a>
+    </div>
+  </div>
+
     <div class="expli-txt">
         <b>Choisissez la prochaine question</b> qui sera posée à la communauté Baztille.
       </div>
+      
 
         <div class="questionFilterSort item item-croped">
           <div class="categoryfilter" ng-show="showCategoryfilter">

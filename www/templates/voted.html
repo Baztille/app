@@ -14,8 +14,13 @@
     </div>
 </div>
   <ion-content>
-
     <br><br>
+    <div class="needtoreload" ng-if="needToReload">
+    <div class="inner-bar">Il semblerait que vous ayez un problème de connexion<br><br>
+      <a class="button button-small button-light" ng-click="reloadQuestions()">Réessayer</a>
+    </div>
+  </div>
+  
     <div class="expli-txt">
         <b>Les questions déjà votées.</b> Ces décisions seront défendues par les futurs élus Baztille.
     </div>

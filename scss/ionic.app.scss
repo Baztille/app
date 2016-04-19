@@ -29,7 +29,7 @@ $light:                           #fff !default;
 $stable:                          #f8f8f8 !default;
 $positive:                        #F9DA00 !default; // #fce625 // JAUNE
 $calm:                            #909090 !default; // grey
-$balanced:                        #557E19 !default; //green
+$balanced:                        #79AF2B !default; //green
 $energized:                       #00A8D0 !default; //blue // 206f96 // 00A8D0 //  BLEU
 $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
@@ -45,6 +45,19 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "platform-android";
 @import "platform-ios";
 @import "platform-browser";
+
+// Toaster customisation
+$content-banner-opacity: 1     !default;
+$content-banner-error-bg: $assertive   !default;
+$content-banner-info-bg: $balanced   !default;
+
+@import "www/lib/ionic-content-banner/scss/ionic.content.banner";
+.bar-no-tabs .content-banner {
+  top: 2px;
+}
+.bar-tabs .content-banner {
+  top: 42px;
+}
 
 /* BEM RULES */
 
@@ -820,7 +833,7 @@ ion-view.splash ion-content {
   background-image: inherit;
 }
 
-.button.button-energized, .button.button-assertive, .button.button-grey {
+.button.button-energized, .button.button-assertive, .button.button-grey, .button.button-light {
   font-size:14px;
   text-transform: uppercase;
   font-weight:700;
@@ -1136,4 +1149,17 @@ background-color: inherit;
 
 }
 
+.needtoreload {
+  position:fixed;
+  background-color: $grey;
+  z-index: 10;
+  width: 100%;
+  padding-top:60px;
+  min-height:200px;
+  .inner-bar {
+    text-align:center;
+    .button-light {
 
+    }
+  }
+}
