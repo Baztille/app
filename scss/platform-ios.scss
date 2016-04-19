@@ -50,6 +50,20 @@
       }
     }
   }
+  .button-share {
+    display: none;
+  }
+
+  .bar-tabs .bar-header, .modal-wrapper .bar-header {
+    box-shadow: inherit;
+  }
+  .modal-wrapper .bar-header {
+    background:white;
+  }
+
+  .bar-tabs .content-banner {
+    top: 37px;
+  }
 
 }
 
@@ -78,6 +92,10 @@
           top: 0px;
       }
     }
+  }
+
+  .bar-tabs .content-banner {
+    top: 43px;
   }
 
 }
