@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams,$ionicPopover) {
+appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams,$ionicPopover,$ionicContentBanner) {
   $ionicSideMenuDelegate.canDragContent(true);
 
       // destroy modals on destroy view
@@ -326,6 +326,8 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
       };
 
       $scope.openVoters = function() {
+
+        $scope.closePopoverMenu();
         $scope.modalVoters.show();
 
         $scope.isArg = true;
@@ -429,7 +431,6 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                 text: 'Signaler',
                 type: 'button-default',
                 onTap: function(e) {
-                  //$state.go('question.argreport',{ questionID: question.id, argID: arg.id });
                   $scope.report();
                 }
             },
@@ -485,7 +486,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
       };
 
       $scope.simpleShare = function() {
-
+        $scope.closePopoverMenu();
         if($scope.current_arg_depth==1) {
             $scope.promote_text = "réponse";
             $scope.promote_text2 = "publiée";
@@ -523,6 +524,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
       };
 
       $scope.report = function() {
+        $scope.closePopoverMenu();
         $scope.reportWhat = 'argument';
         $scope.reportID = $scope.argId;
         $scope.modalReport.show();
@@ -530,6 +532,14 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
 
       $scope.sendReport = function(reportAnswer) {
         //console.log($scope.reportID,$scope.reportWhat,reportAnswer);
+        //// CALL API TODO
+        $ionicContentBanner.show({
+              text: ['Signalement envoyé'],
+              autoClose: 3000,
+              icon: 'none',
+              type: 'info',
+              transition: 'vertical'
+            });
         $scope.closeReport();
       }
 

@@ -19,8 +19,10 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $rootScope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover, $ionicNavBarDelegate) {
+appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, $rootScope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $http, $stateParams, $ionicPopup, $ionicPopover, $ionicNavBarDelegate,$ionicContentBanner) {
   $ionicSideMenuDelegate.canDragContent(true);
+
+  
 
     // destroy modal on destroy view
     $scope.$on('$destroy', function() { 
@@ -85,7 +87,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         }
       });
 
-      $scope.reloadQuestion = function()
+      $scope.reloadQuestion = function(childRoute)
       {
             Questions.getQuestion( {
                 id:$scope.questionId,
@@ -210,30 +212,31 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                         arg_footer: footer_text
                     } );
                 }
-                
-                // shared controller&Views
-                // 
-                // - show fullpage share-box
-                if($state.current.name == 'question.share' ) {
-                    $scope.simpleShare();
+
+                if(childRoute == null) { 
+                    // shared controller&Views
+                    // 
+                    // - show fullpage share-box
+                    if($state.current.name == 'question.share' ) {
+                        $scope.simpleShare();
+                    }
+                    // - show edit modal
+                    if($state.current.name == 'question.edit' ) { 
+                        $scope.editContribution();
+                    }
+                    // - show report modal
+                    if($state.current.name == 'question.report' ) { 
+                        $scope.report();
+                    }
+                    // - show promotion 
+                    if($state.current.name == 'question.promote' ) { 
+                        $scope.promoteShare();
+                    }
+                    // - show voters 
+                    if($state.current.name == 'question.voters' ) { 
+                        $scope.openVoters();
+                    }  
                 }
-                // - show edit modal
-                if($state.current.name == 'question.edit' ) { 
-                    $scope.editContribution();
-                }
-                // - show report modal
-                if($state.current.name == 'question.report' ) { 
-                    $scope.report();
-                }
-                // - show promotion 
-                if($state.current.name == 'question.promote' ) { 
-                    $scope.promoteShare();
-                }
-                // - show voters 
-                if($state.current.name == 'question.voters' ) { 
-                    $scope.openVoters();
-                }
-                 
 
             }, function( err ) {} );
       
@@ -283,7 +286,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
             text: 'Signaler',
             type: 'button-default',
             onTap: function(e) {
-              $state.go('question.report',{ questionID: question.id });
+              $scope.report();
             }
         },
         { 
@@ -451,6 +454,8 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
       };
 
       $scope.openVoters = function() {
+
+        $scope.closePopoverMenu();
         $scope.modalVoters.show();
 
         $scope.isArg = false;
@@ -496,6 +501,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
       };
 
       $scope.simpleShare = function() {
+        $scope.closePopoverMenu();
         $scope.sharebox = 'expanded';
         $scope.promotebox = '';
         $scope.shareboxTitle = 'show';
@@ -517,6 +523,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
       };
 
       $scope.report = function() {
+        $scope.closePopoverMenu();
         $scope.reportWhat = 'question';
         $scope.reportID = $scope.question.id;
         $scope.modalReport.show();
@@ -524,9 +531,19 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
 
       $scope.sendReport = function(reportAnswer) {
         //console.log($scope.reportID,$scope.reportWhat,reportAnswer);
+        // CALL API TODO
+        // + feedback
+        $ionicContentBanner.show({
+              text: ['Signalement envoyé'],
+              autoClose: 3000,
+              icon: 'none',
+              type: 'info',
+              transition: 'vertical'
+            });
         $scope.closeReport();
       }
 
+    $scope.newQuestion = { text: '' };
 
       /* Contribution editing */
 
@@ -542,7 +559,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         $scope.modalNewQuestion.hide();
       };
     
-    $scope.newQuestion = { text: '' };
+
     
     $scope.editContribution = function() {
 
@@ -567,8 +584,6 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         $scope.updateNewQuestionCategory = function(item) {
             $scope.questionCategory = item;
         }
-
-        $scope.modal_title = 'Modifier une question';
         
         if( $scope.modificationStatus == 'possible' )
         {        
@@ -587,9 +602,19 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
     // Propose a modified question
     $scope.categories = UxQuestions.categoryChoice();
     
-
     $scope.doPropose = function() {
+        // At first, we do a confirmation step
+        $scope.newQuestion.text_br = $scope.newQuestion.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
+        $scope.newQuestion.bConfirmation = true;
+        $scope.newQuestion.category = $scope.questionCategory.code;
+    }; 
 
+    $scope.fixNewQuestion = function() {
+        // Back to edition
+        $scope.newQuestion.bConfirmation = false;
+    };
+
+    $scope.confirmNewQuestion = function() {
           $scope.newQuestion.category = $scope.questionCategory.code;
 
           $scope.newQuestion.session = $window.localStorage.token;
@@ -615,15 +640,31 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
             {
                 // Question has been added with success. Redirect to this question
                 $scope.modalNewQuestion.hide();
-                $scope.reloadQuestion();
+                $scope.reloadQuestion(true);
                 
                 if( data.id == 0 )
                 {
-                    var alertPopup = $ionicPopup.alert({
+                    /*var alertPopup = $ionicPopup.alert({
                      title: 'Merci',
                      template: "Votre modification a été soumise aux modérateurs"
+                    });*/
+
+                    $ionicContentBanner.show({
+                      text: ['Votre modification a été soumise aux modérateurs'],
+                      autoClose: 3000,
+                      icon: 'none',
+                      type: 'info',
+                      transition: 'vertical'
                     });
                     
+                } else {
+                    $ionicContentBanner.show({
+                      text: ['Votre modification a été prise en compte'],
+                      autoClose: 3000,
+                      icon: 'none',
+                      type: 'info',
+                      transition: 'vertical'
+                    });
                 }
             }
          });
@@ -643,7 +684,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         $scope.closePopover();
 
         //reload scope question
-        $scope.reloadQuestion();
+        $scope.reloadQuestion(true);
     }
 
       $ionicPopover.fromTemplateUrl('templates/small/filter-popover.html', {
