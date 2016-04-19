@@ -24,14 +24,14 @@
 if(window.cordova) {
   var appBaztille = angular.module('app.controllers', ['angularMoment']); 
 } else {
-  var appBaztille = angular.module('app.controllers', ['720kb.socialshare']); 
+  var appBaztille = angular.module('app.controllers', ['angularMoment','720kb.socialshare']); 
 }
 
 var serviceBaztille = angular.module('app.services',[]);
 
-var initBaztille = angular.module('starter', ['ionic','ionic.service.core', 'ionic.service.analytics', 'app.controllers', 'app.services']);
+var initBaztille = angular.module('starter', ['ionic','ionic.service.core', 'ionic.service.analytics', 'app.controllers', 'app.services','jett.ionic.content.banner']);
 
-initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootScope, $ionicPopup, $ionicSideMenuDelegate, $ionicHistory, $state, $window, config) {
+initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootScope, $ionicPopup, $ionicSideMenuDelegate, $ionicHistory, $ionicContentBanner, $state, $window, config) {
     
    // Analytics If keenIO config
    if (config.KeenProjectId && config.KeenWriteKey) {
@@ -44,6 +44,7 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
      $rootScope.isFirstLoadedPage = true; // Track Load
 
    } 
+   
     
    // Globals vars
 
