@@ -51,8 +51,12 @@
   	.bar-positive.bar.bar-header {
 
   		.header-item {
-  			margin-top:4px!important;
+  			margin-top:6px!important;
   		}
+      
+      .left-buttons .button .icon {
+        vertical-align: baseline;
+      }
   		
   	}
   	.bar.bar-footer .bar {

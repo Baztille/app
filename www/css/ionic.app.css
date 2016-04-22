@@ -9782,7 +9782,10 @@ a.button {
   top: 50px; }
 
 .platform-android .bar-positive.bar.bar-header .header-item {
-  margin-top: 4px !important; }
+  margin-top: 6px !important; }
+
+.platform-android .bar-positive.bar.bar-header .left-buttons .button .icon {
+  vertical-align: baseline; }
 
 .platform-android .bar.bar-footer .bar {
   border: 0; }
