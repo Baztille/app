@@ -1,4 +1,4 @@
-<ion-view view-title="{{page_title}}">
+<ion-view view-title="{{header_title}}">
 
   <ion-nav-buttons side="right">
         <a ui-sref="compte.points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
@@ -6,8 +6,6 @@
           <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
         <a class="button button-icon button-clear ion-android-more-vertical" style="margin-left:10px;" ng-if="currentUser!==undefined" ng-click="popoverMenu.show($event);"></a>
   </ion-nav-buttons>
-
-<ion-nav-title>{{page_title}}</ion-nav-title>
 
   <ion-content>
 
