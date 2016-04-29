@@ -2,7 +2,7 @@
   <ion-header-bar>
     <h1 class="title"></h1>
     <div class="buttons">
-      <button class="button icon ion-close-circled button-clear" ng-click="closePromoteShare()"></button>
+      <button class="button icon ion-android-close button-clear" ng-click="closePromoteShare()"></button>
     </div>
   </ion-header-bar>
   <ion-content>
@@ -21,7 +21,7 @@
 
           <h3 class="share-box-title item-input {{shareboxTitle}}">Partager {{promote_text3}}</h3>
 
-          <button class="button for-native button-energized ion-android-share-alt" ng-click="shareNative(question.title, question.url)">Partager {{promote_text3}}</button>
+          <button class="button for-native button-energized" ng-click="shareNative(question.title, question.url)">Partager</button>
 
         </div>
         <div class="list for-browser">

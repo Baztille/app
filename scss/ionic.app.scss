@@ -73,6 +73,9 @@ $content-banner-info-bg: $balanced   !default;
 .t-c {
   text-align:center;
 }
+.no-min-h {
+  min-height: inherit;
+}
 .no-b {
   border:none;
 }
@@ -248,6 +251,11 @@ body {
 .modal-wrapper {
   .bar-header {
     box-shadow: inherit;
+    .buttons {
+      .button-clear {
+        color:black;
+      }
+    }
   }
 }
 
@@ -1108,6 +1116,9 @@ background-color: inherit;
     .share-box-title.show{
       display:block;
     }
+  }
+  .for-native {
+    text-align: center;
   }
   .for-browser {
     .button {

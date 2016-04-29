@@ -9765,7 +9765,8 @@ a.button {
   margin-top: 10px;
   background: white; }
   .platform-android .modal-wrapper .bar h1 {
-    padding-left: 10px; }
+    padding-left: 10px;
+    padding-top: 5px; }
 
 .platform-android .modal-wrapper .has-header {
   top: 59px;
@@ -10022,6 +10023,9 @@ a.button {
 .t-c {
   text-align: center; }
 
+.no-min-h {
+  min-height: inherit; }
+
 .no-b {
   border: none; }
 
@@ -10163,6 +10167,8 @@ body {
 
 .modal-wrapper .bar-header {
   box-shadow: inherit; }
+  .modal-wrapper .bar-header .buttons .button-clear {
+    color: black; }
 
 /* VOTE */
 .logoicon {

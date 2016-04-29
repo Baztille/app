@@ -3,11 +3,14 @@
     <ion-item ng-click="simpleShare()">
       Partager
     </ion-item>
+    <ion-item ng-if="question.status != 'vote'" ng-click="openVoters();" >
+      Liste des votants
+    </ion-item>
     <ion-item ng-click="editContribution()" ng-show="modificationStatus!='none'">
       Modifier
     </ion-item>
-    <ion-item ng-if="question.status != 'vote'" ng-click="openVoters();" >
-      Liste des votants
+    <ion-item ng-click="report()">
+      Signaler
     </ion-item>
     <ion-item ui-sref="app.about">
       Aide
