@@ -79,6 +79,23 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
     }
   })
 
+  .state('splash.login', {
+    url: "/login",
+    templateUrl: "templates/splash.html",
+    controller: 'SplashCtrl',
+    access: {
+      requireLogin: false
+    }
+  })
+  .state('splash.suscribe', {
+    url: "/suscribe",
+    templateUrl: "templates/splash.html",
+    controller: 'SplashCtrl',
+    access: {
+      requireLogin: false
+    }
+  })
+
   .state('logout', {
     url: "/logout",
     controller: 'logoutCtrl',

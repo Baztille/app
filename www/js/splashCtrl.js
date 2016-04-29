@@ -35,9 +35,7 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
   $scope.forgetdata = {};
   $ionicSideMenuDelegate.canDragContent(false);
 
-  /*$timeout(function () {
-    $scope.endTransition = 'endTransition';
-  }, 500);*/
+  
 
   // Create the login modal that we will use later
   
@@ -58,6 +56,17 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
   if(typeof $rootScope.currentUser !== 'undefined' && typeof $window.localStorage.token !== 'undefined') {
     $state.go('question.questions');
   }
+
+  $scope.$on('$ionicView.enter', function (event, data) {
+    console.log(data.stateName);
+    if(data.stateName == 'splash.login' ) {
+      $scope.login();
+    }
+    if(data.stateName == 'splash.suscribe' ) {
+      $scope.signin();
+    }
+  });
+
 
   // Triggered in the login modal to close it
   $scope.closeLogin = function() {
@@ -219,6 +228,7 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
     });
   
   };
+
 
 
 });

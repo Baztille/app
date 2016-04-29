@@ -68,24 +68,25 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
   })
 
   $rootScope.$on('unloggedin:show', function() {
+    
     var alertPopup = $ionicPopup.show({
         title: 'Accès Membre',
         subTitle: 'cette fonctionnalité n\'est pas disponible',
         template: 'Vous devez être connecté pour accéder à cette page',
         cssClass: "popup-vertical-buttons",
         buttons: [
-        {
-            text: '<b>Inscription</b>',
-            type: 'button-positive',
-            onTap: function(e) {
-              $state.go('splash');
-            }
-        },
         { 
-            text: 'Connexion',
+            text: 'Connectez-vous',
             type: 'button-dark',
             onTap: function(e) {
-              $state.go('splash');
+              $state.go('splash.login');
+            }
+        },
+        {
+            text: 'Inscrivez-vous',
+            type: 'button-positive',
+            onTap: function(e) {
+              $state.go('splash.suscribe');
             }
         },
         { text: 'Retour' }
