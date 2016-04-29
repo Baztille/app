@@ -10824,6 +10824,9 @@ ion-view.splash ion-content {
   .share-box.expanded .share-box-title.show {
     display: block; }
 
+.share-box .for-native {
+  text-align: center; }
+
 .share-box .for-browser .button {
   margin-right: 10px;
   font-size: 24px; }
@@ -10860,3 +10863,6 @@ ion-view.splash ion-content {
   min-height: 200px; }
   .needtoreload .inner-bar {
     text-align: center; }
+
+.topic {
+  margin-right: 4px; }
