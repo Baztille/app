@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('CompteCtrl', function(User, $scope, $state, $ionicLoading, $ionicModal, $ionicPopup, $window, $ionicHistory, $ionicSideMenuDelegate, $http) {
+appBaztille.controller('CompteCtrl', function(User, $scope, $rootScope, $state, $ionicLoading, $ionicModal, $ionicPopup, $window, $ionicHistory, $ionicSideMenuDelegate, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
     
     // destroy modals on destroy view
@@ -69,31 +69,7 @@ appBaztille.controller('CompteCtrl', function(User, $scope, $state, $ionicLoadin
             $scope.currentUser = undefined;
             $window.localStorage.clear();
 
-            var alertPopup = $ionicPopup.show({
-                title: 'Accès Membre',
-                subTitle: 'cette fonctionnalité n\'est pas disponible',
-                template: 'Vous devez être connecté pour accéder à cette page',
-                scope: $scope,
-                cssClass: "popup-vertical-buttons",
-                buttons: [
-                {
-                    text: '<b>Inscription</b>',
-                    type: 'button-positive',
-                    onTap: function(e) {
-                      $state.go('splash');
-                    }
-                },
-                { 
-                    text: 'Connexion',
-                    type: 'button-dark',
-                    onTap: function(e) {
-                      $state.go('splash');
-                    } 
-                },
-                { text: 'Retour' }
-
-                ]
-            });
+            $rootScope.$broadcast('unloggedin:show');
         }
     });
 

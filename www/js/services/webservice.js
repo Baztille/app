@@ -137,31 +137,7 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
                             $scope.currentUser = undefined;
                             $window.localStorage.clear();
 
-                            var alertPopup = $ionicPopup.show({
-                                title: 'Accès Membre',
-                                subTitle: 'cette fonctionnalité n\'est pas disponible',
-                                template: 'Vous devez être connecté pour accéder à cette page',
-                                scope: $scope,
-                                cssClass: "popup-vertical-buttons",
-                                buttons: [
-                                  {
-                                    text: '<b>Inscription</b>',
-                                    type: 'button-positive',
-                                    onTap: function(e) {
-                                      $state.go('splash');
-                                    }
-                                  },
-                                  { 
-                                    text: 'Connexion',
-                                    type: 'button-dark',
-                                    onTap: function(e) {
-                                      $state.go('splash');
-                                    }
-                                  },
-                                  { text: 'Retour' }
-                                  
-                                ]
-                            });
+                            $scope.$broadcast('unloggedin:show');
 
                             delete reply.error; // Make sure no error message is displayed afterwards
                         }                        

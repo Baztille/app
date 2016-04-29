@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('AccountCtrl', function(User, $scope, $state, $ionicLoading, $ionicModal, $ionicPopup, $window, $ionicHistory, $ionicSideMenuDelegate, $http) {
+appBaztille.controller('AccountCtrl', function(User, $scope, $rootScope, $state, $ionicLoading, $ionicModal, $ionicPopup, $window, $ionicHistory, $ionicSideMenuDelegate, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
   
     $scope.loadUserinfos = function() 
@@ -44,13 +44,8 @@ appBaztille.controller('AccountCtrl', function(User, $scope, $state, $ionicLoadi
             }
             else
             {
-              
-                var alertPopup = $ionicPopup.alert({
-                 title: 'Erreur',
-                 template: 'Vous devez être connecté pour voir cette page.'
-               });
 
-                
+              $rootScope.$broadcast('unloggedin:show');
 
             }
         });

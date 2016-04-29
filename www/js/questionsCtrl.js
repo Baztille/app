@@ -93,7 +93,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
                 // Case 1 : there is NO current question
                 //   => we display a word of explanation
                 $scope.explanation = 'La prochaine question sera posée Vendredi à 14:00.';
-                $scope.explanationlink = 'Choisir la question qui sera posée.';
+                $scope.explanationlink = 'Choisir la question qui sera posée';
                 $scope.showExplanationlink = true;
                 $scope.see_future_questions_visible = true;
                 $scope.new_answer_visible = false;
