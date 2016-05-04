@@ -40,6 +40,11 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
 
   // Open the login modal
   $scope.addNewQuestion = function() {
+    // Characters left counter
+    $scope.maxChars = 200;
+    $scope.ngCharacterCount = $scope.maxChars;
+    $scope.ngCountExplanation = false;
+
     $scope.newQuestion.text = '';
     $scope.modal_title = 'Proposer une question';
     $scope.newQuestion.bConfirmation = false;
@@ -382,9 +387,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     // Form data for the login modal
     $scope.newQuestion = {};
 
-    // Characters left counter
-    $scope.maxChars = 200;
-    $scope.ngCharacterCount = $scope.maxChars;
+
     $scope.inputChange = function() { UxQuestions.inputChange( $scope, $scope.newQuestion.text ); }
     
    

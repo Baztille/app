@@ -241,7 +241,10 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
         $scope.modal_title = 'Nouvelle réponse';
         $scope.new_answer_on = 'Nouvelle réponse à la question';
         $scope.your_answer = 'Votre réponse';
+
+        $scope.maxChars = 200;
         $scope.ngCharacterCount = $scope.maxChars;
+        $scope.ngCountExplanation = false;
         $scope.modalNewArg.show();
       };
 
@@ -442,8 +445,6 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
 
     };
 
-    $scope.maxChars = 200;
-    $scope.ngCharacterCount = $scope.maxChars;
 
     $scope.inputChange = function() { UxQuestions.inputChange( $scope, $scope.newArgData.text ); }
     

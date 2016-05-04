@@ -46,7 +46,9 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
       $scope.newArg = function() {
         $scope.newArgData.text = '';
         $scope.newArgData.bConfirmation = false;
+        $scope.maxChars = 200;
         $scope.ngCharacterCount = $scope.maxChars;
+        $scope.ngCountExplanation = false;
         $scope.modalNewArg.show();
       };
 
@@ -544,8 +546,6 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
       }
 
     // Characters left counter
-    $scope.maxChars = 200;
-    $scope.ngCharacterCount = $scope.maxChars;
     $scope.inputChange = function() { UxQuestions.inputChange( $scope, $scope.newArgData.text ); }
     
   

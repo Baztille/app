@@ -57,6 +57,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         // Characters left counter
         $scope.maxChars = 200;
         $scope.ngCharacterCount = $scope.maxChars;
+        $scope.ngCountExplanation = false;
         $scope.modalNewArg.show();
         $scope.inputChange = function() { 
             UxQuestions.inputChange( $scope, $scope.newArgData.text ); 
