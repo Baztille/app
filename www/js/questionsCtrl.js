@@ -34,7 +34,6 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
     $scope.modalNewQuestion.hide();
   };
 
-
   $scope.proposedvote = function() {
 
   };
@@ -53,7 +52,10 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
   $scope.simpleShare = function(question) { console.log(question);
         $state.go('question.share',{ questionID: question.id });
   };
-
+  $scope.onWhyLimit = function() {
+    UxQuestions.onWhyLimit();
+  };
+  
   /* keep scroll position */
 
   $scope.scrollSavePos = function( ) {

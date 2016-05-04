@@ -19,7 +19,7 @@
           </label>
           <label class="item nopad noborder">
             <div id="characters_count" ng-bind-html="ngCharacterCount" >0</div>
-            <div id="characters_count_explanation" ng-show="ngCountExplanation"><button type="button" class="button" ng-click="onWhyLimit();">Pourquoi cette limite ?</button></div>
+            <div id="characters_count_explanation" ng-show="ngCountExplanation"><button type="button" class="button button-small assertive" ng-click="onWhyLimit();">Pourquoi cette limite ?</button></div>
           </label>
           <label class="item noborder">
             <button type="submit" class="button button-block button-energized" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-form'}">{{propose_a_new_argument}}</button>
