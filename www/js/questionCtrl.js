@@ -53,12 +53,11 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         $scope.propose_a_new_argument = 'Proposer une réponse';
         $scope.new_answer_on = 'Nouvelle réponse à la question';
         $scope.your_answer = 'Votre réponse';
-        $scope.ngCharacterCount = $scope.maxChars;
-        $scope.modalNewArg.show();
         
         // Characters left counter
         $scope.maxChars = 200;
         $scope.ngCharacterCount = $scope.maxChars;
+        $scope.modalNewArg.show();
         $scope.inputChange = function() { 
             UxQuestions.inputChange( $scope, $scope.newArgData.text ); 
         }
