@@ -53,10 +53,16 @@ $content-banner-info-bg: $balanced   !default;
 
 @import "www/lib/ionic-content-banner/scss/ionic.content.banner";
 .bar-no-tabs .content-banner {
-  top: 2px;
+  top: 0px;
+  .content-banner-text {
+    top:2px;
+  }
 }
 .bar-tabs .content-banner {
-  top: 42px;
+  top: 40px;
+  .content-banner-text {
+    top:2px;
+  }
 }
 
 /* BEM RULES */
@@ -257,7 +263,11 @@ body {
       }
     }
   }
+  form {
+    padding:0px 16px;
+  }
 }
+
 
 /* VOTE */
 
@@ -1156,9 +1166,8 @@ background-color: inherit;
       }
     }
   }
-    
-
 }
+
 
 .needtoreload {
   position:fixed;

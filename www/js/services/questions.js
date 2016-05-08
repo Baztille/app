@@ -94,6 +94,9 @@ serviceBaztille.factory('Questions',['$http','config','Webservice', '$cacheFacto
         },   
         updateQuestion: function( data ) {
             return webservice.callPostBaztilleWs( data, '/question/updateQuestion' );
+        },
+        report: function( data ) {
+            return webservice.callPostBaztilleWs( data, '/admin/report' );
         }
     }
 }]);

@@ -532,18 +532,44 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
         $scope.modalReport.show();
       };
 
-      $scope.sendReport = function(reportAnswer) {
-        //console.log($scope.reportID,$scope.reportWhat,reportAnswer);
-        //// CALL API TODO
-        $ionicContentBanner.show({
-              text: ['Signalement envoyé'],
-              autoClose: 3000,
-              icon: 'none',
-              type: 'info',
-              transition: 'vertical'
-            });
-        $scope.closeReport();
-      }
+    $scope.sendReport = function(reportAnswer) {
+
+        Questions.report( {
+            arg_id:$scope.reportID,
+            level:reportAnswer,
+            session: $window.localStorage.token
+        } ).success(function(data){
+
+            if( data.error )
+            {
+                if( data.error_code != 570 )
+                {
+                    var alertPopup = $ionicPopup.alert({
+                     title: 'Erreur',
+                     template: data.error_descr
+                    });
+                }
+                else
+                {  
+                    UxQuestions.errorEmailNotConfirmed(data);
+                }
+            }
+            else
+            {
+                // + feedback
+                $ionicContentBanner.show({
+                      text: ['Signalement envoyé'],
+                      autoClose: 3000,
+                      icon: 'none',
+                      type: 'info',
+                      transition: 'vertical'
+                    });
+                $scope.closeReport();
+            }            
+        } );
+
+        
+    }
 
     // Characters left counter
     $scope.inputChange = function() { UxQuestions.inputChange( $scope, $scope.newArgData.text ); }

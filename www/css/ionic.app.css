@@ -9804,9 +9804,6 @@ a.button {
 .platform-android .button-clear.button-clear.filter-inactive {
   padding-top: 0px; }
 
-.platform-android .bar-no-tabs .content-banner {
-  top: -2px; }
-
 /*********************************************************************************
 
     Baztille
@@ -10005,10 +10002,14 @@ a.button {
   opacity: 1; }
 
 .bar-no-tabs .content-banner {
-  top: 2px; }
+  top: 0px; }
+  .bar-no-tabs .content-banner .content-banner-text {
+    top: 2px; }
 
 .bar-tabs .content-banner {
-  top: 42px; }
+  top: 40px; }
+  .bar-tabs .content-banner .content-banner-text {
+    top: 2px; }
 
 /* BEM RULES */
 .t-upper {
