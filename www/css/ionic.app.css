@@ -9765,7 +9765,7 @@ a.button {
   margin-top: 10px;
   background: white; }
   .platform-android .modal-wrapper .bar h1 {
-    padding-left: 10px;
+    padding-left: 15px;
     padding-top: 5px; }
 
 .platform-android .modal-wrapper .has-header {
@@ -10073,6 +10073,10 @@ form input.ng-valid.ng-touched {
   border-color: #79AF2B;
   border-left: solid 2px #79AF2B; }
 
+form .item {
+  border-left: 0;
+  border-right: 0; }
+
 .item-input {
   padding: 6px 10px 6px 10px; }
   .item-input input, .item-input textarea {
@@ -10170,6 +10174,9 @@ body {
   box-shadow: inherit; }
   .modal-wrapper .bar-header .buttons .button-clear {
     color: black; }
+
+.modal-wrapper form {
+  padding: 0px 6px; }
 
 /* VOTE */
 .logoicon {
