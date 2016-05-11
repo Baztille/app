@@ -188,6 +188,9 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
 
                 if(!window.cordova) { // Force update title
                     document.title = 'Baztille - ' + $scope.question.title;
+                    //update rel-cannonical for web
+                    var link = angular.element(document.querySelector('link[rel=canonical]'));
+                        link.attr('href', window.location.href);
                 }
                 
                 $scope.args = [];
