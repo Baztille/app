@@ -9828,7 +9828,7 @@ a.button {
   padding-top: 15px; }
 
 .platform-ios .nav-bar-block .bar .title {
-  top: 15px; }
+  top: 32px; }
 
 .platform-ios .tabs-striped.tabs-background-positive .tabs {
   top: 50px; }
@@ -9837,15 +9837,12 @@ a.button {
   top: 61px; }
 
 .platform-ios .bar-header.has-tabs-top {
-  height: 60px; }
+  height: 80px !important; }
 
 .platform-ios .modal-wrapper .bar {
   height: 61px; }
-  .platform-ios .modal-wrapper .bar .title, .platform-ios .modal-wrapper .bar .button {
-    top: 20px; }
-
-.platform-ios .button-share {
-  display: none; }
+  .platform-ios .modal-wrapper .bar .title {
+    top: 22px; }
 
 .platform-ios .bar-tabs .bar-header, .platform-ios .modal-wrapper .bar-header {
   box-shadow: inherit; }
@@ -9854,7 +9851,7 @@ a.button {
   background: white; }
 
 .platform-ios .bar-tabs .content-banner {
-  top: 37px; }
+  top: 67px; }
 
 .platform-browser.platform-ios .nav-bar-block .bar .buttons {
   padding-top: inherit; }

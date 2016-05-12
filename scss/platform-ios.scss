@@ -26,7 +26,7 @@
       padding-top: 15px;
      }
      .title {
-      top: 15px;
+      top: 32px;
      }
   }
 
@@ -39,19 +39,16 @@
   }
 
   .bar-header.has-tabs-top {
-    height:60px;
+    height:80px!important;
   }
 
   .modal-wrapper {
     .bar {
       height: 61px;
-      .title, .button {
-          top: 20px;
+      .title {
+         top: 22px;
       }
     }
-  }
-  .button-share {
-    display: none;
   }
 
   .bar-tabs .bar-header, .modal-wrapper .bar-header {
@@ -62,7 +59,7 @@
   }
 
   .bar-tabs .content-banner {
-    top: 37px;
+    top: 67px;
   }
 
 }
