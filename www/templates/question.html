@@ -17,8 +17,9 @@
 
       <div class="item item-text-wrap nopad {{question.status}}">
         <small><span am-time-ago="{{question.date_proposed}}" am-preprocess="unix" style="opacity:0.4;">{{question.date_prefix}} {{question.date}}</span><br>
-
-        <div class="label lower positive button inverted topic" ng-if="questionCategory.code!=1">{{questionCategory.name}}</div><div ng-repeat="topic in question.topics" class="label topic lower positive button inverted">{{topic}}</div>
+        <div class="topics"><div class="inner-topics">
+          <div class="label lower positive button inverted topic" ng-if="questionCategory.code!=1">{{questionCategory.name}}</div><div ng-repeat="topic in question.topics" class="label topic lower positive button inverted">{{topic}}</div>
+        </div></div>
         </small>
 
         <div class="vote-h1">

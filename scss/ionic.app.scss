@@ -1187,7 +1187,21 @@ background-color: inherit;
     }
   }
 }
-
+.topics {
+ width:100%;
+ margin-right:20px;
+}
+.inner-topics {
+      overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    //display: inline-block;
+    white-space: nowrap;
+    position: relative;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
 .topic {
       margin-right: 4px;
 }

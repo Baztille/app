@@ -10869,5 +10869,18 @@ ion-view.splash ion-content {
   .needtoreload .inner-bar {
     text-align: center; }
 
+.topics {
+  width: 100%;
+  margin-right: 20px; }
+
+.inner-topics {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  position: relative; }
+  .inner-topics::-webkit-scrollbar {
+    display: none; }
+
 .topic {
   margin-right: 4px; }
