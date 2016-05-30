@@ -186,11 +186,15 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     id: $scope.questionId
                 };
 
-                if(!window.cordova) { // Force update title
+                if(!window.cordova) { // Force update title & OpenGraph
                     document.title = 'Baztille - ' + $scope.question.title;
                     //update rel-cannonical for web
                     var link = angular.element(document.querySelector('link[rel=canonical]'));
                         link.attr('href', window.location.href);
+                    var link2 = angular.element(document.querySelector('meta[property="og:url"]'));
+                        link2.attr('content', window.location.href);
+                    var title2 = angular.element(document.querySelector('meta[property="og:title"]'));
+                        title2.attr('content', $scope.question.title);
                 }
                 
                 $scope.args = [];
