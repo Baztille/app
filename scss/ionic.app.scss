@@ -198,6 +198,7 @@ body {
 }
 .button {
     border-radius: 5px;
+    background-color:#ffffff;
 }
 .pane {
     background-color: $grey;
@@ -343,6 +344,9 @@ body {
 
     #splashscreen {
       text-align: center;
+      .button-positive {
+        border: 1px solid rgba(0, 0, 0, 0.6);
+      }
     }
 
     #splash_logo {
@@ -415,6 +419,7 @@ ion-view.splash ion-content {
   float:right;
   width:15%;
   color:red;
+  min-width: 40px;
 }
 .item-select {
   padding: 15px 0px 15px 10px;
@@ -943,6 +948,7 @@ ion-view.splash ion-content {
 
 .popup-container .popup {
   border-radius:5px;
+  background-color: rgba(255,255,255,1);
 }
 
 .popup-buttons  {
@@ -1204,4 +1210,16 @@ background-color: inherit;
 }
 .topic {
       margin-right: 4px;
+}
+.popup-container.popup-suscribe-extend {
+  .popup {
+    width:80%;
+    height:80%;
+  }
+  .popup-head {
+    border-bottom:inherit;
+  }
+  .button:last-child {
+    background-color: #ffffff;
+  }
 }

@@ -9863,7 +9863,7 @@ a.button {
   top: 50px; }
 
 .platform-browser.platform-ios .bar-header.has-tabs-top {
-  height: 50px; }
+  height: 50px !important; }
 
 .platform-browser.platform-ios .modal-wrapper .bar {
   height: 50px; }
@@ -9935,7 +9935,10 @@ a.button {
       width: 450px;
       margin: auto; }
     .platform-browser .menu.menu-left .overflow-scroll, .platform-browser .popover-wrapper .overflow-scroll {
-      overflow: hidden; } }
+      overflow: hidden; }
+    .platform-browser .popup-container.popup-suscribe-extend .popup {
+      width: 60%;
+      height: 60%; } }
   .platform-browser * {
     -webkit-user-select: auto !important;
     -moz-user-select: auto !important;
@@ -10120,7 +10123,8 @@ body {
   background-color: #F5F5F5; }
 
 .button {
-  border-radius: 5px; }
+  border-radius: 5px;
+  background-color: #ffffff; }
 
 .pane {
   background-color: #F5F5F5; }
@@ -10246,6 +10250,8 @@ body {
     }*/ }
   .splash #splashscreen {
     text-align: center; }
+    .splash #splashscreen .button-positive {
+      border: 1px solid rgba(0, 0, 0, 0.6); }
   .splash #splash_logo {
     width: 65%;
     max-width: 210px;
@@ -10297,7 +10303,8 @@ ion-view.splash ion-content {
 .button-clear.button-clear.delete-filter {
   float: right;
   width: 15%;
-  color: red; }
+  color: red;
+  min-width: 40px; }
 
 .item-select {
   padding: 15px 0px 15px 10px; }
@@ -10701,7 +10708,8 @@ ion-view.splash ion-content {
 
 /* popup alert */
 .popup-container .popup {
-  border-radius: 5px; }
+  border-radius: 5px;
+  background-color: white; }
 
 .popup-buttons .button {
   border: 0;
@@ -10884,3 +10892,13 @@ ion-view.splash ion-content {
 
 .topic {
   margin-right: 4px; }
+
+.popup-container.popup-suscribe-extend .popup {
+  width: 80%;
+  height: 80%; }
+
+.popup-container.popup-suscribe-extend .popup-head {
+  border-bottom: inherit; }
+
+.popup-container.popup-suscribe-extend .button:last-child {
+  background-color: #ffffff; }
