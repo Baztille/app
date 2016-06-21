@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal, $ionicAnalytics, $timeout, $state, $ionicLoading, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $rootScope) {
+appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal, $timeout, $state, $ionicLoading, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $rootScope) {
 
   // destroy modals on destroy view
   $scope.$on('$destroy', function() { 
@@ -58,13 +58,12 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
   }
 
   $scope.$on('$ionicView.enter', function (event, data) {
-    console.log(data.stateName);
-    if(data.stateName == 'splash.login' ) {
-      $scope.login();
-    }
-    if(data.stateName == 'splash.suscribe' ) {
-      $scope.signin();
-    }
+      if(data.stateName == 'splash.login' ) {
+        $scope.login();
+      }
+      if(data.stateName == 'splash.suscribe' ) { console.log(11111);
+        $scope.signin();
+      }
   });
 
 
@@ -100,20 +99,24 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
             });  
             $rootScope.currentUser = data.auth.token; 
             $rootScope.points = data.auth.points;
-            $state.go('question.questions', {reload: true});
+            $rootScope.$broadcast('tracking:event', {title:'session',value:'login-success'});
+            var destinationAfterLogin = ($window.localStorage.afterlogin) ? $window.localStorage.afterlogin : 'question.questions';
+            var destinationAfterLoginParams = ($window.localStorage.afterloginParams) ? JSON.parse($window.localStorage.afterloginParams) : {} ;
+            $window.localStorage.removeItem('afterloginParams');
+            $window.localStorage.removeItem('afterlogin');
+            $state.go(destinationAfterLogin, destinationAfterLoginParams);
+            
+
         }
         else
         {
-
-            $ionicAnalytics.track('Login', {
-              status: 'Problème de connexion',
-              detail: 'Mauvais identifiant ou mot de passe.'
-            });
 
             var alertPopup = $ionicPopup.alert({
              title: 'Problème de connexion',
              template: 'Mauvais identifiant ou mot de passe.'
            });
+
+            $rootScope.$broadcast('tracking:event', {title:'session',value:'login-failure'});
 
         }
     });
@@ -146,23 +149,22 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
             });  
 
             var alertPopup = $ionicPopup.alert({
-             title: 'Mot de passe oublié',
-             template: 'Un email vous a été envoyé.'
-           });
+              title: 'Mot de passe oublié',
+              template: 'Un email vous a été envoyé.'
+            });
+            
+            $rootScope.$broadcast('tracking:event', {title:'compte',value:'mdp-forget-success'});
 
         }
         else
         {
 
-            $ionicAnalytics.track('ForgetPassword', {
-              status: 'Problème de connexion',
-              detail: 'Email inconnu.'
-            });
-
             var alertPopup = $ionicPopup.alert({
              title: 'Problème de connexion',
              template: 'Email inconnu.<br/><br/><b>Important</b> : si vous vous étiez pré-inscrit à Baztille avant le lancement, vous devez créer un compte ("s\'inscrire") pour pouvoir accéder au service.'
-           });
+            });
+            
+            $rootScope.$broadcast('tracking:event', {title:'compte',value:'mdp-forget-failure'});
 
         }
     });
@@ -184,6 +186,7 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
   };
 
   $scope.takeatour = function() {
+    $rootScope.$broadcast('tracking:event', {title:'ios',value:'acces-libre'});
     $state.go('question.questions', {reload: true});    
   };
 
@@ -221,8 +224,11 @@ appBaztille.controller('SplashCtrl', function(User, $window, $scope, $ionicModal
                 });  
                 $rootScope.currentUser = data.auth.token; 
                 $rootScope.points = data.auth.points;
+                $rootScope.$broadcast('tracking:event', {title:'compte',value:'signin-success'});
                 $state.go('question.questions', {reload: true});
-            }        
+            } else {
+               $rootScope.$broadcast('tracking:event', {title:'compte',value:'signin-failure'});
+            }     
         
        }
     });

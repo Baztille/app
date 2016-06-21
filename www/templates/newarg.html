@@ -22,7 +22,7 @@
             <div id="characters_count_explanation" ng-show="ngCountExplanation"><button type="button" class="button button-small assertive" ng-click="onWhyLimit();">Pourquoi cette limite ?</button></div>
           </label>
           <label class="item noborder">
-            <button type="submit" class="button button-block button-energized" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-form'}">{{propose_a_new_argument}}</button>
+            <button type="submit" class="button button-block button-energized">{{propose_a_new_argument}}</button>
           </label>
 
         </div>
@@ -40,10 +40,10 @@
             </p>
           </label>
           <label class="item noborder nopad">
-            <button type="submit" class="button button-block button-energized" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-confirm'}" >Confirmer et publier</button>
+            <button type="submit" class="button button-block button-energized" >Confirmer et publier</button>
           </label>
           <label class="item noborder nopad"  ng-show="newArgData.bConfirmation">
-            <button type="button" class="button button-block button-assertive" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-corriger'}" ng-click="fixNewArg()">Corriger</button>
+            <button type="button" class="button button-block button-assertive" ng-click="fixNewArg()">Corriger</button>
           </label>
         </div>
     </form>

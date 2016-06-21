@@ -45,7 +45,7 @@ appBaztille.controller('NewPasswordCtrl', function(User, $window, $scope, $ionic
              title: 'Changement du mot de passe',
              template: 'Votre mot de passe a été modifié avec succès.'
            });
-        
+           $rootScope.$broadcast('tracking:event', {title:'compte',value:'mdp-change-success'});
         
           $state.go('splash', {reload: true});
         }

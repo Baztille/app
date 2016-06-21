@@ -22,7 +22,7 @@
            
             <small style="opacity:0.4;"><span am-time-ago="{{header_date_proposed}}" am-preprocess="unix">{{header_title}} {{header_date_proposed_formated}}</span></small>
             <div class="vote-h1">
-                  <div class="logoicon {{question.voted}}" style="margin:auto" ng-click="voteProposed('{{argId}}', $event);" ng-show="question_vote_visible" ion-track-tap="Vote" ion-track-data="{ question: questionId, arg: argId}">
+                  <div class="logoicon {{question.voted}}" style="margin:auto" ng-click="voteProposed('{{argId}}', $event);" ng-show="question_vote_visible">
                       <div class="logoicon_inner button">
                         <div class="logoicon_vote_nb">{{question.vote}}</div>
                         <div class="logoicon_vote">
@@ -68,7 +68,7 @@
 
         <div class="card">
           <div class="item item-text-wrap">
-            <div class="logoicon {{arg.voted}}" style="margin:auto" ng-click="voteProposed('{{arg.id}}', $event);" ion-track-tap="Vote" ion-track-data="{ question: questionID, arg: arg.id}">
+            <div class="logoicon {{arg.voted}}" style="margin:auto" ng-click="voteProposed('{{arg.id}}', $event);" >
                   <div class="logoicon_inner button">
                     <div class="logoicon_vote_nb">{{arg.vote}}</div>
                     <div class="logoicon_vote">
@@ -93,7 +93,7 @@
   </ion-content>
 
   <ion-footer-bar align-title="center" class="bar-energized bar-footer-container" ng-show="show_new_argument">
-    <div class="bar bar-footer bar-energized button" ng-click="newArg()" ion-track-tap="Action" ion-track-data="{ titre: 'proposer-argument-open'}">
+    <div class="bar bar-footer bar-energized button" ng-click="newArg()">
       <div class="title">{{propose_a_new_argument}}</div>
     </div>
   </ion-footer-bar>

@@ -62,6 +62,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         $scope.inputChange = function() { 
             UxQuestions.inputChange( $scope, $scope.newArgData.text ); 
         }
+        $rootScope.$broadcast('tracking:event', {title:'argument',value:'form-open'});
         
       };
 
@@ -319,11 +320,13 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         // At first, we do a confirmation step
         $scope.newArgData.text_br = $scope.newArgData.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
         $scope.newArgData.bConfirmation = true;
+        $rootScope.$broadcast('tracking:event', {title:'argument',value:'proposer-previsualisation'});
     }; 
 
     $scope.fixNewArg = function() {
         // Back to edition
         $scope.newArgData.bConfirmation = false;
+        $rootScope.$broadcast('tracking:event', {title:'argument',value:'proposer-corriger'});
     };
 
     $scope.confirmNewArg = function() {
@@ -352,6 +355,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                 else
                 {
                     $scope.modalNewArg.hide();
+                    $rootScope.$broadcast('tracking:event', {title:'argument',value:'proposer-success'});
                     $state.go('question.argpromote',{ questionID: $scope.questionId, argID: data.id.$id });
                 }
              });
@@ -391,7 +395,10 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
             }
             else
             {
-                UxQuestions.incrementVote($event);
+                if (typeof $rootScope.currentUser !== 'undefined') {
+                    UxQuestions.incrementVote($event);
+                    $rootScope.$broadcast('tracking:event', {title:'argument_vote',value:post_id});
+                }
             }            
         } );
         
@@ -435,7 +442,11 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
             }
             else
             {
-                UxQuestions.incrementVote($event, 'proposed');
+                if (typeof $rootScope.currentUser !== 'undefined') {
+                  UxQuestions.incrementVote($event, 'proposed');
+                  $rootScope.$broadcast('tracking:event', {title:'argument_vote',value:question_id});
+                }
+                
             }            
         } );
         
@@ -640,11 +651,13 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
         $scope.newQuestion.text_br = $scope.newQuestion.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
         $scope.newQuestion.bConfirmation = true;
         $scope.newQuestion.category = $scope.questionCategory.code;
+        $rootScope.$broadcast('tracking:event', {title:'question',value:'update-previsualisation'});
     }; 
 
     $scope.fixNewQuestion = function() {
         // Back to edition
         $scope.newQuestion.bConfirmation = false;
+        $rootScope.$broadcast('tracking:event', {title:'question',value:'update-corriger'});
     };
 
     $scope.confirmNewQuestion = function() {
@@ -674,7 +687,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                 // Question has been added with success. Redirect to this question
                 $scope.modalNewQuestion.hide();
                 $scope.reloadQuestion(true);
-                
+                $rootScope.$broadcast('tracking:event', {title:'question',value:'update-success'});
                 if( data.id == 0 )
                 {
                     /*var alertPopup = $ionicPopup.alert({

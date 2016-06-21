@@ -23,7 +23,7 @@
         </small>
 
         <div class="vote-h1">
-                  <div class="logoicon {{question.voted}}" style="margin:auto" ng-click="voteProposed('{{questionId}}', $event);" ng-show="question_vote_visible" ion-track-tap="Vote" ion-track-data="{ question: questionId}">
+                  <div class="logoicon {{question.voted}}" style="margin:auto" ng-click="voteProposed('{{questionId}}', $event);" ng-show="question_vote_visible">
                       <div class="logoicon_inner button">
                         <div class="logoicon_vote_nb" itemprop="upvoteCount">{{question.vote}}</div>
                         <div class="logoicon_vote">
@@ -106,7 +106,7 @@
   </ion-content>
 
   <ion-footer-bar align-title="center" class="bar-energized bar-footer-container" ng-show="new_answer_visible" >
-    <div class="bar bar-footer bar-energized button"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-nouvelle-reponse-open'}" ng-click="newArg()">
+    <div class="bar bar-footer bar-energized button" ng-click="newArg()">
       <div class="title">Proposer une nouvelle réponse</div>
     </div>
   </ion-footer-bar>

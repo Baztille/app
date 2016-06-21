@@ -20,7 +20,7 @@
 ***********************************************************************************/
 
 
-serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootScope', '$ionicAnalytics', '$ionicPopup', '$state', '$window','$ionicContentBanner',function($http, config, $cacheFactory, $scope, $ionicAnalytics, $ionicPopup, $state, $window, $ionicContentBanner){
+serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootScope', '$ionicPopup', '$state', '$window','$ionicContentBanner',function($http, config, $cacheFactory, $scope, $ionicPopup, $state, $window, $ionicContentBanner){
 
     var processBzComDatas = function( data )
     {
@@ -83,12 +83,7 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
             $scope.needToReload = true;
 
             $scope.$broadcast('loading:hide')
-            $ionicAnalytics.track('Bug', {
-              type: 'Webservice',
-              error: 'Baztille Webservice error during call '+url+' with args: ',
-              error_url: url,
-              error_data: data
-            });
+            // bug trace
             
             if( config.alertForWsError )
             {
@@ -114,12 +109,7 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
                 if( typeof reply != 'object' )
                 {
                     $scope.$broadcast('loading:hide')
-                    $ionicAnalytics.track('Bug', {
-                      type: 'Webservice',
-                      error: 'Baztille Webservice error (server replay not JSON) during call with args ',
-                      error_data: data,
-                      error_url: url
-                    });
+                    //bug trace
 
                     if( config.alertForWsError )
                     {
@@ -148,13 +138,7 @@ serviceBaztille.factory('Webservice',['$http','config','$cacheFactory', '$rootSc
 
 
             $scope.$broadcast('loading:hide')
-            $ionicAnalytics.track('Bug', {
-              type: 'Webservice',
-              error: 'Baztille Webservice error during call url with args',
-              error_url: url,
-              error_data: data,
-              error_result : result
-            });
+            // bug Trace
             if( config.alertForWsError )
             {
                 alert( reply );

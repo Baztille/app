@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $timeout, $scope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $ionicSideMenuDelegate, $ionicPopup, $ionicPopover, $http) {
+appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $timeout, $scope, $rootScope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $rootScope,$ionicSideMenuDelegate, $ionicPopup, $ionicPopover, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
 
   // destroy modals on destroy view
@@ -51,6 +51,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     $scope.updateQuestion = false;
     $scope.ngCharacterCount = $scope.maxChars;
     $scope.modalNewQuestion.show();
+    $rootScope.$broadcast('tracking:event', {title:'question',value:'ajout-open'});
   };
 
 
@@ -62,11 +63,6 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
 
   };
   
-  $scope.voteProposed = function( ) {
-    
-    return false;
-  }; 
-
   $scope.actionQuest = function(question, $event) {
 
     if ($event.stopPropagation) $event.stopPropagation();
@@ -294,7 +290,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
             session: $window.localStorage.token
         } ).success(function(data){
 
-            $ionicLoading.hide();
+           // $ionicLoading.hide();
             
             if( data.error )
             {
@@ -311,8 +307,12 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
                 }            
             }
             else
-            {
-                    UxQuestions.incrementVote($event, 'proposed');
+            { 
+                if (typeof $rootScope.currentUser !== 'undefined') {
+                  UxQuestions.incrementVote($event, 'proposed');
+                  $rootScope.$broadcast('tracking:event', {title:'question_vote',value:question_id});
+                }
+
             }            
         } );
         
@@ -332,6 +332,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
         $scope.newQuestion.text_br = $scope.newQuestion.text.replace(/(?:\r\n|\r|\n)/g, '<br />');
         $scope.newQuestion.bConfirmation = true;
         $scope.newQuestion.category = $scope.questionCategory.code;
+        $rootScope.$broadcast('tracking:event', {title:'question',value:'ajout-previsualisation'});
     }; 
     
     $scope.onWhyLimit = function() {
@@ -345,6 +346,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     $scope.fixNewQuestion = function() {
         // Back to edition
         $scope.newQuestion.bConfirmation = false;
+        $rootScope.$broadcast('tracking:event', {title:'question',value:'ajout-corriger'});
     };
 
     $scope.confirmNewQuestion = function() {
@@ -375,6 +377,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
                 var question_id = data.id;
                 $scope.ngCharacterCount = $scope.maxChars;
                 $scope.modalNewQuestion.hide();
+                $rootScope.$broadcast('tracking:event', {title:'question',value:'ajout-success'});
                 $state.go('question.promote', {questionID:question_id.$id} );
 
             }
@@ -386,7 +389,6 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
 
     // Form data for the login modal
     $scope.newQuestion = {};
-
 
     $scope.inputChange = function() { UxQuestions.inputChange( $scope, $scope.newQuestion.text ); }
     

@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory,$ionicPopup,$ionicPopover, $ionicSideMenuDelegate, $http) {
+appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope, $rootScope, $timeout, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory,$ionicPopup,$ionicPopover, $ionicSideMenuDelegate, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
   
   // Create the arg proposing modal that we will use later
@@ -246,6 +246,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
         $scope.ngCharacterCount = $scope.maxChars;
         $scope.ngCountExplanation = false;
         $scope.modalNewArg.show();
+        $rootScope.$broadcast('tracking:event', {title:'argument',value:'ajout-open'});
       };
 
 

@@ -83,6 +83,7 @@ appBaztille.controller('AccountCtrl', function(User, $scope, $rootScope, $state,
 
            confirmPopup.then(function(res) {
              if(res) {
+                $rootScope.$broadcast('tracking:event', {title:'compte',value:'remove-account-open'});
                 User.removeAccount( {} );
                 $scope.currentUser = undefined;
                 $window.localStorage.clear();

@@ -20,7 +20,7 @@
 ***********************************************************************************/
 
 
-serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', '$rootScope', '$ionicAnalytics','$ionicPopup', '$window', function($http, config, User, $cacheFactory, $rootScope, $ionicAnalytics,$ionicPopup, $window){
+serviceBaztille.factory('UxQuestions',['$http','config','User','$cacheFactory', '$rootScope','$ionicPopup', '$window', function($http, config, User, $cacheFactory, $rootScope, $ionicPopup, $window){
 
   
 

@@ -19,16 +19,13 @@
     
 ***********************************************************************************/
 
-serviceBaztille.factory('$exceptionHandler', ['$injector', '$ionicAnalytics', function($injector, $ionicAnalytics) {
+serviceBaztille.factory('$exceptionHandler', ['$injector', function($injector) {
 
 
     return function(exception, cause) {
 
         exception.message += ' (caused by "' + cause + '")';
 
-        $ionicAnalytics.track('Exception', {
-              exception_message: exception.message
-            });
         try {
             throw exception;
         }

@@ -29,9 +29,9 @@ if(window.cordova) {
 
 var serviceBaztille = angular.module('app.services',[]);
 
-var initBaztille = angular.module('starter', ['ionic','ionic.service.core', 'ionic.service.analytics', 'app.controllers', 'app.services','jett.ionic.content.banner']);
+var initBaztille = angular.module('starter', ['ionic', 'app.controllers', 'app.services','jett.ionic.content.banner']);
 
-initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootScope, $ionicPopup, $ionicSideMenuDelegate, $ionicHistory, $ionicContentBanner, $state, $window, config) {
+initBaztille.run(function($ionicPlatform, $ionicLoading, $rootScope, $ionicPopup, $ionicSideMenuDelegate, $ionicHistory, $ionicContentBanner, $state, $window, config) {
     
    // Analytics If keenIO config
    if (config.KeenProjectId && config.KeenWriteKey) {
@@ -64,16 +64,21 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
 
 
   $rootScope.$on('loading:hide', function() {
-    $ionicLoading.hide()
+    $ionicLoading.hide();
   })
 
-  $rootScope.$on('unloggedin:show', function() {
+  $rootScope.$on('unloggedin:show', function (event, toState) {
+
+    $window.localStorage.afterlogin = $state.current.name;
+    var data = JSON.stringify($state.params);
+    $window.localStorage.setItem("afterloginParams", data);
     
     var alertPopup = $ionicPopup.show({
-        title: 'Accès Membre',
-        subTitle: 'cette fonctionnalité n\'est pas disponible',
-        template: 'Vous devez être connecté pour accéder à cette page',
-        cssClass: "popup-vertical-buttons",
+       // title: 'Devenez membre Baztille',
+       // subTitle: 'proposez, votez et décidez !',
+        template: '<div style="text-align:center;font-size:90%;"><img id="splash_logo" src="img/logo_long_black.png" style="width:170px;margin:auto;" alt="Baztille"></img><br>Chaque jour, en quelques minutes, décidez à la place des décideurs.<br><br><h3>Reprenez en main votre démocratie !</h3></div>',
+        cssClass: "popup-vertical-buttons popup-suscribe-extend",
+         inputType: 'password',
         buttons: [
         { 
             text: 'Connectez-vous',
@@ -82,6 +87,7 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
               $state.go('splash.login');
             }
         },
+
         {
             text: 'Inscrivez-vous',
             type: 'button-positive',
@@ -89,12 +95,35 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
               $state.go('splash.suscribe');
             }
         },
-        { text: 'Retour' }
+        { text: 'Fermer' }
 
         ]
     });
 
   });
+
+  $rootScope.$on('tracking:event', function (event,args) {
+    $rootScope.wsAnalyticsEvent(args);
+  });
+
+  $rootScope.wsAnalyticsEvent = function(args) {
+    wsAnalytics.addEvent("action", {
+          user : {
+            id : $rootScope.userID,
+            points : $rootScope.points,
+            device: $rootScope.currentPlatform,
+            device_version: $rootScope.currentPlatformVersion
+          },
+          app: {
+            version_number: $rootScope.currentVersion,
+            dev_mode: $rootScope.isDev
+          },
+          action: {
+            title: args.title,
+            value: args.value
+          }
+      });
+  }
 
 
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
@@ -245,24 +274,6 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
       navigator.splashscreen.hide();
     }
 
-    // IONIC ANALYTICS
-
-    $ionicAnalytics.register({
-      // Don't send any events to the analytics backend.
-      // (useful during development)
-      //dryRun: true
-      silent: true
-    });
-
-    $ionicAnalytics.setGlobalProperties({
-      app_version_number: $rootScope.currentVersion,
-      user_device: $rootScope.currentPlatform,
-      user_device_version: $rootScope.currentPlatformVersion,
-      dev_mode: $rootScope.isDev,
-      day_of_week: (new Date()).getDay()
-    });
-    
-
     if( window.universalLinks ) {
       window.universalLinks.subscribe(null, function(eventData) { 
 
@@ -335,11 +346,6 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $ionicAnalytics, $rootS
     
   });
 });
-
-initBaztille.config(['$ionicAutoTrackProvider', function($ionicAutoTrackProvider) {
-  // Don't track which elements the user clicks on.
-  //$ionicAutoTrackProvider.disableTracking('Tap');
-}])
 
 initBaztille.config(function($ionicConfigProvider) {
   //native scrolling

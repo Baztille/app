@@ -57,7 +57,7 @@
       <div class="card">
 
         <div ng-class="$index==0 ? 'item item-text-wrap' : 'item item-text-wrap'">
-          <div class="logoicon {{question.voted}}" ng-click="voteProposed('{{question.id}}', $event);" ion-track-tap="Vote" ion-track-data="{ question: question.id, type: 'proposé'}">
+          <div class="logoicon {{question.voted}}" ng-click="voteProposed('{{question.id}}', $event);" >
               <div class="logoicon_inner button">
                 <div class="logoicon_vote_nb">{{question.vote}}</div>
                 <div class="logoicon_vote">
@@ -97,7 +97,11 @@
 
   </ion-content>
   <ion-footer-bar align-title="center" class="bar-energized bar-footer-container">
-    <div class="bar bar-footer bar-energized button"  ion-track-tap="Action" ion-track-data="{ titre: 'ajouter-ma-question-open'}" ng-click="addNewQuestion();">
+    <div class="bar bar-footer bar-energized button" ng-if="currentUser!==undefined" ng-click="addNewQuestion();">
+      <div class="title">Ajouter ma question</div>
+    </div>
+
+    <div class="bar bar-footer bar-energized button" ng-if="currentUser==undefined" ng-click="$root.notLogged()">
       <div class="title">Ajouter ma question</div>
     </div>
   </ion-footer-bar>

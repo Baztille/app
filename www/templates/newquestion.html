@@ -36,7 +36,7 @@
 
           <label class="item noborder p-10">
            
-            <button type="submit" class="button button-block button-energized"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form'}">{{modal_title}}</button>
+            <button type="submit" class="button button-block button-energized">{{modal_title}}</button>
           </label>
 
         </div>
@@ -52,10 +52,10 @@
             </p>
           </label>
           <label class="item noborder nopad">
-            <button type="submit" class="button button-block button-energized"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form-confirm'}" >Confirmer et publier</button>
+            <button type="submit" class="button button-block button-energized" >Confirmer et publier</button>
           </label>
           <label class="item noborder nopad" ng-show="newQuestion.bConfirmation">
-            <button type="button" class="button button-block button-assertive"  ion-track-tap="Action" ion-track-data="{ titre: 'proposer-question-form-corriger'}" ng-click="fixNewQuestion()">Corriger</button>
+            <button type="button" class="button button-block button-assertive" ng-click="fixNewQuestion()">Corriger</button>
           </label>
         </div>
     </form>
