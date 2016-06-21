@@ -32,9 +32,6 @@ $ bower install
 # après configuration, lancer la configuration de baztille
 $ gulp install-baztille
 
-# Se connecter aux services de ionic.io (analytics) (obligatoire)
-$ ionic config build
-
 # Demarrer le serveur
 $ ionic serve
 

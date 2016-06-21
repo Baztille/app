@@ -89,9 +89,6 @@ gulp.task('install-baztille', function(done) {
   gulp.src('./config.js')
     .pipe(gulp.dest('./www/js/'));
 
-  gulp.src('./.io-config.sample.json')
-    .pipe(rename('.io-config.json'))
-    .pipe(gulp.dest('./'));
 });
 
 gulp.task('build-web-partials', function() {
