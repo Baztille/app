@@ -1,4 +1,4 @@
-window.VERSION = "0.8.90";
+window.VERSION = "0.9.10";
 serviceBaztille.service('config',function(){ 
 	this.apiUrl = 'API_ENPOINT';
     this.alertForWsError=false;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="org.baztille.app" version="0.9.0">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="org.baztille.app" version="0.9.10">
   <name>Baztille</name>
   <description>
         Avec Baztille, vous prenez chaque jour une décision pour votre pays, votre région ou votre ville et les élus Baztille appliquent VOS décisions.
