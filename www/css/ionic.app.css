@@ -10011,6 +10011,9 @@ a.button {
   .bar-tabs .content-banner .content-banner-text {
     top: 2px; }
 
+.content-banner-close {
+  display: none; }
+
 /* BEM RULES */
 .t-upper {
   text-transform: uppercase; }

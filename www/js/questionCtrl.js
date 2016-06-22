@@ -208,10 +208,10 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     var voted = '';
                     if( typeof resp.data.myvotes[ arg._id.$id ] != 'undefined' )
                     {   voted = 'voted';    }
-
                     $scope.args.push( { 
                         text: arg.text, 
-                        id: arg._id.$id, 
+                        id: arg._id.$id,
+                        date : arg.date, 
                         vote: arg.vote,
                         argnbr: arg.args.length,
                         argnbrdisplay: arg.args.length>0 ? 'flex': 'none',

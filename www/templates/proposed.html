@@ -74,7 +74,7 @@
           </div> 
           
           <div class="label white f-r button-icon ion-more positive button info-dot" ng-if="currentUser!==undefined" ng-click="actionQuest(question, $event);"></div>
-          <div class="label white f-r positive button quest-new" ng-if="userLastSession<=question.date_proposed">NOUVEAU</div>
+          <div class="label white f-r positive button quest-new" ng-if="userLastSession<=question.date_proposed && userLastSession>0">NOUVEAU</div>
           <small style="display:none">{{question.attempts_status}}</small>
           </div>
 

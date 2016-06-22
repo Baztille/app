@@ -52,6 +52,7 @@ $content-banner-error-bg: $assertive   !default;
 $content-banner-info-bg: $balanced   !default;
 
 @import "www/lib/ionic-content-banner/scss/ionic.content.banner";
+
 .bar-no-tabs .content-banner {
   top: 0px;
   .content-banner-text {
@@ -64,7 +65,9 @@ $content-banner-info-bg: $balanced   !default;
     top:2px;
   }
 }
-
+.content-banner-close {
+  display:none;
+}
 /* BEM RULES */
 
 .t-upper {
