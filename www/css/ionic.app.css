@@ -10905,3 +10905,6 @@ ion-view.splash ion-content {
 
 .popup-container.popup-suscribe-extend .button:last-child {
   background-color: #ffffff; }
+
+.newpassword input {
+  border: 1px solid #ef473a; }

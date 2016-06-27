@@ -1226,3 +1226,9 @@ background-color: inherit;
     background-color: #ffffff;
   }
 }
+
+.newpassword {
+  input {
+    border: 1px solid $assertive;
+  }
+}
