@@ -137,7 +137,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
   })
 
   .state('question.proposed', {
-    url: "/proposed",
+    url: "/proposed?topics",
     views: {
       'menuContent': {
         templateUrl: "templates/proposed.html",
@@ -327,6 +327,18 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
     }
   })
 
+  .state('compte.contents', {
+    url: "/contents",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/contents.html",
+        controller: 'ContentsCtrl'
+      }
+    },
+    access: {
+      requireLogin: false
+    }
+  })
 
   .state('compte.points', {
     url: "/points",

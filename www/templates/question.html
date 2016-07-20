@@ -2,8 +2,8 @@
 
   <ion-nav-buttons side="right">
         <a ui-sref="compte.points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
-          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser!==undefined" ui-sref="compte.points"ui-sref="compte.points"></a>
-          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
+          <a class="button button-icon button-clear ion-android-person" ng-if="currentUser!==undefined" ui-sref="compte.points"ui-sref="compte.points"></a>
+          <a class="button button-icon button-clear ion-android-person" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
         <a class="button button-icon button-clear ion-android-more-vertical" style="margin-left:10px;" ng-if="currentUser!==undefined" ng-click="popoverMenu.show($event);"></a>
   </ion-nav-buttons>
 
@@ -18,7 +18,7 @@
       <div class="item item-text-wrap nopad {{question.status}}">
         <small><span am-time-ago="{{question.date_proposed}}" am-preprocess="unix" style="opacity:0.4;">{{question.date_prefix}} {{question.date}}</span><br>
         <div class="topics"><div class="inner-topics">
-          <div class="label lower positive button inverted topic" ng-if="questionCategory.code!=1">{{questionCategory.name}}</div><div ng-repeat="topic in question.topics" class="label topic lower positive button inverted">{{topic}}</div>
+          <div class="label lower positive button inverted topic" ng-if="questionCategory.code!=1">{{questionCategory.name}}</div><div ng-repeat="topic in question.topics" ui-sref="question.proposed({ topics: topic })" class="label topic lower positive button inverted">{{topic}}</div>
         </div></div>
         </small>
 

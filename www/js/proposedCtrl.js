@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $timeout, $scope, $rootScope, $state, $ionicLoading,  $ionicModal, $window, $ionicHistory, $rootScope,$ionicSideMenuDelegate, $ionicPopup, $ionicPopover, $http) {
+appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $timeout, $scope, $rootScope, $state, $ionicLoading, $ionicModal, $location, $window, $ionicHistory, $rootScope,$ionicSideMenuDelegate, $ionicPopup, $ionicPopover, $http) {
   $ionicSideMenuDelegate.canDragContent(true);
 
   // destroy modals on destroy view
@@ -189,7 +189,17 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
       $scope.deleteCategoryFilter = function($event) {
         $scope.update($scope.categories[0],'category');
       }
-      
+
+      /* Filter questions by Topic */
+
+      $scope.showTopicsfilter = (typeof $location.$$search.topics != 'undefined' ) ? true : false;
+      $scope.showTopicsfilterDelete  = (typeof $location.$$search.topics != 'undefined' ) ? true : false;
+      $scope.questionCategoryActive = (typeof $location.$$search.topics != 'undefined' ) ? 'active' : 'inactive' ;
+
+      $scope.deleteTopicsFilter = function($event) {
+        $state.go('question.proposed',{topics: '', reload:true});
+      }
+
 
     //end filter
   /* keep scroll position */
@@ -216,10 +226,18 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
 
     $scope.reloadQuestions = function(numPage) 
     {
+        if(typeof $location.$$search.topics != 'undefined' ) { 
+          var topicUnique = $location.$$search.topics;
+        }    else {
+          var topicUnique = $scope.questionCategory.code;
+        }
+        
+        $scope.topics = topicUnique;
+
         Questions.getProposed({
             session: $window.localStorage.token,
             filter: $scope.questionFilter.code,
-            category: $scope.questionCategory.code,
+            category: topicUnique,
             page: (numPage) ? numPage : 1
         }).then( function(resp) {
 

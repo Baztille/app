@@ -36,7 +36,6 @@ $royal:                           #886aea !default;
 $dark:                            #222222 !default; // DARK
 $grey:                            #F5F5F5 !default; //#F9F9F9
 
-
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
@@ -82,11 +81,17 @@ $content-banner-info-bg: $balanced   !default;
 .t-c {
   text-align:center;
 }
+.t-r {
+  text-align:right;
+}
 .no-min-h {
   min-height: inherit;
 }
 .no-b {
   border:none;
+}
+.no-p {
+  padding:0;
 }
 .l-simple {
   text-decoration: none;
@@ -401,7 +406,33 @@ body {
 ion-view.splash ion-content {
   margin: 10px; 
 }
-  
+
+.top-card {
+  opacity:0.8;
+  margin-left: 10px;
+  h5 {
+    text-transform: uppercase;
+    font-size:14px;
+    margin-top:30px;
+    font-weight: 600;
+    span {
+      display:block;
+      font-weight: 200;
+      text-transform: initial;
+    }
+  }
+}
+.before-card {
+  padding: 5px 0px;
+  margin-top:0px;
+  .row {
+    border:0px solid red;
+  }
+  .row+.row {
+    margin-top: inherit;
+    padding-top: inherit;
+  }
+}
 
 /* QUESTIONS */
 
@@ -418,23 +449,30 @@ ion-view.splash ion-content {
   font-weight: 700;
   margin-left:4px;
 }
-.button-clear.button-clear.delete-filter {
+.delete-filter {
   float:right;
-  width:15%;
+  width:60px;
   color:red;
   min-width: 40px;
 }
 .item-select {
   padding: 15px 0px 15px 10px;
-  &.select-categoryfilter {
-    padding: 15px 0px 15px 10px;
-    width:85%;
+  &.select-categoryfilter, &.select-topicfilter {
+    padding: 10px 0px 10px 10px;
+    width:75%;
     margin: 0px;
     border:0;
+    font-size: 14px;
     &.full {
       width: 100%;
       font-size:14px;
     }
+    .topic {
+      margin:0;
+    }
+  }
+  &.select-topicfilter::after {
+    content:none;
   }
 }
 
@@ -684,6 +722,14 @@ ion-view.splash ion-content {
           background:rgba(221, 221, 221, 0.39);
           &.activated {
             background:lighten($calm,30%);
+          }
+        }
+        &.deleted {
+          color:red;
+          background:rgba(228, 33, 18, 0.19);
+          margin-right: 9px;
+          &.activated {
+            background:lighten(red,30%);
           }
         }
         &.white {
@@ -1218,6 +1264,9 @@ background-color: inherit;
   .popup {
     width:80%;
     height:80%;
+    h3 {
+      margin-top:0px;
+    }
   }
   .popup-head {
     border-bottom:inherit;

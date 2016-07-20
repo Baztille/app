@@ -3,8 +3,8 @@
 
   <ion-nav-buttons side="right">
         <a ui-sref="compte.points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
-          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser!==undefined" ui-sref="compte.points"ui-sref="compte.points"></a>
-          <a class="button button-icon button-clear ion-ribbon-b" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
+          <a class="button button-icon button-clear ion-android-person" ng-if="currentUser!==undefined" ui-sref="compte.points"ui-sref="compte.points"></a>
+          <a class="button button-icon button-clear ion-android-person" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
   </ion-nav-buttons>
 
   <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
@@ -37,10 +37,20 @@
 
         <div class="questionFilterSort item item-croped">
           <div class="categoryfilter" ng-show="showCategoryfilter">
-            <div class="icon-right ion-close-round button button-clear delete-filter" ng-show="showCategoryfilterDelete" ng-click="deleteCategoryFilter($event)"></div>
+            <div class="label topic lower deleted button positive delete-filter" ng-show="showCategoryfilterDelete" ng-click="deleteCategoryFilter($event)">Enlever</div>
             <label class="item item-input item-select select-categoryfilter">
               Thèmatique :  
               <select ng-options="filter as filter.name for filter in categories " ng-model="questionCategory" ng-change="update(questionCategory,'category')"></select>
+
+            </label>
+
+          </div>
+
+          <div class="categoryfilter" ng-show="showTopicsfilter">
+            <div class="label topic lower deleted button positive delete-filter" ng-show="showTopicsfilterDelete" ng-click="deleteTopicsFilter($event)">Enlever</div>
+            <label class="item item-input item-select select-topicfilter">
+             
+              <div class="label topic lower positive button inverted">{{topics}}</div>
 
             </label>
 

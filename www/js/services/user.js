@@ -32,6 +32,15 @@ serviceBaztille.factory('User',['$http','config', 'Webservice', function($http, 
         },
         getRank:function(data){
             return webservice.callGetBaztilleWs( data, '/session/myranking' );
+        },
+        getContents: function( data ){    
+            return webservice.callGetBaztilleWs( data, '/session/my/contents' );
+        },
+        getArgs: function( data ){    
+            return webservice.callGetBaztilleWs( data, '/session/my/args' );
+        },
+        getVotes: function( data ){    
+            return webservice.callGetBaztilleWs( data, '/session/my/votes' );
         },        
         logout:function(data){
             return webservice.callPostBaztilleWs( data, '/session/logout' );

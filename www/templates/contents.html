@@ -1,0 +1,114 @@
+<ion-view view-title="Baztille - Mon compte - Mes points et mon classement" hide-back-button="true" enable-menu-with-back-views="false" hide-nav-bar="false" cache-view="true">
+<ion-nav-title>Mon compte</ion-nav-title>
+  
+  <ion-content>
+
+    <div class="compte">
+      <h2 class="t-c">{{::data.username}}</h2>
+      <small class="center" style="display:none;">
+          Niveau: <i>(à venir)</i>
+      </small>
+      <div class="row">
+          <div class="col center">{{nb_points_label}}<br>
+            <b>{{points}} <span class="ion-ribbon-b"></span></b>
+          </div>
+          <div class="col center">
+              Classement<br> <b>{{data.rank}} / {{data.nb_users}}</b>
+          </div>
+    
+      </div>
+
+      <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
+      <div class="tabs" style="position:inherit;">
+        <a class="tab-item" nav-transition="none" ui-sref="compte.points" >
+          Points
+        </a>
+        <a class="tab-item active" nav-transition="none" ui-sref="compte.contents" >
+          Contributions
+        </a>
+        <a class="tab-item" nav-transition="none" ui-sref="compte.infos" >
+          Compte
+        </a>
+      </div>
+   </div>
+    </div>
+<br>
+    <div class="questionFilterSort item item-croped" style="height:50px;">
+         
+          <div class="icon-right ion-chevron-down _ion-ios-settings-strong button button-clear trier-button" style="height:50px;" ng-click="openPopover($event)"><span>{{typePhrase}} ({{totalQ}})</span></div>
+         
+        </div>
+
+
+<ion-list class="questions">
+      <ion-item ng-repeat="question in questions" ng-click="scrollSavePos();" ui-sref="question.single({ questionID: question.id })" >
+      
+      <div class="card">
+
+        <div ng-class="$index==0 ? 'item item-text-wrap' : 'item item-text-wrap'">
+          <div class="logoicon {{question.voted}}" ng-click="voteProposed('{{question.id}}', $event);" >
+              <div class="logoicon_inner button">
+                <div class="logoicon_vote_nb">{{question.vote}}</div>
+                <div class="logoicon_vote">
+                  <span ng-if="question.voted == 'voted'">a choisi</span>
+                  <span ng-if="question.voted != 'voted'">choisir</span>
+                </div>
+              </div>
+          </div>
+
+          <div class="content"><div class="quest">{{question.title}}</div>
+          <div class="label inverted positive button">{{question.argnbr}}
+            <span ng-if="question.argnbr <= 1">réponse</span>
+            <span ng-if="question.argnbr > 1">réponses</span>
+          </div> 
+          
+          <div class="label white f-r button-icon ion-more positive button info-dot" ng-if="currentUser!==undefined" ng-click="actionQuest(question, $event);"></div>
+          <div class="label white f-r positive button quest-new" ng-if="userLastSession<=question.date_proposed && userLastSession>0">NOUVEAU</div>
+          <small style="display:none">{{question.attempts_status}}</small>
+          </div>
+
+        </div>
+
+      </div>
+      <div ng-if="$index==0"></div>
+        
+      </ion-item>
+    </ion-list>
+
+    <ion-list class="questions">
+      <ion-item ng-repeat="arg in args" ng-click="scrollSavePos();" ui-sref="question.arg({ questionID: arg.question_id, argID: arg.id })">
+          
+          <div class="card {{arg.valid}}" itemscope itemtype="http://schema.org/Answer">
+              
+              <div class="item item-text-wrap">
+                <div class="logoicon {{arg.voted}}" ng-click="voteArg('{{arg.id}}', $event);">
+                  <div class="logoicon_inner button">
+                    <div class="logoicon_vote_nb" itemprop="upvoteCount">{{arg.vote}}</div>
+                    <div class="logoicon_vote">
+                      <span ng-if="arg.voted == 'voted'">a voté</span>
+                      <span ng-if="arg.voted != 'voted'">je vote</span>
+                    </div>
+                  </div>
+                </div>
+                     <div class="content">
+                        <div class="quest" itemprop="text">{{arg.text}}</div>
+                          <div class="label positive button inverted">{{arg.argnbr}}
+                            <span ng-if="arg.argnbr <= 1">argument</span>
+                            <span ng-if="arg.argnbr > 1">arguments</span>
+                          </div>
+                          <div class="label white f-r positive button quest-new" ng-if="userLastSession<=arg.date && userLastSession>0">NOUVEAU</div>  
+                          <div class="label arg_valid_footer">
+                            {{arg.arg_footer}}
+                          </div>
+                      </div>
+              </div>
+
+          </div>
+        
+      </ion-item>
+    </ion-list>
+
+   
+  </ion-content>
+  
+</ion-view>

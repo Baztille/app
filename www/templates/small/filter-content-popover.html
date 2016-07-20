@@ -1,0 +1,14 @@
+<ion-popover-view><ion-content>
+
+<div class="list popover-filter" >
+    <div class="item" ng-click="reloadQuestions()">
+      Mes Questions
+      <i ng-if="type == 'questions'" class="radio-icon disable-pointer-events icon ion-checkmark"></i>
+    </div>
+    <div class="item" ng-click="reloadArgs()">
+      Mes Arguments
+      <i ng-if="type == 'arguments'" class="radio-icon disable-pointer-events icon ion-checkmark"></i>
+    </div>
+</div>
+
+</ion-content></ion-popover-view>

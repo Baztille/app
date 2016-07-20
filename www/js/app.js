@@ -44,7 +44,6 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $rootScope, $ionicPopup
      $rootScope.isFirstLoadedPage = true; // Track Load
 
    } 
-   
     
    // Globals vars
 
@@ -129,7 +128,7 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $rootScope, $ionicPopup
   $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
     
     // fixed menu
-    if (toState.name == 'question.questions' || toState.name == 'question.voted' || toState.name == 'question.proposed' || toState.name == 'app.about' || toState.name == 'app.news' || toState.name == 'compte.points' || toState.name == 'compte.infos') {
+    if (toState.name == 'question.questions' || toState.name == 'question.voted' || toState.name == 'question.proposed' || toState.name == 'app.about' || toState.name == 'app.news' || toState.name == 'compte.points' || toState.name == 'compte.infos' || toState.name == 'compte.contents') {
         $rootScope.showCustomMenuHack = false;
         $rootScope.showCustomMenu = true;
         $rootScope.showCustomBack = false;
@@ -140,7 +139,7 @@ initBaztille.run(function($ionicPlatform, $ionicLoading, $rootScope, $ionicPopup
     }
 
     //fixed shadow header
-    if (toState.name == 'question.questions' || toState.name == 'question.voted' || toState.name == 'question.proposed' || toState.name == 'compte.points' || toState.name == 'compte.infos') {
+    if (toState.name == 'question.questions' || toState.name == 'question.voted' || toState.name == 'question.proposed' || toState.name == 'compte.points' || toState.name == 'compte.infos' || toState.name == 'compte.contents') {
         $rootScope.isTabs = true;
     } else {
         $rootScope.isTabs = false;

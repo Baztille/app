@@ -1,77 +1,90 @@
 <ion-view view-title="Baztille - Mon compte - Mes points et mon classement" hide-back-button="true" enable-menu-with-back-views="false" hide-nav-bar="false" cache-view="true">
 <ion-nav-title>Mon compte</ion-nav-title>
-  
+
   <ion-content>
 
     <div class="compte">
       <h2 class="t-c">{{::data.username}}</h2>
       <small class="center" style="display:none;">
-          Niveau: <i>(à venir)</i>
+        Niveau: <i>(à venir)</i>
       </small>
       <div class="row">
-          <div class="col center">{{nb_points_label}}<br>
-            <b>{{points}} <span class="ion-ribbon-b"></span></b>
-          </div>
-          <div class="col center">
-              Classement<br> <b>{{data.rank}} / {{data.nb_users}}</b>
-          </div>
-    
+        <div class="col center">{{nb_points_label}}<br>
+          <b>{{points}} <span class="ion-ribbon-b"></span></b>
+        </div>
+        <div class="col center">
+          Classement<br> <b>{{data.rank}} / {{data.nb_users}}</b>
+        </div>
       </div>
 
       <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
-      <div class="tabs" style="position:inherit;">
-        <a class="tab-item active" nav-transition="none" ui-sref="compte.points" >
-          Mes points
-        </a>
-        <a class="tab-item" nav-transition="none" ui-sref="compte.infos" >
-          Mes informations
-        </a>
-       
-      </div>
-   </div>
-    </div>
-
-
-<div class="card">
-  <div class="col p-10">
-    <div class="item item-text-wrap">
-      <h2>Comment suis-je devenu aussi populaire ?</h2>
-    </div>
-    <div class="item item-text-wrap">
-      <div class="row">
-        <div class="col"><b>{{data.pointsdetails.vote_for_me}}</b></div>
-        <div class="col col-67">Votes pour mes propositions </div><div class="col"><b>{{data.pointsdetails.vote_for_me}} <span class="ion-ribbon-b"></span></b></div>
-      </div>
-      <div class="row">
-        <div class="col"><b>{{data.pointsdetails.contribution_day}}</b></div>
-        <div class="col col-67">Journées où j'ai posté quelque chose</div><div class="col"><b>{{data.pointsdetails.contribution_day_points}} <span class="ion-ribbon-b"></span></b></div>
-      </div>
-      <div class="row">
-        <div class="col"><b>{{data.pointsdetails.validated_nbr}}</b></div>
-        <div class="col col-67">Questions ou réponses validées</div><div class="col col_nowrap"><b>{{data.pointsdetails.validated_nbr_points}} <span class="ion-ribbon-b"></span></b></div>
-      </div>
-    </div>
-  </div>
-</div>
- <div class="col t-c">
-      <a class="button button-dark" nav-direction="enter" ng-click="PointsExplained();">Comment gagner des points ?</a>
-    </div>
-<div class="card">
-  <div class="col p-10">
-    <div class="item item-text-wrap">
-      <h2>Classement général</h2>
-    </div>
-    <div class="item item-text-wrap ">
-
-        <ion ng-repeat="leader in data.leaderboard">
-        <div class="row">
-          <div class="col">#{{leader.rank}}</div><div class="col col-67"> {{leader.name}}</div><div class="col col_nowrap"> <b>{{leader.points}} <span class="ion-ribbon-b"></span></b></div>
+        <div class="tabs" style="position:inherit;">
+          <a class="tab-item active" nav-transition="none" ui-sref="compte.points" >
+            Points
+          </a>
+          <a class="tab-item" nav-transition="none" ui-sref="compte.contents" >
+            Contributions
+          </a>
+          <a class="tab-item" nav-transition="none" ui-sref="compte.infos" >
+            Compte
+          </a>
         </div>
-        </ion>
-      
+      </div>
     </div>
-  </div>
-</div>
+
+    <div class="card" style="display:none;">
+      <div class="col p-10">
+        <!-- custom news -->
+      </div>
+    </div>
+
+    <div class="top-card">
+      <div class="">
+        <h5>MES POINTS<span>Comment suis-je devenu aussi populaire ?</span></h5>
+      </div>
+    </div>
+
+    <div class="card before-card">
+      <div class="col no-p">
+        <div class="row item">
+          <div class="col"><b>{{data.pointsdetails.vote_for_me}}</b></div>
+          <div class="col col-67">Votes pour mes propositions </div>
+          <div class="col t-r"><b>{{data.pointsdetails.vote_for_me}} <span class="ion-ribbon-b"></span></b></div>
+        </div>
+        <div class="row item">
+          <div class="col"><b>{{data.pointsdetails.contribution_day}}</b></div>
+          <div class="col col-67">Journées où j'ai contribué</div>
+          <div class="col t-r"><b>{{data.pointsdetails.contribution_day_points}} <span class="ion-ribbon-b"></span></b></div>
+        </div>
+        <div class="row item">
+          <div class="col"><b>{{data.pointsdetails.validated_nbr}}</b></div>
+          <div class="col col-67">Questions ou réponses validées</div>
+          <div class="col col_nowrap t-r"><b>{{data.pointsdetails.validated_nbr_points}} <span class="ion-ribbon-b"></span></b></div>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <div class="col t-c">
+      <a class="button" nav-direction="enter" ng-click="PointsExplained();">Comment gagner des points ?</a>
+    </div>
+
+    <div class="top-card">
+      <div class="">
+        <h5>Classement général</h5>
+      </div>
+    </div>
+
+    <div class="card before-card">
+      <div class="col no-p">
+        <ion ng-repeat="leader in data.leaderboard">
+          <div class="row item">
+            <div class="col"><b>#{{leader.rank}}</b></div><div class="col col-67"> {{leader.name}}</div><div class="col t-r col_nowrap"> <b>{{leader.points}} <span class="ion-ribbon-b"></span></b></div>
+          </div>
+        </ion>
+      </div>
+    </div>
+
   </ion-content>
-  
+
 </ion-view>
