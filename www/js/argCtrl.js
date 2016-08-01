@@ -19,7 +19,7 @@
     
 ***********************************************************************************/
 
-appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams,$ionicPopover,$ionicContentBanner) {
+appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $timeout, $state, $location, $ionicSideMenuDelegate, $window, $ionicLoading, $ionicModal, $ionicPopup, $http, $stateParams, $ionicPopover, $ionicNavBarDelegate,$ionicContentBanner) {
   $ionicSideMenuDelegate.canDragContent(true);
 
       // destroy modals on destroy view
@@ -49,6 +49,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
         $scope.maxChars = 200;
         $scope.ngCharacterCount = $scope.maxChars;
         $scope.ngCountExplanation = false;
+        $scope.updateArg = false;
         $scope.modalNewArg.show();
       };
 
@@ -79,7 +80,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
         UxQuestions.shareNative(message,link);
       };
 
-      $scope.reloadQuestion = function()
+      $scope.reloadQuestion = function(childRoute)
       {
             Questions.getQuestion( {
                 id:$scope.questionId,
@@ -108,7 +109,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                     {
                         return ;
                     }
-
+                    $scope.depth = current_arg.depth;
                     if( current_arg.depth == 1 )
                     {
                         // Argument
@@ -200,6 +201,26 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                         var link = angular.element(document.querySelector('link[rel=canonical]'));
                             link.attr('href', window.location.href);
                     }
+
+                    // Modification status
+                    var author_is_you = false;
+                    $scope.modificationStatus = 'none';
+                    if( typeof current_arg.author_is_you != 'undefined' )
+                    {   author_is_you = true;    }
+                    if( status == 'proposed' || status == 'vote' )
+                    {
+                        if( author_is_you && ( ( resp.data.question.vote == 0 ) || ( resp.data.question.vote == 1 && resp.data.questionvoted ) ) )
+                        {
+                            // Can modify the answer without a moderator
+                            $scope.modificationStatus = 'possible';
+                        }
+                        else
+                        {
+                            // Can suggest a answer to the moderator
+                            $scope.modificationStatus = 'moderator';
+                        }
+                    }
+
                     
                     $scope.args = [];
 
@@ -228,9 +249,15 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                     }
                 }
 
-                // - show promotion 
-                if($state.current.name == 'question.argpromote' ) { 
-                    $scope.promoteShare();
+                if(childRoute == null) {
+                    // - show promotion 
+                    if($state.current.name == 'question.argpromote' ) { 
+                        $scope.promoteShare();
+                    }
+                    // - show edit modal
+                    if($state.current.name == 'question.argedit' ) { 
+                        $scope.editContribution();
+                    }
                 }
 
             }, function( err ) {
@@ -288,31 +315,133 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
           $scope.newArgData.session = $window.localStorage.token;
           $scope.newArgData.parent = $scope.argId;  // Parent argument
 
-          Questions.newArg($scope.newArgData).success(function(data){            
-            if( data.error )
-            {
-                
-                if( data.error_code != 570 )
+          if ($scope.updateArg) {
+
+            Questions.updateArg($scope.newArgData).success(function(data){            
+                if( data.error )
                 {
-                    var alertPopup = $ionicPopup.alert({
-                     title: 'Erreur',
-                     template: data.error_descr
-                    });
+                    
+                    if( data.error_code != 570 )
+                    {
+                        var alertPopup = $ionicPopup.alert({
+                         title: 'Erreur',
+                         template: data.error_descr
+                        });
+                    }
+                    else
+                    {  
+                        UxQuestions.errorEmailNotConfirmed(data);
+                    } 
+
                 }
                 else
-                {  
-                    UxQuestions.errorEmailNotConfirmed(data);
-                } 
+                {
 
-            }
-            else
-            {
+                    $scope.modalNewArg.hide();
+                    $scope.reloadQuestion(true);
 
-                $scope.modalNewArg.hide();
-                $state.go('question.argpromote',{ questionID: $scope.questionId, argID: data.id.$id });
-                //$scope.reloadQuestion();
-            }
-         });
+                    if( data.id == 0 )
+                    {
+                        $rootScope.$broadcast('tracking:event', {title:'arg',value:'update-success'});
+
+                        $ionicContentBanner.show({
+                          text: ['Votre modification a été soumise aux modérateurs'],
+                          autoClose: 3000,
+                          icon: 'none',
+                          type: 'info',
+                          transition: 'vertical'
+                        });
+                        
+                    } else {
+
+                        $rootScope.$broadcast('tracking:event', {title:'arg',value:'update-success'});
+                        
+                        $ionicContentBanner.show({
+                          text: ['Votre modification a été prise en compte'],
+                          autoClose: 3000,
+                          icon: 'none',
+                          type: 'info',
+                          transition: 'vertical'
+                        });
+                    }
+                }
+             });
+
+
+
+          } else {
+
+            Questions.newArg($scope.newArgData).success(function(data){            
+                if( data.error )
+                {
+                    
+                    if( data.error_code != 570 )
+                    {
+                        var alertPopup = $ionicPopup.alert({
+                         title: 'Erreur',
+                         template: data.error_descr
+                        });
+                    }
+                    else
+                    {  
+                        UxQuestions.errorEmailNotConfirmed(data);
+                    } 
+
+                }
+                else
+                {
+
+                    $scope.modalNewArg.hide();
+
+                    if( $scope.depth != 2 ) {
+                        $state.go('question.argpromote',{ questionID: $scope.questionId, argID: data.id.$id });
+                    } else {
+                        $scope.reloadQuestion(true);
+                    }
+
+                    $rootScope.$broadcast('tracking:event', {title:'arg',value:'created-success'});
+
+                }
+             });
+
+
+          }
+
+    };
+
+    /* edit new arg */
+
+    $scope.editContribution = function() {
+
+        $scope.closePopoverMenu();
+
+        $scope.newArgData.text = $scope.question.title;
+        $scope.newArgData.bConfirmation = false;
+        $scope.modalNewArg.show();
+        $scope.modal_title = 'Modifier un argument';
+        $scope.update_a_new_argument = 'Modifier l\'argument';
+
+        $scope.updateArg = true;
+
+        // Characters left counter
+        $scope.maxChars = 200;
+        $scope.ngCharacterCount = $scope.maxChars;
+
+        $scope.inputChange = function() { 
+            UxQuestions.inputChange( $scope, $scope.newQuestion.text ); 
+        }
+        
+        if( $scope.modificationStatus == 'possible' )
+        {        
+            $scope.modal_subtitle = 'Modification de votre argument.';
+        }
+        else
+        {
+            $scope.modal_subtitle = 'Cet argument a déjà reçue des soutiens et donc votre modification ne doit porter que sur des corrections syntaxiques qui ne change pas le sens de la contribution.';
+        }
+        
+        UxQuestions.inputChange( $scope, $scope.newArgData.text );         
+
 
     };
 
@@ -425,13 +554,13 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                     $scope.openVoters();
                 }
             },
-            /*{ 
+            { 
                 text: 'Modifier',
                 type: 'button-default',
                 onTap: function(e) {
                    $scope.editContribution();
                 }
-            },*/
+            },
             { 
                 text: 'Signaler',
                 type: 'button-default',
@@ -573,6 +702,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
 
         
     }
+
 
     // Characters left counter
     $scope.inputChange = function() { UxQuestions.inputChange( $scope, $scope.newArgData.text ); }

@@ -5,12 +5,17 @@
       <button class="button icon ion-android-close button-clear" ng-click="closeNewArg()"></button>
     </div>
   </ion-header-bar>
+
   <ion-content>
  
     <form ng-submit="doNewArg()" ng-show="!newArgData.bConfirmation">
 
-      <div class="expli-txt">
+      <div class="expli-txt" ng-show="!updateArg">
         {{new_answer_on}}: <span class="energized">"{{question.title}}"</span>
+      </div>
+
+      <div class="expli-txt assertive" ng-show="updateArg">
+        {{modal_subtitle}}
       </div>
 
         <div class="list">
@@ -22,7 +27,8 @@
             <div id="characters_count_explanation" ng-show="ngCountExplanation"><button type="button" class="button button-small assertive" ng-click="onWhyLimit();">Pourquoi cette limite ?</button></div>
           </label>
           <label class="item noborder">
-            <button type="submit" class="button button-block button-energized">{{propose_a_new_argument}}</button>
+            <button type="submit" class="button button-block button-energized" ng-show="!updateArg">{{propose_a_new_argument}}</button>
+            <button type="submit" class="button button-block button-energized" ng-show="updateArg">{{update_a_new_argument}}</button>
           </label>
 
         </div>

@@ -304,6 +304,19 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
       requireLogin: true
     }
   })
+
+  .state('question.argedit', {
+    url: "/questions/:questionID/:argID/edit",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/arg.html",
+        controller: 'ArgCtrl'
+      }
+    },
+    access: {
+      requireLogin: true
+    }
+  })
   
   .state('compte', {
     url: "/compte",

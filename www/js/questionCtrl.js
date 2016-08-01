@@ -687,13 +687,11 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                 // Question has been added with success. Redirect to this question
                 $scope.modalNewQuestion.hide();
                 $scope.reloadQuestion(true);
-                $rootScope.$broadcast('tracking:event', {title:'question',value:'update-success'});
+                $rootScope.$broadcast('tracking:event', {title:'question',value:'created-success'});
+                
                 if( data.id == 0 )
                 {
-                    /*var alertPopup = $ionicPopup.alert({
-                     title: 'Merci',
-                     template: "Votre modification a été soumise aux modérateurs"
-                    });*/
+                    $rootScope.$broadcast('tracking:event', {title:'question',value:'update-success'});
 
                     $ionicContentBanner.show({
                       text: ['Votre modification a été soumise aux modérateurs'],
@@ -704,6 +702,9 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     });
                     
                 } else {
+
+                    $rootScope.$broadcast('tracking:event', {title:'question',value:'update-success'});
+                    
                     $ionicContentBanner.show({
                       text: ['Votre modification a été prise en compte'],
                       autoClose: 3000,

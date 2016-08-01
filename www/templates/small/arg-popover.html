@@ -6,6 +6,9 @@
     <ion-item ng-click="openVoters()" >
       Liste des votants
     </ion-item>
+    <ion-item ng-click="editContribution()" ng-show="modificationStatus!='none'">
+      Modifier
+    </ion-item>
     <ion-item ng-click="report()" >
       Signaler
     </ion-item>
