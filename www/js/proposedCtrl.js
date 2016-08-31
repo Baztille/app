@@ -54,7 +54,6 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     $rootScope.$broadcast('tracking:event', {title:'question',value:'ajout-open'});
   };
 
-
   $scope.proposedvote = function() {
 
   };
@@ -130,102 +129,129 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
   };
 
 
-    /* Filter questions by Category*/
-  
+    /*
+      SELECT Questions by
+      - category
+      - topic
+
+      SORT by
+      - filter
+
+     */
+
+    // CATEGORY
     $scope.categories = UxQuestions.categoryChoice();
     $scope.questionCategory = ($window.localStorage.proposedCategory) ? $scope.categories[$window.localStorage.proposedCategory-1] : $scope.categories[0];
+    $scope.showCategoryfilter = ($scope.questionCategory.code == 1) ? false : true ;
+    $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
+    $scope.questionCategoryActive = ($scope.questionCategory.code == 1) ? 'inactive' : 'active' ;
+    
+    // TOPIC
+    $scope.showTopicsfilter = (typeof $location.$$search.topics != 'undefined' ) ? true : false;
+    $scope.showTopicsfilterDelete  = (typeof $location.$$search.topics != 'undefined' ) ? true : false;
+    $scope.questionCategoryActive = (typeof $location.$$search.topics != 'undefined' ) ? 'active' : 'inactive' ;
 
+    // SORT FILTER
     $scope.filters = UxQuestions.filterChoice();
     $scope.questionFilter = ($window.localStorage.proposedFilter) ? $scope.filters[$window.localStorage.proposedFilter-1] : $scope.filters[0]; 
 
-    $scope.questionCategoryActive = ($scope.questionCategory.code == 1) ? 'inactive' : 'active' ;
 
+    // when user choice category or filter
     $scope.update = function(item,type) {
-        
-        if(type == "category") {
-            $window.localStorage.proposedCategory = item.code;
-            $scope.questionCategory = item;
+      if(type == "category") {
+        $window.localStorage.proposedCategory = item.code;
+        $scope.questionCategory = item;
             // icon category filter state
-            $scope.showCategoryfilter = ($scope.questionCategory.code == 1) ? false : true ;
-            $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
-            $scope.questionCategoryActive = ($scope.questionCategory.code == 1) ? 'inactive' : 'active' ;
-        } else {
-            $window.localStorage.proposedFilter = item.code;
-            $scope.questionFilter = item;
-            $scope.closePopover();
-        }
-        //reload scope question
-        $scope.questions = [];
-        $scope.questionPage = 1;
-        $scope.reloadQuestions();
+        $scope.showCategoryfilter = ($scope.questionCategory.code == 1) ? false : true ;
+        $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
+        $scope.questionCategoryActive = ($scope.questionCategory.code == 1) ? 'inactive' : 'active' ;
+      } else {
+        $window.localStorage.proposedFilter = item.code;
+        $scope.questionFilter = item;
+        $scope.closePopover();
+      }
+      //reload scope question
+      $scope.questions = [];
+      $scope.questionPage = 1;
+      $scope.reloadQuestions();
     }
-
-      $ionicPopover.fromTemplateUrl('templates/small/filter-popover.html', {
+    
+    // Init Popover for filter
+    $ionicPopover.fromTemplateUrl('templates/small/filter-popover.html', {
         scope: $scope
-      }).then(function(popover) {
+    }).then(function(popover) {
         $scope.popover = popover;
-      });
-
-
-      $scope.openPopover = function($event) {
-        $scope.popover.show($event);
-      };
-      $scope.closePopover = function() {
-        $scope.popover.hide();
-      };
-      //Cleanup the popover when we're done with it!
-      $scope.$on('$destroy', function() {
-        $scope.popover.remove();
-      });
-
-      // toggle filter
-      $scope.showCategoryfilter = ($scope.questionCategory.code == 1) ? false : true ;
-      $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
-      $scope.openCategoryFilter = function($event) {
+    });
+    $scope.openPopover = function($event) {
+      $scope.popover.show($event);
+    };
+    $scope.closePopover = function() {
+      $scope.popover.hide();
+    };
+    //Cleanup the popover when we're done with it!
+    $scope.$on('$destroy', function() {
+      $scope.popover.remove();
+    });
+  
+    $scope.openCategoryFilter = function($event) {
         $scope.showCategoryfilter = ($scope.showCategoryfilter) ? false : true ;
         $scope.showCategoryfilterDelete  = ($scope.questionCategory.code == 1) ? false : true ;
-      };
+    };
 
-      $scope.deleteCategoryFilter = function($event) {
+    $scope.deleteCategoryFilter = function($event) {
+      if( typeof $location.$$search.categorie != 'undefined'  ) {
+        // if category registered on route
+        $window.localStorage.proposedCategory = 1;
+        $scope.questionCategory = $scope.categories[0];
+        $scope.showCategoryfilter = false ;
+        $scope.showCategoryfilterDelete  = false ;
+        $scope.questionCategoryActive =  'inactive';
+        $state.go('question.proposed',{categorie: '', reload:true});
+      } else {
+        // if category registered on scope
         $scope.update($scope.categories[0],'category');
       }
+    }
 
-      /* Filter questions by Topic */
 
-      $scope.showTopicsfilter = (typeof $location.$$search.topics != 'undefined' ) ? true : false;
-      $scope.showTopicsfilterDelete  = (typeof $location.$$search.topics != 'undefined' ) ? true : false;
-      $scope.questionCategoryActive = (typeof $location.$$search.topics != 'undefined' ) ? 'active' : 'inactive' ;
+    $scope.deleteTopicsFilter = function($event) {
+      $state.go('question.proposed',{topics: '', reload:true});
+    }
 
-      $scope.deleteTopicsFilter = function($event) {
-        $state.go('question.proposed',{topics: '', reload:true});
+    // FORCE only on filter (topics/category) at the same time
+    if ($scope.showTopicsfilter) {
+      $window.localStorage.proposedCategory = 1;
+      $scope.questionCategory = $scope.categories[0];
+      $scope.showCategoryfilter = false ;
+      $scope.showCategoryfilterDelete  = false ;
+      $scope.questionCategoryActive =  'active';
+    }
+
+    /* keep scroll position */
+
+    $scope.scrollSavePos = function( ) {
+      if (!ionic.Platform.isIOS()) {
+        var scrollPosition = document.querySelector('.ionic-scroll');
+        $window.localStorage.proposedLastPos = scrollPosition.scrollTop;
+        delete $window.localStorage.questionLastPos;
       }
-
-
-    //end filter
-  /* keep scroll position */
-
-  $scope.scrollSavePos = function( ) {
-    if (!ionic.Platform.isIOS()) {
-      var scrollPosition = document.querySelector('.ionic-scroll');
-      $window.localStorage.proposedLastPos = scrollPosition.scrollTop;
-      delete $window.localStorage.questionLastPos;
     }
-  }
-  
-  $scope.$on('$ionicView.loaded', function(){
-    if (!ionic.Platform.isIOS()) {
-      $timeout(function () {
-        var scrolldiv = document.querySelector('.ionic-scroll');
-            scrolldiv.scrollTop = $window.localStorage.proposedLastPos;
-            delete $window.localStorage.proposedLastPos;
-      }, 1000);
-    }
-         
-  });
+    
+    $scope.$on('$ionicView.loaded', function(){
+      if (!ionic.Platform.isIOS()) {
+        $timeout(function () {
+          var scrolldiv = document.querySelector('.ionic-scroll');
+              scrolldiv.scrollTop = $window.localStorage.proposedLastPos;
+              delete $window.localStorage.proposedLastPos;
+        }, 1000);
+      }
+           
+    });
   
 
     $scope.reloadQuestions = function(numPage) 
     {
+
         if(typeof $location.$$search.topics != 'undefined' ) { 
           var topicUnique = $location.$$search.topics;
         }    else {
@@ -289,7 +315,11 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
     };
     
     $scope.$on('$stateChangeSuccess', function() {
-      $scope.reloadQuestions();
+      if(typeof $location.$$search.categorie != 'undefined' ) { 
+        $scope.update($scope.categories[$location.$$search.categorie -1],'category');
+      } else {
+        $scope.reloadQuestions();
+      }
     });
     
 
