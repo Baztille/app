@@ -10305,7 +10305,7 @@ ion-view.splash ion-content {
     font-weight: 600; }
     .top-card h5 span {
       display: block;
-      font-weight: 200;
+      font-weight: 300;
       text-transform: initial; }
 
 .before-card {
@@ -10460,7 +10460,6 @@ ion-view.splash ion-content {
   .questions .card .item {
     padding: 5px 10px; }
   .questions .card .quest {
-    font-weight: 500;
     min-height: 40px; }
   .questions .card small {
     font-size: 60%;
