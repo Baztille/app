@@ -18,7 +18,7 @@
       <div class="item item-text-wrap nopad {{question.status}}">
         <small><span am-time-ago="{{question.date_proposed}}" am-preprocess="unix" style="opacity:0.4;">{{question.date_prefix}} {{question.date}}</span><br>
         <div class="topics"><div class="inner-topics">
-          <div class="label lower positive button inverted topic" ng-if="questionCategory.code!=1">{{questionCategory.name}}</div><div ng-repeat="topic in question.topics" ui-sref="question.proposed({ topics: topic })" class="label topic lower positive button inverted">{{topic}}</div>
+          <div class="label lower positive button inverted topic" ng-click="clearSavePos();" ui-sref="question.proposed({ categorie: questionCategory.code })"  ng-if="questionCategory.code!=1">{{questionCategory.name}}</div><div ng-repeat="topic in question.topics" ui-sref="question.proposed({ topics: topic })" ng-click="clearSavePos();" class="label topic lower positive button inverted">{{topic}}</div>
         </div></div>
         </small>
 
@@ -91,6 +91,7 @@
                             <span ng-if="arg.argnbr <= 1">argument</span>
                             <span ng-if="arg.argnbr > 1">arguments</span>
                           </div>
+                          <div class="label white f-r button-icon ion-more positive button info-dot" ng-if="currentUser!==undefined" ng-click="actionArg(arg, $event);"></div>
                           <div class="label white f-r positive button quest-new" ng-if="userLastSession<=arg.date && userLastSession>0">NOUVEAU</div>  
                           <div class="label arg_valid_footer">
                             {{arg.arg_footer}}

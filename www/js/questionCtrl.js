@@ -69,7 +69,10 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
 
       $scope.questionId = $stateParams.questionID;
 
-      /* keep scroll position */
+      /*
+        SCROLL POS SAVE
+        keep scroll position value on each click inside contribution
+       */ 
 
       $scope.scrollSavePos = function( ) {
         if (!ionic.Platform.isIOS()) {
@@ -77,16 +80,12 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
             $window.localStorage.questionLastPos = scrollPosition.scrollTop;
         }
       }
-      
-      $scope.$on('$ionicView.loaded', function(){
-        if (!ionic.Platform.isIOS()) {
-            $timeout(function () {
-              var scrolldiv = document.querySelector('.overflow-scroll');
-                  scrolldiv.scrollTop = $window.localStorage.questionLastPos;
-                  delete $window.localStorage.questionLastPos;
-            }, 1000);
-        }
-      });
+
+      $scope.clearSavePos = function() {
+        // if user click on categorie or topic, clean saved value
+        delete $window.localStorage.proposedLastPos;
+      }
+
 
       $scope.reloadQuestion = function(childRoute)
       {
@@ -247,6 +246,14 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     }  
                 }
 
+                if (!ionic.Platform.isIOS()) {
+                    $timeout(function () {
+                      var scrolldiv = document.querySelector('.overflow-scroll');
+                          scrolldiv.scrollTop = $window.localStorage.questionLastPos;
+                          delete $window.localStorage.questionLastPos;
+                    }, 100);
+                }
+
             }, function( err ) {} );
       
       };
@@ -303,6 +310,48 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
             type: 'button-default',
             onTap: function(e) {
               $state.go('app.about');
+            }
+        },
+        { text: 'Retour' }
+
+        ]
+    });
+  }
+      $scope.actionArg = function(arg, $event) {
+
+    if ($event.stopPropagation) $event.stopPropagation();
+        if ($event.preventDefault) $event.preventDefault();
+        $event.cancelBubble = true;
+        $event.returnValue = false;
+
+        var alertPopup = $ionicPopup.show({
+        title: '',
+        subTitle: '',
+        template: arg.id,
+        cssClass: "popup-vertical-buttons-no-head",
+        buttons: [
+        {
+            text: 'Partager',
+            type: 'button-default',
+            onTap: function(e) {
+                $scope.scrollSavePos();
+                $state.go('question.argshare',{ questionID: arg.question_id, argID: arg.id });
+            }
+        },
+        { 
+            text: 'Modifier',
+            type: 'button-default',
+            onTap: function(e) {
+               $scope.scrollSavePos();
+                $state.go('question.argedit',{ questionID: arg.question_id, argID: arg.id });
+            }
+        },
+        { 
+            text: 'Signaler',
+            type: 'button-default',
+            onTap: function(e) {
+              $scope.scrollSavePos();
+                $state.go('question.argreport',{ questionID: arg.question_id, argID: arg.id });
             }
         },
         { text: 'Retour' }

@@ -137,7 +137,7 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
   })
 
   .state('question.proposed', {
-    url: "/proposed?topics",
+    url: "/proposed?topics&categorie",
     views: {
       'menuContent': {
         templateUrl: "templates/proposed.html",
@@ -268,6 +268,19 @@ initBaztille.config(function($stateProvider, $urlRouterProvider, $ionicConfigPro
 
   .state('question.argvoters', {
     url: "/questions/:questionID/:argID/voters",
+    views: {
+      'menuContent': {
+        templateUrl: "templates/arg.html",
+        controller: 'ArgCtrl'
+      }
+    },
+    access: {
+      requireLogin: true
+    }
+  })
+
+  .state('question.argshare', {
+    url: "/questions/:questionID/:argID/share",
     views: {
       'menuContent': {
         templateUrl: "templates/arg.html",

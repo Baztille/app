@@ -66,7 +66,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
     }
   }
   
-  $scope.$on('$ionicView.loaded', function(){
+  /*$scope.$on('$ionicView.loaded', function(){
     if (!ionic.Platform.isIOS()) {
         $timeout(function () {
           var scrolldiv = document.querySelector('.ionic-scroll');
@@ -75,7 +75,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
         }, 1000);
     }
          
-  });
+  });*/
 
 
 
@@ -154,6 +154,7 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
                     } );
                 }
             }
+
 
         }, function( err ) {
             //console.error('ERR', err);
@@ -350,11 +351,61 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
                         arg_footer: footer_text
                     } );
                 }
+                
+                if (!ionic.Platform.isIOS()) {
+                    $timeout(function () {
+                      var scrolldiv = document.querySelector('.ionic-scroll');
+                          scrolldiv.scrollTop = $window.localStorage.questionsLastPos;
+                          delete $window.localStorage.questionsLastPos;
+                    }, 100);
+                } 
 
             }, function( err ) {} );
       
       };
 
+      $scope.actionArg = function(arg, $event) {
+
+    if ($event.stopPropagation) $event.stopPropagation();
+        if ($event.preventDefault) $event.preventDefault();
+        $event.cancelBubble = true;
+        $event.returnValue = false;
+
+        var alertPopup = $ionicPopup.show({
+        title: '',
+        subTitle: '',
+        template: arg.id,
+        cssClass: "popup-vertical-buttons-no-head",
+        buttons: [
+        {
+            text: 'Partager',
+            type: 'button-default',
+            onTap: function(e) {
+                $scope.scrollSavePos();
+                $state.go('question.argshare',{ questionID: arg.question_id, argID: arg.id });
+            }
+        },
+        { 
+            text: 'Modifier',
+            type: 'button-default',
+            onTap: function(e) {
+               $scope.scrollSavePos();
+                $state.go('question.argedit',{ questionID: arg.question_id, argID: arg.id });
+            }
+        },
+        { 
+            text: 'Signaler',
+            type: 'button-default',
+            onTap: function(e) {
+              $scope.scrollSavePos();
+                $state.go('question.argreport',{ questionID: arg.question_id, argID: arg.id });
+            }
+        },
+        { text: 'Retour' }
+
+        ]
+    });
+  }
     
     // Form data for the login modal
     $scope.newArgData = { text: '' };

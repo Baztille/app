@@ -58,17 +58,23 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
 
       /* keep scroll position */
 
-      $scope.scrollSavePos = function( ) {
+      $scope.scrollSavePos = function() { 
         var scrollPosition = document.querySelector('.ionic-scroll');
-        $window.localStorage.argLastPos = scrollPosition.scrollTop;
+        if($scope.depth == 1) {
+            $window.localStorage.arg2LastPos = scrollPosition.scrollTop;
+        } else {
+            $window.localStorage.argLastPos = scrollPosition.scrollTop;
+        }
+        
+        
       }
       
       $scope.$on('$ionicView.loaded', function(){
-        $timeout(function () {
+       /* $timeout(function () {
           var scrolldiv = document.querySelector('.ionic-scroll');
               scrolldiv.scrollTop = $window.localStorage.argLastPos;
               delete $window.localStorage.argLastPos;
-        }, 1000);
+        }, 1000);*/
              
       });
       
@@ -254,11 +260,29 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                     if($state.current.name == 'question.argpromote' ) { 
                         $scope.promoteShare();
                     }
+                    if($state.current.name == 'question.argshare' ) { 
+                        $scope.simpleShare();
+                    }
                     // - show edit modal
                     if($state.current.name == 'question.argedit' ) { 
                         $scope.editContribution();
                     }
+                     // - show edit modal
+                    if($state.current.name == 'question.argreport' ) { 
+                        $scope.report();
+                    }
                 }
+
+                $timeout(function () {
+                    var scrolldiv = document.querySelector('.ionic-scroll');
+                    if($scope.depth == 1) {
+                        scrolldiv.scrollTop = $window.localStorage.arg2LastPos;
+                          delete $window.localStorage.arg2LastPos;
+                    } else {
+                        scrolldiv.scrollTop = $window.localStorage.argLastPos;
+                          delete $window.localStorage.argLastPos;
+                    }
+                }, 100);
 
             }, function( err ) {
                 //console.error('ERR', err);
