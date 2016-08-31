@@ -341,7 +341,9 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
 
           if ($scope.updateArg) {
 
-            Questions.updateArg($scope.newArgData).success(function(data){            
+            Questions.updateArg($scope.newArgData).success(function(data){      
+
+
                 if( data.error )
                 {
                     
@@ -363,11 +365,11 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
 
                     $scope.modalNewArg.hide();
                     $scope.reloadQuestion(true);
+                    
 
                     if( data.id == 0 )
                     {
-                        $rootScope.$broadcast('tracking:event', {title:'arg',value:'update-success'});
-
+                        
                         $ionicContentBanner.show({
                           text: ['Votre modification a été soumise aux modérateurs'],
                           autoClose: 3000,
@@ -375,10 +377,10 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                           type: 'info',
                           transition: 'vertical'
                         });
+
+                       
                         
                     } else {
-
-                        $rootScope.$broadcast('tracking:event', {title:'arg',value:'update-success'});
                         
                         $ionicContentBanner.show({
                           text: ['Votre modification a été prise en compte'],
@@ -387,7 +389,12 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
                           type: 'info',
                           transition: 'vertical'
                         });
+                        
+
                     }
+
+                     $rootScope.$broadcast('tracking:event', {title:'arg',value:'update-success'});
+                  
                 }
              });
 
@@ -452,7 +459,7 @@ appBaztille.controller('ArgCtrl', function(Questions, UxQuestions, $scope, $time
         $scope.ngCharacterCount = $scope.maxChars;
 
         $scope.inputChange = function() { 
-            UxQuestions.inputChange( $scope, $scope.newQuestion.text ); 
+            UxQuestions.inputChange( $scope, $scope.newArgData.text ); 
         }
         
         if( $scope.modificationStatus == 'possible' )
