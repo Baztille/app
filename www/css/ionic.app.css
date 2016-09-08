@@ -10493,7 +10493,6 @@ ion-view.splash ion-content {
   display: none; }
 
 .questions .card-voted .quest {
-  font-weight: 500;
   min-height: 19px; }
 
 .questions .validated_answers p {

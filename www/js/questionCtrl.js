@@ -143,6 +143,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     date_prefix = 'En cours de vote jusque ';
                     $scope.new_answer_visible = true;
                     $scope.valid_answer_class= '';
+
                 }
                 else if( status == 'decided' )
                 {
@@ -150,6 +151,7 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                     date = moment(resp.data.question.date_decided,'X').fromNow();
                     date_prefix = 'Question débattue et votée ';
                     $scope.new_answer_visible = false;
+
                 }
 
                 // Modification status
@@ -253,6 +255,9 @@ appBaztille.controller('QuestionCtrl', function(Questions, UxQuestions, $scope, 
                           delete $window.localStorage.questionLastPos;
                     }, 100);
                 }
+
+                //console.log('update');
+                    //$scope.update(3,'filter'); 
 
             }, function( err ) {} );
       

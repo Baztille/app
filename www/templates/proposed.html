@@ -2,9 +2,11 @@
 <ion-nav-title>Questions</ion-nav-title>
 
   <ion-nav-buttons side="right">
+      <a class="button button-icon button-clear ion-android-search" ng-click="openSearch()"></a>
         <a ui-sref="compte.points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
-          <a class="button button-icon button-clear ion-android-person" ng-if="currentUser!==undefined" ui-sref="compte.points"ui-sref="compte.points"></a>
+          <a class="button button-icon button-clear ion-android-person" ng-if="currentUser!==undefined" ui-sref="compte.points"></a>
           <a class="button button-icon button-clear ion-android-person" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
+          
   </ion-nav-buttons>
 
   <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">

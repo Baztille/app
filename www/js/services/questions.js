@@ -100,6 +100,9 @@ serviceBaztille.factory('Questions',['$http','config','Webservice', '$cacheFacto
         },
         report: function( data ) {
             return webservice.callPostBaztilleWs( data, '/admin/report' );
+        },
+        getMostUsedTopics: function( data ) {
+            return webservice.callGetBaztilleWs( data, '/question/getmostusedtopics/list' );
         }
     }
 }]);

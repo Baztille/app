@@ -41,6 +41,35 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
   $scope.moreQuestions = function() {
 
   };
+
+  // Create the search modal
+  $ionicModal.fromTemplateUrl('templates/small/search.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modalSearch = modal;
+  });
+
+  // Triggered in the search modal to close it
+  $scope.closeSearch = function() {
+    $scope.modalSearch.hide();
+  };
+
+  $scope.openSearch = function() {
+
+    Questions.getMostUsedTopics({
+      limit: 30
+    }).then( function(resp) {
+
+      $scope.modalSearch.show();
+      $scope.topicsMostUsed = resp.data.result;
+
+    }, function( err ) {
+
+    } );
+
+    $rootScope.$broadcast('tracking:event', {title:'search',value:'open'});
+        
+  };
   
   $scope.voteProposed = function( ) {
     return false;
@@ -572,6 +601,8 @@ appBaztille.controller('QuestionsCtrl', function(Questions, UxQuestions, $scope,
       //Cleanup the popover when we're done with it!
       $scope.$on('$destroy', function() {
         $scope.popover.remove();
+        $scope.modalSearch.remove();
       });
+
     
 });
