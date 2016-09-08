@@ -125,6 +125,8 @@ appBaztille.controller('ContentsCtrl', function(User, UxQuestions, Questions, $s
             page: (numPage) ? numPage : 1
         }).then( function(resp) {
 
+            $scope.args = []; // clean args list
+
             $scope.closePopover();
 
             if(resp.data.questions.length == 0) {
@@ -170,6 +172,8 @@ appBaztille.controller('ContentsCtrl', function(User, UxQuestions, Questions, $s
             session: $window.localStorage.token,
             page: (numPage) ? numPage : 1
         }).then( function(resp) {
+
+            $scope.questions = []; // clean question list
 
             $scope.closePopover();
 
