@@ -1,5 +1,14 @@
 <ion-view view-title="Baztille - Questions en cours" hide-back-button="true" enable-menu-with-back-views="false" hide-nav-bar="false"  cache-view="true">
 <ion-nav-title>Questions</ion-nav-title>
+
+  <ion-nav-buttons side="right">
+      <a class="button button-icon button-clear ion-android-search" ng-click="openSearch()"></a>
+        <a ui-sref="compte.points" class="points" ng-if="currentUser!==undefined"><span >{{points}}</span></a>
+          <a class="button button-icon button-clear ion-android-person" ng-if="currentUser!==undefined" ui-sref="compte.points"></a>
+          <a class="button button-icon button-clear ion-android-person" ng-if="currentUser==undefined" ng-click="$root.notLogged()"></a>
+          
+  </ion-nav-buttons>
+  
   <div class="tabs-striped tabs-top tabs-background-positive tabs-color-light">
       <div class="tabs">
         <a class="tab-item active" nav-transition="none" menu-close ui-sref="question.questions" >

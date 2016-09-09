@@ -25,6 +25,7 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
   // destroy modals on destroy view
   $scope.$on('$destroy', function() { 
     $scope.modalNewQuestion.remove();
+    $scope.modalSearch.remove();
   });
   // Create the arg proposing modal that we will use later
   $ionicModal.fromTemplateUrl('templates/newquestion.html', {
@@ -60,6 +61,35 @@ appBaztille.controller('ProposedCtrl', function(Questions, User, UxQuestions, $t
   
   $scope.moreQuestions = function() {
 
+  };
+
+  // Create the search modal
+  $ionicModal.fromTemplateUrl('templates/small/search.html', {
+    scope: $scope
+  }).then(function(modal) {
+    $scope.modalSearch = modal;
+  });
+
+  // Triggered in the search modal to close it
+  $scope.closeSearch = function() {
+    $scope.modalSearch.hide();
+  };
+
+  $scope.openSearch = function() {
+
+    Questions.getMostUsedTopics({
+      limit: 30
+    }).then( function(resp) {
+
+      $scope.modalSearch.show();
+      $scope.topicsMostUsed = resp.data.result;
+
+    }, function( err ) {
+
+    } );
+
+    $rootScope.$broadcast('tracking:event', {title:'search',value:'open'});
+        
   };
   
   $scope.actionQuest = function(question, $event) {

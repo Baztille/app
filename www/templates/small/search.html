@@ -1,0 +1,22 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <h1 class="title">Recherche</h1>
+    <div class="buttons">
+      <button class="button icon ion-android-close button-clear" ng-click="closeSearch()"></button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+
+  <div style="text-align:center">
+   <div class="item item-text-wrap">
+    <h2>Thématiques</h2>
+    <div ng-repeat="filter in categories" ui-sref="question.proposed({ categorie: filter.code, topics: '' })" ng-click="clearSavePos();" ng-if="filter.code!=1" class="label topic lower positive button inverted">{{filter.name}}</div>
+  </div>
+  <div class="item item-text-wrap">
+    <h2>Sujets populaires</h2>
+    <div ng-repeat="topic in topicsMostUsed" ui-sref="question.proposed({ topics: topic._id, categorie: '' })" ng-click="clearSavePos();" ng-if="topic._id!=''" class="label topic lower positive button inverted">{{topic._id}}</div>
+  </div>
+</div>
+
+  </ion-content>
+</ion-modal-view>
